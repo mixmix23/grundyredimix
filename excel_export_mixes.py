@@ -4,7 +4,7 @@ import pandas as pd
 import os
 
 # Sidebar to select plant code
-plant_code = st.sidebar.radio("Select plant code", ["001", "002", "003, 004, 005"])
+plant_code = st.sidebar.radio("Select plant code", ["001", "002", "003", "004", "005"])
 
 # Parse the XML file
 tree = ET.parse(f"01-Mixes-{plant_code}.xml")
