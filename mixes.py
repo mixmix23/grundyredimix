@@ -7,7 +7,7 @@ root = tree.getroot()
 
 # Find the "Mix" element with the desired MixNumber
 mix_number = "41"
-mix = root.find(f".//Mix[MixNumber='{mix_number}']")
+mix = root.find(f".//Mix[MixFormula='{mix_number}']")
 
 # If a matching Mix element is found, print its Constituents
 if mix is not None:
