@@ -59,6 +59,5 @@ with open(filepath, "rb") as f:
         mime="text/csv"
     )
 
-    # Display a success message
-    st.success(f"Data saved to {filepath}")
+
 
