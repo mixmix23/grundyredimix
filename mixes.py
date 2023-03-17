@@ -18,4 +18,4 @@ for child in root:
 df = pd.DataFrame(table_data)
 
 # Display the table using Streamlit
-st.table(df)
+st.table(df, horizontal_scrolling=True)
