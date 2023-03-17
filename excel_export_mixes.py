@@ -43,13 +43,11 @@ df = pd.DataFrame(data)
 st.dataframe(df)
 
 # Specify the directory to save the CSV file
-directory = r"C:\Users\mixmi\Downloads"
-if not os.path.exists(directory):
-    os.makedirs(directory)
+downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
 
 # Save the DataFrame to a CSV file
 filename = f"01-Mixes-{plant_code}.csv"
-filepath = os.path.join(directory, filename)
+filepath = os.path.join(downloads_dir, filename)
 df.to_csv(filepath, index=False)
 
 # Create a download button for the CSV file
