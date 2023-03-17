@@ -10,7 +10,7 @@ mix_headers = root.findall(".//MixHeader")
 
 for mix_header in mix_headers:
     mix_number = mix_header.find("MixNumber").text
-    mix_description = mix_header.find("MixDescription")
+    mix_description = mix_header.find("MixDescription").text
     constituents = mix_header.findall(".//Constituents")
 
     # Display the mix number and the constituents
