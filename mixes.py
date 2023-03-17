@@ -5,6 +5,12 @@ import streamlit as st
 tree = ET.parse('01-Mixes-001.xml')
 root = tree.getroot()
 
-for element in root.iter():
-    st.write(f"{element.tag} {element.attrib}")
+# Find the "Mix" elements in the XML file
+mixes = root.findall(".//MixNumber")
+
+for mix in mixes:
+    st.write(mix)
+
+# for element in root.iter():
+#     st.write(f"{element.tag} {element.attrib}")
 
