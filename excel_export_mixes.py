@@ -42,9 +42,27 @@ df = pd.DataFrame(data)
 # Display the data in a table
 st.dataframe(df)
 
-# Button to export the data to an Excel file
-if st.button("Export to Excel"):
-    file_name = f"mixes_{plant_code}.xlsx"
-    file_path = f'/Users/mixmi/Desktop/{file_name}'
-    df.to_csv(file_path, index=False)
-    st.success(f"Data exported to: {file_name}!")
+# get the path of the user's downloads folder
+downloads_path = os.path.expanduser("~/Downloads")
+
+# specify the filename to save the CSV file
+file_name = "my_csv_file.csv"
+
+# create the full file path by joining the downloads path and the filename
+file_path = os.path.join(downloads_path, file_name)
+
+# save the dataframe to CSV
+df.to_csv(file_path, index=False)
+
+# show a download button for the user to download the file
+st.download_button(
+    label="Download CSV",
+    data=df.to_csv(index=False).encode(),
+    file_name=file_name,
+    mime="text/csv"
+)
+
+
+
+
+
