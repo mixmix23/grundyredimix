@@ -47,6 +47,9 @@ st.dataframe(df)
 # Specify the directory to save the CSV file
 downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
 
+if not os.path.exists(downloads_dir):
+    os.makedirs(downloads_dir)
+
 # Save the DataFrame to a CSV file
 filename = f"01-Mixes-{plant_code}.csv"
 filepath = os.path.join(downloads_dir, filename)
