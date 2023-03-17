@@ -45,4 +45,4 @@ st.dataframe(df)
 if st.button("Export to Excel"):
     file_name = f"mixes_{plant_code}.xlsx"
     df.to_excel(file_name, index=False)
-    st.success(f"Data exported to {file_name}!")
+    st.success(f"Data exported to: {file_name}!")
