@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 import streamlit as st
 import pandas as pd
+import os
 
 # Sidebar to select plant code
 plant_code = st.sidebar.radio("Select plant code", ["001", "002", "003"])
@@ -44,5 +45,6 @@ st.dataframe(df)
 # Button to export the data to an Excel file
 if st.button("Export to Excel"):
     file_name = f"mixes_{plant_code}.xlsx"
-    df.to_csv(file_name, index=False)
+    file_path = os.path.join(os.path.expanduser("~"), "Desktop", file_name)
+    df.to_csv(file_path, index=False)
     st.success(f"Data exported to: {file_name}!")
