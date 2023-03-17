@@ -42,34 +42,8 @@ df = pd.DataFrame(data)
 # Display the data in a table
 st.dataframe(df)
 
-# Set the path to the downloads folder
-DOWNLOADS_PATH = os.path.expanduser("~") + "/Downloads"
-
-# Create a function to save the CSV file to the downloads folder
-def save_csv(df, filename):
-    folder_path = os.path.expanduser("~") + "/Downloads/my_data"
-    os.makedirs(folder_path, exist_ok=True)
-    file_path = os.path.join(folder_path, filename)
-    df.to_csv(file_path, index=False)
-    return file_path
-
-# Add a button to save the CSV file
-if st.button("Download CSV"):
-    file_path = save_csv(df, "my_data.csv")
-    st.download_button(
-        label="Download",
-        data=file_path,
-        file_name="my_data.csv",
-        mime="text/csv"
-    )
-
-
-
-
-
-
-
-
-
-
-
+# Create a button to save the data to a CSV file
+if st.button("Save as CSV"):
+    filename = f"01-Mixes-{plant_code}.csv"
+    df.to_csv(filename, index=False)
+    st.success(f"Data saved to {filename}")
