@@ -5,13 +5,17 @@ import streamlit as st
 tree = ET.parse('01-Mixes-001.xml')
 root = tree.getroot()
 
-# Find the "MixNumber" elements in the XML file
-mix_numbers = root.findall(".//MixHeader")
+# Find the "Mix" element with the desired MixNumber
+mix_number = "001"
+mix = root.find(f".//Mix[MixNumber='{mix_number}']")
 
-# Iterate over the "MixNumber" elements and print their values
-for mix_number in mix_numbers:
-    st.write(mix_number.text)
-
-# for element in root.iter():
-#     st.write(f"{element.tag} {element.attrib}")
+# If a matching Mix element is found, print its Constituents
+if mix is not None:
+    constituents = mix.findall(".//Constituent")
+    for constituent in constituents:
+        name = constituent.get("ConstituentCode")
+        dosage = constituent.get("Dosage")
+        st.write(f"Constituent Name: {name}, Dosage: {dosage}")
+else:
+    st.write(f"No mix with MixNumber '{mix_number}' found in the XML file.")
 
