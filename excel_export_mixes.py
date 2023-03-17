@@ -62,7 +62,6 @@ if st.button("Download CSV"):
         file_name="my_data.csv",
         mime="text/csv"
     )
-\
 
 
 
