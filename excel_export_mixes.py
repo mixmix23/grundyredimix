@@ -44,6 +44,10 @@ st.dataframe(df)
 
 # Create a button to save the data to a CSV file
 if st.button("Save as CSV"):
+    # Save the DataFrame to a CSV file
     filename = f"01-Mixes-{plant_code}.csv"
-    df.to_csv(filename, index=False)
-    st.success(f"Data saved to {filename}")
+    filepath = os.path.join("data", filename)
+    df.to_csv(filepath, index=False)
+
+    # Display a success message
+    st.success(f"Data saved to {filepath}")
