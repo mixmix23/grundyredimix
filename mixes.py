@@ -30,7 +30,7 @@ for mix_header in mix_headers:
     constituents = mix_header.findall(".//Constituents")
 
     # Display the mix number and the constituents
-    with st.beta_expander(f"Mix {mix_number}"):
+    with st.beta_expander(f"{mix_number}"):
         st.write(f"Mix number: {mix_number}")
         st.write(f"Mix Description: {mix_description}")
         st.write(f"Plant: {plant}")
