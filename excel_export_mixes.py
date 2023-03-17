@@ -45,7 +45,7 @@ st.dataframe(df)
 # Create a button to save the data to a CSV file
 if st.button("Save as CSV"):
     # Specify the directory to save the CSV file
-    directory = r"C:\Users\mixmi\Downloads"
+    directory = r"C:\Users\mixmi\Downloads\"
     if not os.path.exists(directory):
         os.makedirs(directory)
 
