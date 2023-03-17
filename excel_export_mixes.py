@@ -46,8 +46,10 @@ st.dataframe(df)
 DOWNLOADS_PATH = os.path.expanduser("~") + "/Downloads"
 
 # Create a function to save the CSV file to the downloads folder
-def save_csv(df, file_name):
-    file_path = os.path.join(DOWNLOADS_PATH, file_name)
+def save_csv(df, filename):
+    folder_path = os.path.expanduser("~") + "/Downloads/my_data"
+    os.makedirs(folder_path, exist_ok=True)
+    file_path = os.path.join(folder_path, filename)
     df.to_csv(file_path, index=False)
     return file_path
 
