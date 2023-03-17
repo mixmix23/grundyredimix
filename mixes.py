@@ -6,7 +6,7 @@ tree = ET.parse('01-Mixes-001.xml')
 root = tree.getroot()
 
 # Find the "Mix" element with the desired MixNumber
-mix_number = "001"
+mix_number = "41"
 mix = root.find(f".//Mix[MixNumber='{mix_number}']")
 
 # If a matching Mix element is found, print its Constituents
