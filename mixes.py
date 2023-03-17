@@ -2,30 +2,20 @@ import xml.etree.ElementTree as ET
 import streamlit as st
 
 # Parse the XML file
-tree = ET.parse('01-Mixes-001.xml')
+tree = ET.parse('sample.xml')
 root = tree.getroot()
 
-# Find the "Mix" elements in the XML file
-mix_number = "41"
-mixes = root.findall(".//Mix[./MixNumber='"+mix_number+"']")
+# Find the "MixHeader" elements in the XML file
+mix_headers = root.findall(".//MixHeader")
 
-# Iterate over the "Mix" elements
-for mix in mixes:
-    # Extract the relevant information from the "Mix" element
-    name = mix.get("Name")
-    date = mix.get("Date")
-    constituents = mix.findall(".//Constituent")
-    constituents_table = []
+for mix_header in mix_headers:
+    mix_number = mix_header.find("MixNumber").text
+    constituents = mix_header.findall(".//Constituents")
 
-    # Iterate over the "Constituent" elements and build a table
-    for constituent in constituents:
-        constituents_table.append({
-            "Constituent Code": constituent.find("ConstituentCode").text,
-            "Dosage": constituent.find("Dosage").text
-        })
-
-    # Display the mix information and the constituents table using an expander
+    # Display the mix number and the constituents
     with st.beta_expander(f"Mix {mix_number}"):
-        st.write(f"Mix name: {name}")
-        st.write(f"Mix date: {date}")
-        st.table(constituents_table)
+        st.write(f"Mix number: {mix_number}")
+        for constituent in constituents:
+            constituent_code = constituent.find("ConstituentCode").text
+            dosage = constituent.find("Dosage").text
+            st.write(f"{constituent_code}: {dosage}")
