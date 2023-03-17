@@ -3,6 +3,8 @@ import streamlit as st
 import pandas as pd
 import os
 
+st.title("Mixes XML to CSV")
+
 # Sidebar to select plant code
 plant_code = st.sidebar.radio("Select plant code", ["001", "002", "003", "004", "005"])
 
