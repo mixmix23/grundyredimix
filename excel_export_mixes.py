@@ -42,26 +42,25 @@ df = pd.DataFrame(data)
 # Display the data in a table
 st.dataframe(df)
 
-# Create a button to save the data to a CSV file
-if st.button("Save as CSV"):
-    # Specify the directory to save the CSV file
-    directory = r"C:\Users\mixmi\Downloads"
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+# Specify the directory to save the CSV file
+directory = r"C:\Users\mixmi\Downloads"
+if not os.path.exists(directory):
+    os.makedirs(directory)
 
-    # Save the DataFrame to a CSV file
-    filename = f"01-Mixes-{plant_code}.csv"
-    filepath = os.path.join(directory, filename)
-    df.to_csv(filepath, index=False)
+# Save the DataFrame to a CSV file
+filename = f"01-Mixes-{plant_code}.csv"
+filepath = os.path.join(directory, filename)
+df.to_csv(filepath, index=False)
 
-    # Create a download button for the CSV file
-    with open(filepath, "rb") as f:
-        st.download_button(
-            label="Download CSV",
-            data=f.read(),
-            file_name=filename,
-            mime="text/csv"
-        )
+# Create a download button for the CSV file
+with open(filepath, "rb") as f:
+    st.download_button(
+        label="Download CSV",
+        data=f.read(),
+        file_name=filename,
+        mime="text/csv"
+    )
 
-    # Display a success message
-    st.success(f"Data saved to {filepath}")
+# Display a success message
+st.success(f"Data saved to {filepath}")
+
