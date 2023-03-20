@@ -73,7 +73,7 @@ for item in schedule_report:
     if item['plantPointId'] == 15095411:
         plantId = 'Oswego'
     else:
-        plantId = 'not set'
+        plantId = item['plantPointId']
 
     if isinstance(item, dict):
         data.append([
