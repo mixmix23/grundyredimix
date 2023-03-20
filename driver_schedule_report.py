@@ -89,7 +89,7 @@ for item in schedule_report:
         ])
     df = pd.DataFrame(data,
                       columns=['First', 'Last', 'Plant', 'Date', 'Start Time'])
-    df = df.sort_values('Plant', ascending=False)
+    df = df.sort_values('Plant')
 
 st.dataframe(df)
 
