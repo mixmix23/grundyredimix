@@ -70,11 +70,14 @@ for item in schedule_report:
 # df = pd.DataFrame(schedule_report)
 data = []
 for item in schedule_report:
+    if item['plantPointId'] == 15095411:
+        item['plantPointId'] = 'Oswego'
+
     if isinstance(item, dict):
         data.append([
             item['firstName'],
             item['lastName'],
-            int(item['plantPointId']),
+            item['plantPointId'],
             item['scheduleDate'],
             item['startTime']
         ])
