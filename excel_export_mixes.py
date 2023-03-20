@@ -9,7 +9,7 @@ st.set_page_config(page_title="Mixes XML to CSV")
 plant_code = st.sidebar.radio("Select plant code", ["001", "002", "003", "004", "005"])
 
 # Parse the XML file
-tree = ET.parse(f"mixes_export/01-Mixes-{plant_code}.xml")
+tree = ET.parse(f"01-Mixes-{plant_code}.xml")
 root = tree.getroot()
 
 # Find the "MixHeader" elements in the XML file
