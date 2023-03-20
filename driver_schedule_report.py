@@ -95,22 +95,23 @@ for item in schedule_report:
     else:
         plantId = str(item['plantPointId'])
 
-    iso_date_str = str(item['scheduleDate'])
+    iso_date_str = item['startTime']
     print(iso_date_str)
     input_dt = datetime.fromisoformat(iso_date_str)
     utc_tz = pytz.utc
     cst_tz = pytz.timezone('US/Central')
     cst_dt = input_dt.astimezone(cst_tz)
 
-    scheduleDate = cst_dt.strftime('%Y-%m-%d %H:%M:%S %Z%z')
+    startTime = cst_dt.strftime('%Y-%m-%d %H:%M:%S')
+    print(startTime)
 
     if isinstance(item, dict):
         data.append([
             item['firstName'],
             item['lastName'],
             plantId,
-            scheduleDate,
-            item['startTime']
+            item['scheduleDate'],
+            startTime
         ])
     df = pd.DataFrame(data,
                       columns=['First', 'Last', 'Plant', 'Date', 'Start Time'])
