@@ -58,9 +58,9 @@ schedule_list = get_schedule_data()
 schedule_report = []
 for item in schedule_list:
     for name in employee_list:
-        if item['userId'] == name['userId']:
+        if item['userId'] == name['userId'] and item['startTime'] is not None:
             schedule_report.append({'userId': name['userId'], 'firstName': name['firstName'], 'lastName': name['lastName'],
-                                    'scheduleDate': item['scheduleDate'], 'startTime': item['startTime']})
+                                    'plantPointId': item['plantPointId'], 'scheduleDate': item['scheduleDate'], 'startTime': item['startTime']})
 
 print('Start Times')
 for item in schedule_report:
