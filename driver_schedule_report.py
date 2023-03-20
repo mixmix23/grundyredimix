@@ -72,6 +72,10 @@ data = []
 for item in schedule_report:
     if item['plantPointId'] == 15095411:
         plantId = 'Oswego'
+    elif item['plantPointId'] == 10533262:
+        plantId = 'Plano'
+    elif item['plantPointId'] == 10533260:
+        plantId = 'Morris'
     else:
         plantId = str(item['plantPointId'])
 
