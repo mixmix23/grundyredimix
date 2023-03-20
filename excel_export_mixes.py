@@ -10,7 +10,6 @@ plant_code = st.sidebar.radio("Select plant code", ["001", "002", "003", "004", 
 
 # Parse the XML file
 tree = ET.parse(f"mixes_xml/01-Mixes-{plant_code}.xml")
-# tree = ET.parse(f"01-Mixes-{plant_code}.xml")
 root = tree.getroot()
 
 # Find the "MixHeader" elements in the XML file
