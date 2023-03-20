@@ -67,7 +67,21 @@ for item in schedule_report:
     print(item)
 
 # Create a DataFrame from the data
-df = pd.DataFrame(schedule_report)
+# df = pd.DataFrame(schedule_report)
+data = []
+for item in schedule_report:
+    if isinstance(item, dict):
+        data.append([
+            item['firstName'],
+            item['lastName'],
+            item['plantPointId'],
+            item['scheduleDate'],
+            item['startTime']
+        ])
+    df = pd.DataFrame(data,
+                      columns=['First', 'Last', 'Plant', 'Date', 'Start Time'])
+    df = df.sort_values('Plant', ascending=False)
+
 st.dataframe(df)
 
 
