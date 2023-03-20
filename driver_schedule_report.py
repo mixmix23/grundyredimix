@@ -96,7 +96,6 @@ for item in schedule_report:
         plantId = str(item['plantPointId'])
 
     iso_date_str = item['startTime']
-    print(iso_date_str)
     input_dt = datetime.fromisoformat(iso_date_str)
     utc_tz = pytz.utc
     cst_tz = pytz.timezone('US/Central')
