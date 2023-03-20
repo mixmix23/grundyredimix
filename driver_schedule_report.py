@@ -4,6 +4,7 @@ import pandas as pd
 import pytz
 import requests
 import streamlit as st
+from fpdf import FPDF
 
 api_key = "9A2B3075-33A5-42FD-9831-3A6ACEAE97F4"
 headers = {'X-API-KEY': f'{api_key}'}
@@ -85,9 +86,9 @@ for item in schedule_report:
     iso_start_time = dateutil.parser.parse(iso_date_str)
     # print('iso_start_time %s' % iso_start_time)
     localtime = iso_start_time.astimezone(pytz.timezone("US/Central"))
-    # print('localtime %s' % localtime)
+    print('localtime %s' % localtime)
     start_time = localtime.ctime()
-    print('start time %s\n' % start_time)
+    print('start time %s' % start_time)
 
     if isinstance(item, dict):
         data.append([
@@ -101,5 +102,17 @@ for item in schedule_report:
     df = df.sort_values(['Plant', 'Start Time'], ascending=[True, True])
 
 st.dataframe(df)
+
+pdf = FPDF()
+pdf.add_page()
+pdf.set_xy(0, 0)
+pdf.set_font('arial', 'B', 12)
+
+pdf.cell(50, 10, 'First', 1, 0, 'C')
+pdf.cell(40, 10, 'Last', 1, 0, 'C')
+pdf.cell(40, 10, 'Plant', 1, 0, 'C')
+pdf.cell(40, 10, 'Start Time', 1, 0, 'C')
+
+pdf.output('test.pdf', 'F')
 
 
