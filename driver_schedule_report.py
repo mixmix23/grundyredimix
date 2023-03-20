@@ -1,6 +1,8 @@
 import requests
 import streamlit as st
 import pandas as pd
+import pytz
+from datetime import datetime
 
 api_key = "9A2B3075-33A5-42FD-9831-3A6ACEAE97F4"
 headers = {'X-API-KEY': f'{api_key}'}
@@ -68,6 +70,20 @@ for item in schedule_report:
 
 # Create a DataFrame from the data
 # df = pd.DataFrame(schedule_report)
+
+# Define the input datetime string
+iso_date_str = '2023-03-20T11:15:00Z'
+
+# Parse the input string into a datetime object
+input_dt = datetime.fromisoformat(iso_date_str)
+
+# Define the timezone objects for UTC and CST
+utc_tz = pytz.utc
+cst_tz = pytz.timezone('US/Central')
+
+# Convert the input datetime to CST timezone
+cst_dt = input_dt.astimezone(cst_tz)
+
 data = []
 for item in schedule_report:
     if item['plantPointId'] == 15095411:
@@ -79,12 +95,20 @@ for item in schedule_report:
     else:
         plantId = str(item['plantPointId'])
 
+    iso_date_str = item['scheduleDate']
+    input_dt = datetime.fromisoformat(iso_date_str)
+    utc_tz = pytz.utc
+    cst_tz = pytz.timezone('US/Central')
+    cst_dt = input_dt.astimezone(cst_tz)
+
+    scheduleDate = cst_dt.strftime('%Y-%m-%d %H:%M:%S %Z%z')
+
     if isinstance(item, dict):
         data.append([
             item['firstName'],
             item['lastName'],
             plantId,
-            item['scheduleDate'],
+            scheduleDate,
             item['startTime']
         ])
     df = pd.DataFrame(data,
