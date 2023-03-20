@@ -64,12 +64,9 @@ for item in schedule_list:
         if item['userId'] == name['userId'] and item['startTime'] is not None:
             schedule_report.append({'userId': name['userId'], 'firstName': name['firstName'], 'lastName': name['lastName'],
                                     'plantPointId': item['plantPointId'], 'scheduleDate': item['scheduleDate'], 'startTime': item['startTime']})
-
-print('Start Times')
-for item in schedule_report:
-    print(item)
-
-
+# print('Start Times')
+# for item in schedule_report:
+#     print(item)
 data = []
 for item in schedule_report:
     if item['plantPointId'] == 15095411:
@@ -80,15 +77,13 @@ for item in schedule_report:
         plantId = 'Morris'
     else:
         plantId = str(item['plantPointId'])
-
     iso_date_str = item['startTime']
     iso_start_time = dateutil.parser.parse(iso_date_str)
     # print('iso_start_time %s' % iso_start_time)
     localtime = iso_start_time.astimezone(pytz.timezone("US/Central"))
-    print('localtime %s' % localtime)
+    # print('localtime %s' % localtime)
     start_time = localtime.ctime()
-    print('start time %s' % start_time)
-
+    # print('start time %s' % start_time)
     if isinstance(item, dict):
         data.append([
             item['firstName'],
