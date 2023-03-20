@@ -71,13 +71,15 @@ for item in schedule_report:
 data = []
 for item in schedule_report:
     if item['plantPointId'] == 15095411:
-        item['plantPointId'] = 'Oswego'
+        plantId = 'Oswego'
+    else:
+        plantId = 'not set'
 
     if isinstance(item, dict):
         data.append([
             item['firstName'],
             item['lastName'],
-            item['plantPointId'],
+            plantId,
             item['scheduleDate'],
             item['startTime']
         ])
