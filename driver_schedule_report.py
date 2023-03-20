@@ -103,16 +103,16 @@ for item in schedule_report:
 
 st.dataframe(df)
 
-pdf = FPDF()
-pdf.add_page()
-pdf.set_xy(0, 0)
-pdf.set_font('arial', 'B', 12)
-
-pdf.cell(50, 10, 'First', 1, 0, 'C')
-pdf.cell(40, 10, 'Last', 1, 0, 'C')
-pdf.cell(40, 10, 'Plant', 1, 0, 'C')
-pdf.cell(40, 10, 'Start Time', 1, 0, 'C')
-
-pdf.output('test.pdf', 'F')
+# pdf = FPDF()
+# pdf.add_page()
+# pdf.set_xy(0, 0)
+# pdf.set_font('arial', 'B', 12)
+#
+# pdf.cell(50, 10, 'First', 1, 0, 'C')
+# pdf.cell(40, 10, 'Last', 1, 0, 'C')
+# pdf.cell(40, 10, 'Plant', 1, 0, 'C')
+# pdf.cell(40, 10, 'Start Time', 1, 0, 'C')
+#
+# pdf.output('test.pdf', 'F')
 
 
