@@ -94,11 +94,10 @@ for item in schedule_report:
             item['firstName'],
             item['lastName'],
             plantId,
-            item['scheduleDate'],
             start_time
         ])
     df = pd.DataFrame(data,
-                      columns=['First', 'Last', 'Plant', 'Date', 'Start Time'])
+                      columns=['First', 'Last', 'Plant', 'Start Time'])
     df = df.sort_values('Plant')
 
 st.dataframe(df)
