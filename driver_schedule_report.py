@@ -74,7 +74,7 @@ for item in schedule_report:
         data.append([
             item['firstName'],
             item['lastName'],
-            item['plantPointId'],
+            int(item['plantPointId']),
             item['scheduleDate'],
             item['startTime']
         ])
