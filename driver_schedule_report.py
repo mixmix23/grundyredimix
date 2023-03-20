@@ -69,21 +69,6 @@ print('Start Times')
 for item in schedule_report:
     print(item)
 
-# Create a DataFrame from the data
-# df = pd.DataFrame(schedule_report)
-
-# Define the input datetime string
-iso_date_str = '2023-03-20T11:15:00Z'
-
-# Parse the input string into a datetime object
-input_dt = datetime.fromisoformat(iso_date_str)
-
-# Define the timezone objects for UTC and CST
-utc_tz = pytz.utc
-cst_tz = pytz.timezone('US/Central')
-
-# Convert the input datetime to CST timezone
-cst_dt = input_dt.astimezone(cst_tz)
 
 data = []
 for item in schedule_report:
