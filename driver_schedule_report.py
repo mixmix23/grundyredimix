@@ -1,8 +1,9 @@
-import requests
-import streamlit as st
+from datetime import datetime
+import dateutil.parser
 import pandas as pd
 import pytz
-from datetime import datetime
+import requests
+import streamlit as st
 
 api_key = "9A2B3075-33A5-42FD-9831-3A6ACEAE97F4"
 headers = {'X-API-KEY': f'{api_key}'}
@@ -96,13 +97,12 @@ for item in schedule_report:
         plantId = str(item['plantPointId'])
 
     iso_date_str = item['startTime']
-    input_dt = datetime.fromisoformat(iso_date_str)
-    utc_tz = pytz.utc
-    cst_tz = pytz.timezone('US/Central')
-    cst_dt = input_dt.astimezone(cst_tz)
-
-    startTime = cst_dt.strftime('%Y-%m-%d %H:%M:%S')
-    print(startTime)
+    iso_start_time = dateutil.parser.parse(iso_date_str)
+    # print('iso_start_time %s' % iso_start_time)
+    localtime = iso_start_time.astimezone(pytz.timezone("US/Central"))
+    # print('localtime %s' % localtime)
+    start_time = localtime.ctime()
+    print('start time %s\n' % start_time)
 
     if isinstance(item, dict):
         data.append([
@@ -110,7 +110,7 @@ for item in schedule_report:
             item['lastName'],
             plantId,
             item['scheduleDate'],
-            startTime
+            start_time
         ])
     df = pd.DataFrame(data,
                       columns=['First', 'Last', 'Plant', 'Date', 'Start Time'])
