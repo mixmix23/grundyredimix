@@ -4,6 +4,8 @@ import pandas as pd
 import os
 
 st.set_page_config(page_title="Mixes XML to CSV")
+st.set_theme('dark')
+st.set_page_config(layout="wide")
 
 # Sidebar to select plant code
 plant_code = st.sidebar.radio("Select plant code", ["001", "002", "003", "004", "005"])
