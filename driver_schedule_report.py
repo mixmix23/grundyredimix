@@ -35,7 +35,6 @@ def get_employee_data():
 
 def get_schedule_data():
     url = 'https://dfapi.digitalfleet.com/api/v2/Schedule?page=1&pageSize=100'
-
     response = requests.get(url, headers=headers)
 
     if response.status_code == 200:
@@ -65,7 +64,7 @@ for item in schedule_list:
     for name in employee_list:
         if item['userId'] == name['userId'] and item['startTime'] is not None:
             schedule_report.append(
-                {'hireDate': item['hireDate'], 'userId': name['userId'], 'firstName': name['firstName'],
+                {'hireDate': name['hireDate'], 'userId': name['userId'], 'firstName': name['firstName'],
                  'lastName': name['lastName'], 'plantPointId': item['plantPointId'], 'scheduleDate': item['scheduleDate'],
                  'startTime': item['startTime']})
 # print('Start Times')
@@ -90,13 +89,15 @@ for item in schedule_report:
     # print('start time %s' % start_time)
     if isinstance(item, dict):
         data.append([
+            item['hireDate'],
             item['firstName'],
             item['lastName'],
             plantId,
             start_time
         ])
     df = pd.DataFrame(data,
-                      columns=['First', 'Last', 'Plant', 'Start Time'])
+                      columns=['Hire', 'First', 'Last', 'Plant', 'Start Time'])
+    df = df.sort_values('Hire')
     # df = df.sort_values(['Plant', 'Start Time'], ascending=[True, True])
 
 st.dataframe(df)
