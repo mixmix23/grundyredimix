@@ -3,7 +3,9 @@ import pandas as pd
 import pytz
 import requests
 import streamlit as st
-# from fpdf import FPDF
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_pdf import PdfPages
 
 api_key = "9A2B3075-33A5-42FD-9831-3A6ACEAE97F4"
 headers = {'X-API-KEY': f'{api_key}'}
@@ -21,7 +23,7 @@ def get_employee_data():
         for item in data['data']:
             employee_data.append(
                 {'userId': item['userId'], 'firstName': item['firstName'], 'lastName': item['lastName'],
-                 'pin': item['pin'], 'cellNumber': item['cellNumber']})
+                 'pin': item['pin'], 'hireDate': item['hireDate'], 'cellNumber': item['cellNumber']})
         print('Employee Data Filtered Keys')
         print(list(employee_data[0].keys()))
         # for item in employee_data:
@@ -62,8 +64,10 @@ schedule_report = []
 for item in schedule_list:
     for name in employee_list:
         if item['userId'] == name['userId'] and item['startTime'] is not None:
-            schedule_report.append({'userId': name['userId'], 'firstName': name['firstName'], 'lastName': name['lastName'],
-                                    'plantPointId': item['plantPointId'], 'scheduleDate': item['scheduleDate'], 'startTime': item['startTime']})
+            schedule_report.append(
+                {'hireDate': item['hireDate'], 'userId': name['userId'], 'firstName': name['firstName'],
+                 'lastName': name['lastName'], 'plantPointId': item['plantPointId'], 'scheduleDate': item['scheduleDate'],
+                 'startTime': item['startTime']})
 # print('Start Times')
 # for item in schedule_report:
 #     print(item)
@@ -97,16 +101,11 @@ for item in schedule_report:
 
 st.dataframe(df)
 
-# pdf = FPDF()
-# pdf.add_page()
-# pdf.set_xy(0, 0)
-# pdf.set_font('arial', 'B', 12)
-#
-# pdf.cell(50, 10, 'First', 1, 0, 'C')
-# pdf.cell(40, 10, 'Last', 1, 0, 'C')
-# pdf.cell(40, 10, 'Plant', 1, 0, 'C')
-# pdf.cell(40, 10, 'Start Time', 1, 0, 'C')
-#
-# pdf.output('test.pdf', 'F')
+fig, ax = plt.subplots(figsize=(12, 4))
+ax.axis('tight')
+ax.axis('off')
+the_table = ax.table(cellText=df.values, colLabels=df.columns, loc='center')
 
-
+pp = PdfPages("foo.pdf")
+pp.savefig(fig, bbox_inches='tight')
+pp.close()
