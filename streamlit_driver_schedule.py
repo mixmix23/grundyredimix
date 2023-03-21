@@ -53,7 +53,7 @@ def get_schedule_data():
         print(f"Error: Failed to retrieve data from {url}")
 
 # Create 3 equal-width columns
-col1, col2, col3 = st.beta_columns(3)
+col1, col2, col3 = st.columns(3)
 
 # Add a date picker to the first column
 selected_date = col1.date_input('Select a date')
