@@ -65,7 +65,8 @@ for item in schedule_list:
         if item['userId'] == name['userId'] and item['startTime'] is not None:
             schedule_report.append(
                 {'hireDate': name['hireDate'], 'userId': name['userId'], 'firstName': name['firstName'],
-                 'lastName': name['lastName'], 'plantPointId': item['plantPointId'], 'scheduleDate': item['scheduleDate'],
+                 'lastName': name['lastName'], 'plantPointId': item['plantPointId'],
+                 'scheduleDate': item['scheduleDate'],
                  'startTime': item['startTime']})
 # print('Start Times')
 # for item in schedule_report:
@@ -87,13 +88,16 @@ for item in schedule_report:
     # print('localtime %s' % localtime)
     start_time = localtime.ctime()
     # print('start time %s' % start_time)
+    start_time_without_year = ' '.join(start_time.split()[:4])
+    start_time_without_seconds = start_time_without_year[:-3]
+
     name = f"{item['firstName']} {item['lastName']}"
     if isinstance(item, dict):
         data.append([
             item['hireDate'],
             name,
             plantId,
-            start_time
+            start_time_without_seconds
         ])
     df = pd.DataFrame(data,
                       columns=['Hire', 'Name', 'Plant', 'Start Time'])
@@ -102,11 +106,31 @@ for item in schedule_report:
 
 st.dataframe(df)
 
-fig, ax = plt.subplots(figsize=(12, 4))
+fig, ax = plt.subplots(figsize=(5, 3))
 ax.axis('tight')
 ax.axis('off')
-the_table = ax.table(cellText=df.values, colLabels=df.columns, loc='center')
+the_table = ax.table(cellText=df.values, colLabels=df.columns, loc='center', cellLoc='left')
+
+# Highlight certain columns based on their value
+for i in range(len(df.columns)):
+    if df.columns[i] == "Plant":  # Select the "Plant" column
+        for j in range(len(df)):
+            if df.iloc[j, i] in "Morris":
+                the_table.get_celld()[(j + 1, i)].set_color('orange')
+            elif df.iloc[j, i] in "Plano":
+                the_table.get_celld()[(j + 1, i)].set_color('red')
+            elif df.iloc[j, i] in "Oswego":
+                the_table.get_celld()[(j + 1, i)].set_color('yellow')
+
+for key, cell in the_table.get_celld().items():
+    cell.set_edgecolor('black')
+    cell.set_linewidth(1)
 
 pp = PdfPages("foo.pdf")
 pp.savefig(fig, bbox_inches='tight')
+
+with open('foo.pdf', 'rb') as f:
+    contents = f.read()
+    st.write(contents, format='pdf')
+
 pp.close()
