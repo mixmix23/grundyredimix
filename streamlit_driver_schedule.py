@@ -43,7 +43,7 @@ def get_schedule_data(iso_date_arg):
         for item in data['data']:
             print(item)
         for item in data['data']:
-            if data['scheduleDate'] == iso_date_arg:
+            if item['scheduleDate'] == iso_date_arg:
                 schedule_data.append(
                     {'userId': item['userId'], 'plantPointId': item['plantPointId'], 'scheduleDate': item['scheduleDate'],
                      'seniority': item['seniority'], 'notes': item['notes'], 'startTime':
