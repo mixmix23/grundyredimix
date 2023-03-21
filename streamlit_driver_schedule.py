@@ -1,7 +1,9 @@
 import dateutil.parser
 import pandas as pd
 import pytz
+import requests
 import streamlit as st
+
 
 api_key = "9A2B3075-33A5-42FD-9831-3A6ACEAE97F4"
 headers = {'X-API-KEY': f'{api_key}'}
