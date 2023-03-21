@@ -129,6 +129,7 @@ for key, cell in the_table.get_celld().items():
 
 pp = PdfPages("foo.pdf")
 pp.savefig(fig, bbox_inches='tight')
+pp.close()
 
 # Attempt to display in Streamlit
 with open('foo.pdf', 'rb') as f:
@@ -136,5 +137,3 @@ with open('foo.pdf', 'rb') as f:
     b64 = base64.b64encode(contents).decode('UTF-8')
     href = f'<a href="data:application/pdf;base64,{b64}" download="foo.pdf">Download PDF</a>'
     st.markdown(href, unsafe_allow_html=True)
-
-pp.close()
