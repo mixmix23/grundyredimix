@@ -32,6 +32,7 @@ def get_employee_data():
 
 
 def get_schedule_data(iso_date_arg):
+    st.write(iso_date_arg)
     url_date = iso_date_arg.strftime('%Y-%m-%dT%H')
     st.write(url_date)
     url = 'https://dfapi.digitalfleet.com/api/v2/Schedule?page=1&pageSize=100'
