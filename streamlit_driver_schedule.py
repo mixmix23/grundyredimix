@@ -31,7 +31,7 @@ def get_employee_data():
         print(f"Error: Failed to retrieve data from {url}")
 
 
-def get_schedule_data():
+def get_schedule_data(iso_date_arg):
     url = 'https://dfapi.digitalfleet.com/api/v2/Schedule?page=1&pageSize=100'
     response = requests.get(url, headers=headers)
 
@@ -43,10 +43,11 @@ def get_schedule_data():
         for item in data['data']:
             print(item)
         for item in data['data']:
-            schedule_data.append(
-                {'userId': item['userId'], 'plantPointId': item['plantPointId'], 'scheduleDate': item['scheduleDate'],
-                 'seniority': item['seniority'], 'notes': item['notes'], 'startTime':
-                     item['startTime'], 'availability': item['availability']})
+            if data['scheduleDate'] == iso_date_arg:
+                schedule_data.append(
+                    {'userId': item['userId'], 'plantPointId': item['plantPointId'], 'scheduleDate': item['scheduleDate'],
+                     'seniority': item['seniority'], 'notes': item['notes'], 'startTime':
+                         item['startTime'], 'availability': item['availability']})
         print('Schedule Data Filtered Keys')
         print(list(schedule_data[0].keys()))
         # for item in schedule_data:
@@ -61,12 +62,11 @@ col1, col2, col3 = st.columns(3)
 selected_date = st.date_input("Select a date")
 if selected_date:
     iso_date = selected_date.strftime('%Y-%m-%dT%H:%M:%S')
-    st.write(f"ISO-8601 format: {iso_date}")
 # Display the selected date in the second column
 col1.write('Selected date: ' + str(iso_date))
 
 employee_list = get_employee_data()
-schedule_list = get_schedule_data()
+schedule_list = get_schedule_data(iso_date)
 
 schedule_report = []
 for item in schedule_list:
