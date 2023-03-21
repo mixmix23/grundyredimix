@@ -52,10 +52,13 @@ def get_schedule_data():
     else:
         print(f"Error: Failed to retrieve data from {url}")
 
-col1, col2, col3 = st.columns(3)
-# Create a date picker using date_input
+# Create 3 equal-width columns
+col1, col2, col3 = st.beta_columns(3)
+
+# Add a date picker to the first column
 selected_date = col1.date_input('Select a date')
-# Display the selected date
+
+# Display the selected date in the second column
 col2.write('Selected date:', selected_date)
 
 employee_list = get_employee_data()
