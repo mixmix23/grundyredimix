@@ -129,6 +129,7 @@ for key, cell in the_table.get_celld().items():
 pp = PdfPages("foo.pdf")
 pp.savefig(fig, bbox_inches='tight')
 
+# Attempt to display in Streamlit
 with open('foo.pdf', 'rb') as f:
     contents = f.read()
     st.write(contents, format='pdf')
