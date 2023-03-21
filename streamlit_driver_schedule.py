@@ -4,7 +4,6 @@ import pytz
 import requests
 import streamlit as st
 
-
 api_key = "9A2B3075-33A5-42FD-9831-3A6ACEAE97F4"
 headers = {'X-API-KEY': f'{api_key}'}
 
@@ -53,6 +52,7 @@ def get_schedule_data():
     else:
         print(f"Error: Failed to retrieve data from {url}")
 
+
 employee_list = get_employee_data()
 schedule_list = get_schedule_data()
 
@@ -98,6 +98,18 @@ for item in schedule_report:
         ])
     df = pd.DataFrame(data,
                       columns=['Hire', 'Name', 'Plant', 'Start Time'])
+    # Create a dictionary to map plant names to colors
+    color_map = {'Morris': 'orange', 'Plano': 'blue', 'Oswego': 'green'}
+
+
+    # Define a function that takes a cell value and returns a CSS property string
+    def color_cells(val):
+        color = color_map.get(val, '')
+        return f'background-color: {color}'
+
+
+    # Apply the function to the 'Plant' column using the 'applymap' method of the DataFrame's 'style' attribute
+    df.style.applymap(color_cells, subset=['Plant'])
     df = df.sort_values('Hire')
     df = df.drop(columns='Hire')
 
