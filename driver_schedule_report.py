@@ -87,18 +87,18 @@ for item in schedule_report:
     # print('localtime %s' % localtime)
     start_time = localtime.ctime()
     # print('start time %s' % start_time)
+    name = f"{item['firstName']} {item['lastName']}"
     if isinstance(item, dict):
         data.append([
             item['hireDate'],
-            item['firstName'],
-            item['lastName'],
+            name,
             plantId,
             start_time
         ])
     df = pd.DataFrame(data,
-                      columns=['Hire', 'First', 'Last', 'Plant', 'Start Time'])
+                      columns=['Hire', 'Name', 'Plant', 'Start Time'])
     df = df.sort_values('Hire')
-    # df = df.sort_values(['Plant', 'Start Time'], ascending=[True, True])
+    df = df.drop(columns='Hire')
 
 st.dataframe(df)
 
