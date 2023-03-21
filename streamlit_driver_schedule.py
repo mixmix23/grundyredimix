@@ -59,7 +59,7 @@ col1, col2, col3 = st.columns(3)
 selected_date = col1.date_input('Select a date')
 
 # Display the selected date in the second column
-col2.write('Selected date: ' + str(selected_date))
+col1.write('Selected date: ' + str(selected_date))
 
 employee_list = get_employee_data()
 schedule_list = get_schedule_data()
