@@ -6,6 +6,7 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
+import base64
 
 api_key = "9A2B3075-33A5-42FD-9831-3A6ACEAE97F4"
 headers = {'X-API-KEY': f'{api_key}'}
@@ -132,6 +133,8 @@ pp.savefig(fig, bbox_inches='tight')
 # Attempt to display in Streamlit
 with open('foo.pdf', 'rb') as f:
     contents = f.read()
-    st.write(contents, format='pdf')
+    b64 = base64.b64encode(contents).decode('UTF-8')
+    href = f'<a href="data:application/pdf;base64,{b64}" download="foo.pdf">Download PDF</a>'
+    st.markdown(href, unsafe_allow_html=True)
 
 pp.close()
