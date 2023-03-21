@@ -139,12 +139,13 @@ pdf_path = os.path.join(download_folder, 'foo.pdf')
 with PdfPages(pdf_path) as pdf:
     pdf.savefig(fig, bbox_inches='tight')
 
-# Read the PDF file as a bytes object
-with open("foo.pdf", "rb") as f:
-    pdf_bytes = f.read()
+# Generate the PDF file
+with PdfPages("foo.pdf") as pp:
+    pp.savefig(fig, bbox_inches='tight')
 
-# Encode the bytes as a base64 string
-b64 = base64.b64encode(pdf_bytes).decode()
+# Open and read the PDF file as bytes
+with open("foo.pdf", "rb") as pdf_file:
+    b64 = base64.b64encode(pdf_file.read()).decode()
 
-# Use HTML to embed the base64-encoded string as an iframe
-st.markdown(f'<iframe src="data:application/pdf;base64,{b64}" width="700" height="1000"></iframe>', unsafe_allow_html=True)
+# Display the PDF file in Streamlit
+st.write(f'<iframe src="data:application/pdf;base64,{b64}" width="700" height="1000" frameborder="0"></iframe>', unsafe_allow_html=True)
