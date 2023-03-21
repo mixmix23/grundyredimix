@@ -32,9 +32,9 @@ def get_employee_data():
 
 
 def get_schedule_data(iso_date_arg):
-    st.write(iso_date_arg)
-    url_date = iso_date_arg.strftime('%Y-%m-%dT%H')
-    st.write(url_date)
+    # st.write(iso_date_arg)
+    # url_date = iso_date_arg.strftime('%Y-%m-%dT%H')
+    # st.write(url_date)
     url = 'https://dfapi.digitalfleet.com/api/v2/Schedule?page=1&pageSize=100'
     response = requests.get(url, headers=headers)
 
@@ -64,7 +64,7 @@ col1, col2, col3 = st.columns(3)
 # Add a date picker to the first column
 selected_date = st.date_input("Select a date")
 if selected_date:
-    iso_date = selected_date.strftime('%Y-%m-%dT%H:%M:%S')
+    iso_date = selected_date.strftime('%Y-%m-%dT%H')
 # Display the selected date in the second column
 col1.write('Selected date: ' + str(iso_date))
 
