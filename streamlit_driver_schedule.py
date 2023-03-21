@@ -60,7 +60,7 @@ col1, col2, col3 = st.columns(3)
 # Add a date picker to the first column
 selected_date = st.date_input("Select a date")
 if selected_date:
-    iso_date = selected_date.strftime('%Y-%m-%dT%H:%M:%S.%f')
+    iso_date = selected_date.strftime('%Y-%m-%dT%H:%M:%S')
     st.write(f"ISO-8601 format: {iso_date}")
 # Display the selected date in the second column
 col1.write('Selected date: ' + str(iso_date))
