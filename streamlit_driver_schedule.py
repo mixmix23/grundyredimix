@@ -3,6 +3,7 @@ import pandas as pd
 import pytz
 import requests
 import streamlit as st
+from datetime import datetime
 
 api_key = "9A2B3075-33A5-42FD-9831-3A6ACEAE97F4"
 headers = {'X-API-KEY': f'{api_key}'}
@@ -57,9 +58,9 @@ col1, col2, col3 = st.columns(3)
 
 # Add a date picker to the first column
 selected_date = col1.date_input('Select a date')
-
+dt_obj = datetime.strptime(str(selected_date), '%Y-%m-%d')
 # Display the selected date in the second column
-col1.write('Selected date: ' + str(selected_date))
+col1.write('Selected date: ' + str(dt_obj))
 
 employee_list = get_employee_data()
 schedule_list = get_schedule_data()
