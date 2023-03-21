@@ -53,11 +53,6 @@ def get_schedule_data():
         print(f"Error: Failed to retrieve data from {url}")
 
 
-# Define a function that takes a value and returns a color
-def get_color(val):
-    return color_map.get(val, '')
-
-
 employee_list = get_employee_data()
 schedule_list = get_schedule_data()
 
@@ -103,11 +98,6 @@ for item in schedule_report:
         ])
     df = pd.DataFrame(data,
                       columns=['Hire', 'Name', 'Plant', 'Start Time'])
-    # Create a dictionary to map plant names to colors
-    color_map = {'Morris': 'orange', 'Plano': 'blue', 'Oswego': 'green'}
-
-    # Apply the function to the 'Plant' column using the 'apply' method of the DataFrame
-    df['Plant'] = df['Plant'].apply(lambda x: f'background-color: {get_color(x)}', axis=1)
     df = df.sort_values('Hire')
     df = df.drop(columns='Hire')
 
