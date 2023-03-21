@@ -3,7 +3,6 @@ import pandas as pd
 import pytz
 import requests
 import streamlit as st
-import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 import os
