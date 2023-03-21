@@ -3,9 +3,9 @@ import pandas as pd
 import pytz
 import requests
 import streamlit as st
-import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
+import os
 import base64
 
 api_key = "9A2B3075-33A5-42FD-9831-3A6ACEAE97F4"
@@ -105,8 +105,11 @@ for item in schedule_report:
     df = df.sort_values('Hire')
     df = df.drop(columns='Hire')
 
-st.dataframe(df)
+# # Display dataframe to Streamlit
+# st.dataframe(df)
 
+
+# Auto Create a PDF to projects folder
 fig, ax = plt.subplots(figsize=(5, 3))
 ax.axis('tight')
 ax.axis('off')
@@ -127,13 +130,20 @@ for key, cell in the_table.get_celld().items():
     cell.set_edgecolor('black')
     cell.set_linewidth(1)
 
-pp = PdfPages("foo.pdf")
-pp.savefig(fig, bbox_inches='tight')
-pp.close()
+# Get the user's download folder path
+download_folder = os.path.join(os.path.expanduser('~'), 'Downloads')
 
-# Attempt to display in Streamlit
-with open('foo.pdf', 'rb') as f:
-    contents = f.read()
-    b64 = base64.b64encode(contents).decode('UTF-8')
-    href = f'<a href="data:application/pdf;base64,{b64}" download="foo.pdf">Download PDF</a>'
-    st.markdown(href, unsafe_allow_html=True)
+# Create the PDF file in the download folder
+pdf_path = os.path.join(download_folder, 'foo.pdf')
+with PdfPages(pdf_path) as pdf:
+    pdf.savefig(fig, bbox_inches='tight')
+
+# Read the PDF file as a bytes object
+with open("foo.pdf", "rb") as f:
+    pdf_bytes = f.read()
+
+# Encode the bytes as a base64 string
+b64 = base64.b64encode(pdf_bytes).decode()
+
+# Use HTML to embed the base64-encoded string as an iframe
+st.markdown(f'<iframe src="data:application/pdf;base64,{b64}" width="700" height="1000"></iframe>', unsafe_allow_html=True)
