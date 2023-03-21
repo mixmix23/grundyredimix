@@ -32,8 +32,8 @@ def get_employee_data():
 
 
 def get_schedule_data(iso_date_arg):
-
-    url = f'https://dfapi.digitalfleet.com/api/v2/Schedule?startTime={iso_date_arg}%3A00%3A00&page=1&pageSize=100'
+    # iso_date_arg = '2023-03-22T00'
+    url = f'https://dfapi.digitalfleet.com/api/v2/Schedule?endTime={iso_date_arg}%3A00%3A00&page=1&pageSize=100'
     response = requests.get(url, headers=headers)
 
     if response.status_code == 200:
