@@ -76,7 +76,7 @@ selected_date = st.date_input("Select a date")
 if selected_date:
     iso_date = selected_date.strftime('%Y-%m-%dT%H')
 # Display the selected date in the second column
-col1.write('Selected date: ' + str(iso_date))
+# col1.write('Selected date: ' + str(iso_date))
 
 employee_list = get_employee_data()
 schedule_list = get_schedule_data(iso_date)
