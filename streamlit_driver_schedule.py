@@ -166,7 +166,7 @@ if morris_dh_count > 0:
     col5.write("Morris DH: %s" % morris_dh_count)
 if plano_dh_count > 0:
     col5.write("Plano DH: %s" % plano_dh_count)
-if oswego_dh_count > 0
+if oswego_dh_count > 0:
     col5.write("Oswego DH: %s" % oswego_dh_count)
 
 # Specify the directory to save the CSV file
