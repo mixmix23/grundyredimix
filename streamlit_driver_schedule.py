@@ -72,7 +72,7 @@ def get_schedule_data(iso_date_arg):
 # Create 3 equal-width columns
 col1, col2, col3 = st.columns(3)
 # Add a date picker to the first column
-selected_date = st.date_input("Select a date")
+selected_date = col1.date_input("Select a date")
 if selected_date:
     iso_date = selected_date.strftime('%Y-%m-%dT%H')
 # Display the selected date in the second column
