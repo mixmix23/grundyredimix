@@ -48,7 +48,6 @@ def get_schedule_data(iso_date_arg):
         schedule_data = []
         data = response.json()
         if len(data['data']) == 0:
-            st.write("'data' is empty")
             st.write("No Schedule Found For This Day")
             sys.exit(1)
         print('Schedule Data Full Keys')
