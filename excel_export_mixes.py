@@ -22,25 +22,26 @@ def create_mix_list(headers, mix_filter):
     # Create a list to store the data
     mix_list = []
     if mix_filter:
+        for mix_header in headers:
+            mix_number = mix_header.find("MixNumber").text
+            mix_description = mix_header.find("MixDescription").text
+            plant = mix_header.find("PlantCode").text
+            constituents = mix_header.findall(".//Constituents")
+            # Create a dictionary to store the data for each mix
+            mix_data = {
+                "mix_number": mix_number,
+                "mix_description": mix_description,
+                "plant": plant
+            }
+            for constituent in constituents:
+                constituent_code = constituent.find("ConstituentCode").text
+                dosage = constituent.find("Dosage").text
+                mix_data[constituent_code] = dosage
+            # Append the mix data to the list
+            mix_list.append(mix_data)
         for item in mix_list:
             if item['mix_number'] == mix_filter:
-                for mix_header in headers:
-                    mix_number = mix_header.find("MixNumber").text
-                    mix_description = mix_header.find("MixDescription").text
-                    plant = mix_header.find("PlantCode").text
-                    constituents = mix_header.findall(".//Constituents")
-                    # Create a dictionary to store the data for each mix
-                    mix_data = {
-                        "mix_number": mix_number,
-                        "mix_description": mix_description,
-                        "plant": plant
-                    }
-                    for constituent in constituents:
-                        constituent_code = constituent.find("ConstituentCode").text
-                        dosage = constituent.find("Dosage").text
-                        mix_data[constituent_code] = dosage
-                    # Append the mix data to the list
-                    mix_list.append(mix_data)
+                mix_list = item
 
     else:
         for mix_header in headers:
