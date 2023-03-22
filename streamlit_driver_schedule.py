@@ -5,7 +5,6 @@ import pytz
 import requests
 import streamlit as st
 import sys
-import PyPDF2
 
 api_key = "9A2B3075-33A5-42FD-9831-3A6ACEAE97F4"
 headers = {'X-API-KEY': f'{api_key}'}
@@ -143,55 +142,22 @@ col5.write("Oswego: %s" % oswego_count)
 col5.write("\n\n")
 col5.write("Total: %s" % (morris_count + plano_count + oswego_count))
 
-# # Specify the directory to save the CSV file
-# downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
-#
-# if not os.path.exists(downloads_dir):
-#     os.makedirs(downloads_dir)
-#
-# # Save the DataFrame to a CSV file
-# filename = "test.csv"
-# filepath = os.path.join(downloads_dir, filename)
-# df.to_csv(filepath, index=False)
-#
-# # Create a download button for the CSV file
-# with open(filepath, "rb") as f:
-#     st.download_button(
-#         label="Download CSV",
-#         data=f.read(),
-#         file_name=filename,
-#         mime="text/csv"
-#     )
+# Specify the directory to save the CSV file
+downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
 
-# Specify the directory containing the PDF files
-pdf_dir = os.path.join(os.path.expanduser("~"), "PDFs")
+if not os.path.exists(downloads_dir):
+    os.makedirs(downloads_dir)
 
-if not os.path.exists(pdf_dir):
-    os.makedirs(pdf_dir)
+# Save the DataFrame to a CSV file
+filename = "test.csv"
+filepath = os.path.join(downloads_dir, filename)
+df.to_csv(filepath, index=False)
 
-# Get a list of all the PDF files in the directory
-pdf_files = [os.path.join(pdf_dir, f) for f in os.listdir(pdf_dir) if f.endswith(".pdf")]
-
-# Merge the PDF files into a single document
-merged_pdf = PyPDF2.PdfFileMerger()
-for pdf_file in pdf_files:
-    merged_pdf.append(PyPDF2.PdfFileReader(pdf_file, "rb"))
-
-# Save the merged PDF to a file
-filename = "merged.pdf"
-filepath = os.path.join(pdf_dir, filename)
-merged_pdf.write(filepath)
-
-# Create a download button for the merged PDF
+# Create a download button for the CSV file
 with open(filepath, "rb") as f:
     st.download_button(
-        label="Download Merged PDF",
+        label="Download CSV",
         data=f.read(),
         file_name=filename,
-        mime="application/pdf"
+        mime="text/csv"
     )
-
-
-
-
-
