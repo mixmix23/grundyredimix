@@ -41,6 +41,7 @@ def create_mix_list(headers, mix_filter):
             mix_list.append(mix_data)
         for item in mix_list:
             if item['mix_number'] == mix_filter:
+                st.write("got a match")
                 mix_list = item
 
     else:
