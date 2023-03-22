@@ -57,6 +57,7 @@ def get_schedule_data(iso_end_date):
         print(list(data["data"][0].keys()))
         for item in data['data']:
             if iso_end_date in item['scheduleDate']:
+                st.write("scheduleDate= %s" % item['scheduleDate'])
                 schedule_data.append(
                     {'userId': item['userId'], 'plantPointId': item['plantPointId'],
                      'scheduleDate': item['scheduleDate'],
