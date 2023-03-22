@@ -97,7 +97,7 @@ oswego_count = 0
 plano_count = 0
 morris_count = 0
 
-col4, col5, col6= st.columns([4, 1, 1])
+col4, col5, col6= st.columns([3, 1, 1])
 
 data = []
 for item in schedule_report:
