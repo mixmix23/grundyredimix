@@ -87,7 +87,7 @@ for item in schedule_list:
             schedule_report.append(
                 {'hireDate': name['hireDate'], 'userId': name['userId'], 'firstName': name['firstName'],
                  'lastName': name['lastName'], 'plantPointId': item['plantPointId'],
-                 'scheduleDate': item['scheduleDate'], 'deadHeadPlantPointId': item['deadHeadPlantPointId'],
+                 'scheduleDate': item['scheduleDate'], 'deadHeadPlantPointId': item.get('deadHeadPlantPointId', ""),
                  'startTime': item['startTime']})
 # print('Start Times')
 # for item in schedule_report:
