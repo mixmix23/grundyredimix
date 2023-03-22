@@ -5,6 +5,7 @@ import pytz
 import requests
 import streamlit as st
 import sys
+from datetime import datetime
 
 api_key = "9A2B3075-33A5-42FD-9831-3A6ACEAE97F4"
 headers = {'X-API-KEY': f'{api_key}'}
@@ -117,6 +118,7 @@ for item in schedule_report:
     localtime = iso_start_time.astimezone(pytz.timezone("US/Central"))
     # print('localtime %s' % localtime)
     start_time = localtime.ctime()
+    csv_file_format = localtime.strftime('%a %b %d %Y')
     # print('start time %s' % start_time)
     start_time_without_year = ' '.join(start_time.split()[:4])
     start_time_without_seconds = start_time_without_year[:-3]
@@ -149,7 +151,7 @@ if not os.path.exists(downloads_dir):
     os.makedirs(downloads_dir)
 
 # Save the DataFrame to a CSV file
-filename = f"{start_time}.csv"
+filename = f"{csv_file_format}.csv"
 filepath = os.path.join(downloads_dir, filename)
 df.to_csv(filepath, index=False)
 
