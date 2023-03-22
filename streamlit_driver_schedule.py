@@ -140,6 +140,6 @@ col4.dataframe(df)
 
 col5.write("Morris: {:>15}".format(morris_count))
 col5.write("Plano: {:>15}".format(plano_count))
-col5.write("Oswego: {:>15}".format(oswego_count))
+col5.write("Oswego: {:<15}".format(oswego_count))
 col5.write("\n\n")
 col5.write("Total: {:>15}".format((morris_count + plano_count + oswego_count)))
