@@ -138,8 +138,8 @@ for item in schedule_report:
 # # Display dataframe to Streamlit
 col4.dataframe(df)
 
-col5.write("Morris: %s" % morris_count)
-col5.write("Plano: %s" % plano_count)
-col5.write("Oswego: %s" % oswego_count)
+col5.write("Morris: {:>5}}".format(morris_count))
+col5.write("Plano: {:>5}}".format(plano_count))
+col5.write("Oswego: {:>5}}".format(oswego_count))
 col5.write("\n\n")
-col5.write("Total: %s" % (morris_count + plano_count + oswego_count))
+col5.write("Total: {:>5}}".format((morris_count + plano_count + oswego_count)))
