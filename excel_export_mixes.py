@@ -17,10 +17,8 @@ root = tree.getroot()
 # Find the "MixHeader" elements in the XML file
 mix_headers = root.findall(".//MixHeader")
 
-if mix_name_filter is not None:
-    st.write(mix_name_filter)
-else:
-    st.write('no filter entered')
+if mix_name_filter:
+    st.write('mix entered')
 
 # Create a list to store the data
 mix_list = []
