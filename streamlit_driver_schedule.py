@@ -70,7 +70,7 @@ def get_schedule_data(iso_date_arg):
         sys.exit(1)
 
 # Create 3 equal-width columns
-col1, col2= st.columns(2)
+col1, col2 = st.columns(2)
 # Add a date picker to the first column
 selected_date = col1.date_input("Select a date")
 if selected_date:
@@ -141,5 +141,5 @@ col4.dataframe(df)
 col5.write("Morris: %s" % morris_count)
 col5.write("Plano: %s" % plano_count)
 col5.write("Oswego: %s" % oswego_count)
-
-col6.write("Total: %s" % (morris_count + plano_count + oswego_count))
+col5.write("/n/n")
+col5.write("Total: %s" % (morris_count + plano_count + oswego_count))
