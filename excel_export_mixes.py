@@ -16,7 +16,7 @@ root = tree.getroot()
 mix_headers = root.findall(".//MixHeader")
 
 # Create a list to store the data
-data = []
+mix_list = []
 
 for mix_header in mix_headers:
     mix_number = mix_header.find("MixNumber").text
@@ -36,10 +36,15 @@ for mix_header in mix_headers:
         mix_data[constituent_code] = dosage
 
     # Append the mix data to the list
-    data.append(mix_data)
+    mix_list.append(mix_data)
+
+# Filter by mix name
+col1, col2 = st.columns([3, 1])
+mix_name_filter = col1.text_input('Search Mix', placeholder='mix')
+
 
 # Create a DataFrame from the data
-df = pd.DataFrame(data)
+df = pd.DataFrame(mix_list)
 
 # Display the data in a table
 st.dataframe(df)
