@@ -56,8 +56,8 @@ def get_schedule_data(iso_date_arg):
                 schedule_data.append(
                     {'userId': item['userId'], 'plantPointId': item['plantPointId'],
                      'scheduleDate': item['scheduleDate'],
-                     'seniority': item['seniority'], 'notes': item['notes'], 'startTime':
-                         item['startTime'], 'availability': item['availability']})
+                     'seniority': item['seniority'], 'notes': item['notes'], 'startTime': item['startTime'],
+                     'deadHeadPlantPointId': item['deadHeadPlantPointId'], 'availability': item['availability']})
         print('Schedule Data Filtered Keys')
         print(list(schedule_data[0].keys()))
         # for item in schedule_data:
@@ -111,6 +111,15 @@ for item in schedule_report:
         morris_count += 1
     else:
         plantId = str(item['plantPointId'])
+
+    if item['deadHeadPlantPointId'] == 15095411:
+        dead_head = 'Oswego'
+    elif item['deadHeadPlantPointId'] == 10533262:
+        dead_head = 'Plano'
+    elif item['deadHeadPlantPointId'] == 10533260:
+        dead_head = 'Morris'
+    else:
+        dead_head = str(item['deadHeadPlantPointId'])
     iso_date_str = item['startTime']
     iso_start_time = dateutil.parser.parse(iso_date_str)
     # print('iso_start_time %s' % iso_start_time)
@@ -128,10 +137,11 @@ for item in schedule_report:
             item['hireDate'],
             name,
             plantId,
-            start_time_without_seconds
+            start_time_without_seconds,
+            dead_head
         ])
     df = pd.DataFrame(data,
-                      columns=['Hire', 'Name', 'Plant', 'Start Time'])
+                      columns=['Hire', 'Name', 'Plant', 'Start Time', "Dead Head"])
     df = df.sort_values('Hire')
     df = df.drop(columns='Hire')
 
