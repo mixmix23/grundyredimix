@@ -10,7 +10,6 @@ plant_code = st.sidebar.radio("Select plant code", ["001", "002", "003", "004", 
 # Filter by mix name
 col1, col2 = st.columns([3, 1])
 mix_name_filter = col1.text_input('Search Mix', placeholder='mix')
-st.write(mix_name_filter)
 
 # Parse the XML file
 tree = ET.parse(f"mixes_xml/01-Mixes-{plant_code}.xml")
@@ -24,6 +23,10 @@ for mix_header in mix_headers:
     mix_description = mix_header.find("MixDescription").text
     plant = mix_header.find("PlantCode").text
     constituents = mix_header.findall(".//Constituents")
+    if mix_name_filter is not None:
+        st.write(mix_name_filter)
+    else:
+        st.write('no filter entered')
     # Create a dictionary to store the data for each mix
     mix_data = {
         "Mix Number": mix_number,
