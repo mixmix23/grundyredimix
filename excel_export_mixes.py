@@ -72,7 +72,7 @@ def create_mix_list(headers, mix_filter):
 mix_list_by_plant, mix_filtered = create_mix_list(mix_headers, mix_name_filter)
 
 if mix_name_filter:
-    df = pd.DataFrame(mix_name_filter)
+    df = pd.DataFrame(mix_filtered)
 else:
     df = pd.DataFrame(mix_list_by_plant)
 
