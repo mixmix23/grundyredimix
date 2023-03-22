@@ -85,7 +85,7 @@ for item in schedule_list:
     for name in employee_list:
         if item['userId'] == name['userId'] and item['startTime'] is not None:
             if item['deadHeadPlantPointId'] is None:
-                item['deadHeadPlantPointId'] = ""
+                item['deadHeadPlantPointId'] = "-"
             schedule_report.append(
                 {'hireDate': name['hireDate'], 'userId': name['userId'], 'firstName': name['firstName'],
                  'lastName': name['lastName'], 'plantPointId': item['plantPointId'],
