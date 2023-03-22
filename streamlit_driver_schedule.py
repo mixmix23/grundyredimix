@@ -161,7 +161,7 @@ col5.write("Plano: %s" % plano_count)
 col5.write("Oswego: %s" % oswego_count)
 col5.write("\n")
 col5.write("Total: %s" % (morris_count + plano_count + oswego_count))
-col5.write("--")
+col5.write("---")
 if morris_dh_count > 0:
     col5.write("Morris DH: %s" % morris_dh_count)
 if plano_dh_count > 0:
