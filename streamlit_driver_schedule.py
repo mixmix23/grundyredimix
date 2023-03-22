@@ -85,7 +85,7 @@ oswego_count = 0
 plano_count = 0
 morris_count = 0
 
-col4, col5= st.columns(2)
+col4, col5, col6= st.columns(3)
 
 data = []
 for item in schedule_report:
@@ -129,3 +129,5 @@ col4.dataframe(df)
 col5.write("Morris: %s" % morris_count)
 col5.write("Plano: %s" % plano_count)
 col5.write("Oswego: %s" % oswego_count)
+
+col6.write("Total: %s" % (morris_count + plano_count + oswego_count))
