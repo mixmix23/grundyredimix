@@ -3,6 +3,7 @@ import pandas as pd
 import pytz
 import requests
 import streamlit as st
+import sys
 from datetime import datetime
 
 api_key = "9A2B3075-33A5-42FD-9831-3A6ACEAE97F4"
@@ -29,6 +30,7 @@ def get_employee_data():
         return employee_data
     else:
         st.write(f"Error: Failed to retrieve data from {url}")
+        sys.exit(1)
 
 
 def get_schedule_data(iso_date_arg):
@@ -56,6 +58,7 @@ def get_schedule_data(iso_date_arg):
         return schedule_data
     else:
         st.write(f"Error: Failed to retrieve data from {url}")
+        sys.exit(1)
 
 # Create 3 equal-width columns
 col1, col2, col3 = st.columns(3)
