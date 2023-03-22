@@ -39,7 +39,7 @@ def get_employee_data():
 
 
 def get_schedule_data(iso_end_date):
-    iso_start_date = '2023-01-01T00'
+    iso_end_date = '2023-03-21T00'
     # url = f'https://dfapi.digitalfleet.com/api/v2/Schedule?startTime={iso_start_date}%3A00%3A00&endTime={iso_end_date}%3A00%3A00&page=40&pageSize=100'
     url = 'https://dfapi.digitalfleet.com/api/v2/Schedule?startTime=2023-01-01T00%3A00%3A00&endTime=2023-03-21T00%3A00%3A00&page=40&pageSize=100'
     st.write(url)
