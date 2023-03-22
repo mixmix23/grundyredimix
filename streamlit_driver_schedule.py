@@ -28,7 +28,7 @@ def get_employee_data():
         #     print(item)
         return employee_data
     else:
-        print(f"Error: Failed to retrieve data from {url}")
+        st.write(f"Error: Failed to retrieve data from {url}")
 
 
 def get_schedule_data(iso_date_arg):
@@ -56,7 +56,7 @@ def get_schedule_data(iso_date_arg):
         #     print(item)
         return schedule_data
     else:
-        print(f"Error: Failed to retrieve data from {url}")
+        st.write(f"Error: Failed to retrieve data from {url}")
 
 # Create 3 equal-width columns
 col1, col2, col3 = st.columns(3)
