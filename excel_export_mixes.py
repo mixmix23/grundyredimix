@@ -55,6 +55,8 @@ mix_list_by_plant, mix_filtered, desc_filtered = create_mix_list(mix_headers, mi
 if mix_name_filter:
     df = pd.DataFrame(mix_filtered)
 elif mix_desc_filter:
+    st.write(mix_desc_filter)
+    st.write(desc_filtered)
     df = pd.DataFrame(desc_filtered)
 else:
     df = pd.DataFrame(mix_list_by_plant)
