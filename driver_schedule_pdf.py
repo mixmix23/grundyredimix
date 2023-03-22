@@ -2,11 +2,9 @@ import dateutil.parser
 import pandas as pd
 import pytz
 import requests
-import streamlit as st
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 import os
-import base64
 
 api_key = "9A2B3075-33A5-42FD-9831-3A6ACEAE97F4"
 headers = {'X-API-KEY': f'{api_key}'}
@@ -137,14 +135,3 @@ download_folder = os.path.join(os.path.expanduser('~'), 'Downloads')
 pdf_path = os.path.join(download_folder, 'foo.pdf')
 with PdfPages(pdf_path) as pdf:
     pdf.savefig(fig, bbox_inches='tight')
-
-# Generate the PDF file
-with PdfPages("foo.pdf") as pp:
-    pp.savefig(fig, bbox_inches='tight')
-
-# Open and read the PDF file as bytes
-with open("foo.pdf", "rb") as pdf_file:
-    b64 = base64.b64encode(pdf_file.read()).decode()
-
-# Display the PDF file in Streamlit
-st.write(f'<iframe src="data:application/pdf;base64,{b64}" width="700" height="1000" frameborder="0"></iframe>', unsafe_allow_html=True)

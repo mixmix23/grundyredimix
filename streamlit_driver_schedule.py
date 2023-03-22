@@ -1,3 +1,4 @@
+import os
 import dateutil.parser
 import pandas as pd
 import pytz
@@ -140,3 +141,23 @@ col5.write("Plano: %s" % plano_count)
 col5.write("Oswego: %s" % oswego_count)
 col5.write("\n\n")
 col5.write("Total: %s" % (morris_count + plano_count + oswego_count))
+
+# Specify the directory to save the CSV file
+downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
+
+if not os.path.exists(downloads_dir):
+    os.makedirs(downloads_dir)
+
+# Save the DataFrame to a CSV file
+filename = "test.csv"
+filepath = os.path.join(downloads_dir, filename)
+df.to_csv(filepath, index=False)
+
+# Create a download button for the CSV file
+with open(filepath, "rb") as f:
+    st.download_button(
+        label="Download CSV",
+        data=f.read(),
+        file_name=filename,
+        mime="text/csv"
+    )
