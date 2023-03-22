@@ -5,6 +5,7 @@ import pytz
 import requests
 import streamlit as st
 import sys
+from fpdf import FPDF
 
 api_key = "9A2B3075-33A5-42FD-9831-3A6ACEAE97F4"
 headers = {'X-API-KEY': f'{api_key}'}
@@ -142,22 +143,57 @@ col5.write("Oswego: %s" % oswego_count)
 col5.write("\n\n")
 col5.write("Total: %s" % (morris_count + plano_count + oswego_count))
 
-# Specify the directory to save the CSV file
+# # Specify the directory to save the CSV file
+# downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
+#
+# if not os.path.exists(downloads_dir):
+#     os.makedirs(downloads_dir)
+#
+# # Save the DataFrame to a CSV file
+# filename = "test.csv"
+# filepath = os.path.join(downloads_dir, filename)
+# df.to_csv(filepath, index=False)
+#
+# # Create a download button for the CSV file
+# with open(filepath, "rb") as f:
+#     st.download_button(
+#         label="Download CSV",
+#         data=f.read(),
+#         file_name=filename,
+#         mime="text/csv"
+#     )
+
+# Specify the directory to save the PDF file
 downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
 
 if not os.path.exists(downloads_dir):
     os.makedirs(downloads_dir)
 
-# Save the DataFrame to a CSV file
+# Save the DataFrame to a PDF file
 filename = "test.pdf"
 filepath = os.path.join(downloads_dir, filename)
-df.to_pdf(filepath, index=False)
 
-# Create a download button for the CSV file
+# Define the PDF document
+pdf = FPDF()
+pdf.add_page()
+pdf.set_font("Arial", size=12)
+for index, row in df.iterrows():
+    pdf.cell(200, 10, str(row), border=1)
+    pdf.ln()
+
+# Save the PDF document
+pdf.output(filepath)
+
+# Create a download button for the PDF file
 with open(filepath, "rb") as f:
     st.download_button(
-        label="Download pdf",
+        label="Download PDF",
         data=f.read(),
         file_name=filename,
-        mime="text/pdf"
+        mime="application/pdf"
     )
+
+
+
+
+
