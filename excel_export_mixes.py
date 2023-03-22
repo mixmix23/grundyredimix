@@ -44,8 +44,10 @@ def create_mix_list(headers, mix_filter):
     return mix_list, filtered_mix_list
 
 
+# Create mix list by plant and filtered mix if applicable
 mix_list_by_plant, mix_filtered = create_mix_list(mix_headers, mix_name_filter)
 
+# Create DataFrame
 if mix_name_filter:
     df = pd.DataFrame(mix_filtered)
 else:
