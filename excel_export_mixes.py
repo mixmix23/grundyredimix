@@ -75,6 +75,7 @@ if mix_name_filter:
     st.write(mix_filtered)
     df = pd.DataFrame(mix_filtered)
 else:
+    st.write(mix_list_by_plant)
     df = pd.DataFrame(mix_list_by_plant)
 
 # Display the data in a table
