@@ -4,12 +4,12 @@ import pytz
 import requests
 import streamlit as st
 import sys
-from datetime import datetime
 
 api_key = "9A2B3075-33A5-42FD-9831-3A6ACEAE97F4"
 headers = {'X-API-KEY': f'{api_key}'}
 
 st.set_page_config(page_title="Driver Schedule")
+
 
 def get_employee_data():
     url = 'https://dfapi.digitalfleet.com/api/v2/Users?page=1&pageSize=100'
@@ -57,7 +57,8 @@ def get_schedule_data(iso_date_arg):
         for item in data['data']:
             if iso_date_arg in item['scheduleDate']:
                 schedule_data.append(
-                    {'userId': item['userId'], 'plantPointId': item['plantPointId'], 'scheduleDate': item['scheduleDate'],
+                    {'userId': item['userId'], 'plantPointId': item['plantPointId'],
+                     'scheduleDate': item['scheduleDate'],
                      'seniority': item['seniority'], 'notes': item['notes'], 'startTime':
                          item['startTime'], 'availability': item['availability']})
         print('Schedule Data Filtered Keys')
@@ -68,6 +69,7 @@ def get_schedule_data(iso_date_arg):
     else:
         st.write(f"Error: Failed to retrieve data from {url}")
         sys.exit(1)
+
 
 # Create 3 equal-width columns
 col1, col2 = st.columns(2)
@@ -97,7 +99,7 @@ oswego_count = 0
 plano_count = 0
 morris_count = 0
 
-col4, col5, col6= st.columns([3, 1, 1])
+col4, col5, col6 = st.columns([3, 1, 1])
 
 data = []
 for item in schedule_report:
@@ -135,7 +137,6 @@ for item in schedule_report:
     df = df.sort_values('Hire')
     df = df.drop(columns='Hire')
 
-# # Display dataframe to Streamlit
 col4.dataframe(df)
 
 col5.write("Morris: %s" % morris_count)
