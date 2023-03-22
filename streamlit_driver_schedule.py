@@ -5,7 +5,7 @@ import pytz
 import requests
 import streamlit as st
 import sys
-from fpdf import FPDF
+import PyPDF2
 
 api_key = "9A2B3075-33A5-42FD-9831-3A6ACEAE97F4"
 headers = {'X-API-KEY': f'{api_key}'}
@@ -163,31 +163,29 @@ col5.write("Total: %s" % (morris_count + plano_count + oswego_count))
 #         mime="text/csv"
 #     )
 
-# Specify the directory to save the PDF file
-downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
+# Specify the directory containing the PDF files
+pdf_dir = os.path.join(os.path.expanduser("~"), "PDFs")
 
-if not os.path.exists(downloads_dir):
-    os.makedirs(downloads_dir)
+if not os.path.exists(pdf_dir):
+    os.makedirs(pdf_dir)
 
-# Save the DataFrame to a PDF file
-filename = "test.pdf"
-filepath = os.path.join(downloads_dir, filename)
+# Get a list of all the PDF files in the directory
+pdf_files = [os.path.join(pdf_dir, f) for f in os.listdir(pdf_dir) if f.endswith(".pdf")]
 
-# Define the PDF document
-pdf = FPDF()
-pdf.add_page()
-pdf.set_font("Arial", size=12)
-for index, row in df.iterrows():
-    pdf.cell(200, 10, str(row), border=1)
-    pdf.ln()
+# Merge the PDF files into a single document
+merged_pdf = PyPDF2.PdfFileMerger()
+for pdf_file in pdf_files:
+    merged_pdf.append(PyPDF2.PdfFileReader(pdf_file, "rb"))
 
-# Save the PDF document
-pdf.output(filepath)
+# Save the merged PDF to a file
+filename = "merged.pdf"
+filepath = os.path.join(pdf_dir, filename)
+merged_pdf.write(filepath)
 
-# Create a download button for the PDF file
+# Create a download button for the merged PDF
 with open(filepath, "rb") as f:
     st.download_button(
-        label="Download PDF",
+        label="Download Merged PDF",
         data=f.read(),
         file_name=filename,
         mime="application/pdf"
