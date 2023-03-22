@@ -97,7 +97,7 @@ oswego_count = 0
 plano_count = 0
 morris_count = 0
 
-col4, col5 = st.columns([2, 1])
+col4, col5, col6= st.columns([3, 1, 1])
 
 data = []
 for item in schedule_report:
@@ -138,8 +138,8 @@ for item in schedule_report:
 # # Display dataframe to Streamlit
 col4.dataframe(df)
 
-col5.write("Morris: {:>4}".format(morris_count))
-col5.write("Plano: {:>4}".format(plano_count))
-col5.write("Oswego: {:>4}".format(oswego_count))
+col5.write("Morris: %s" % morris_count)
+col5.write("Plano: %s" % plano_count)
+col5.write("Oswego: %s" % oswego_count)
 col5.write("\n\n")
-col5.write("Total: {:>4}".format((morris_count + plano_count + oswego_count)))
+col5.write("Total: %s" % (morris_count + plano_count + oswego_count))
