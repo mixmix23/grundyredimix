@@ -16,6 +16,12 @@ tree = ET.parse(f"mixes_xml/01-Mixes-{plant_code}.xml")
 root = tree.getroot()
 # Find the "MixHeader" elements in the XML file
 mix_headers = root.findall(".//MixHeader")
+
+if mix_name_filter is not None:
+    st.write(mix_name_filter)
+else:
+    st.write('no filter entered')
+
 # Create a list to store the data
 mix_list = []
 for mix_header in mix_headers:
@@ -23,10 +29,6 @@ for mix_header in mix_headers:
     mix_description = mix_header.find("MixDescription").text
     plant = mix_header.find("PlantCode").text
     constituents = mix_header.findall(".//Constituents")
-    if mix_name_filter is not None:
-        st.write(mix_name_filter)
-    else:
-        st.write('no filter entered')
     # Create a dictionary to store the data for each mix
     mix_data = {
         "Mix Number": mix_number,
