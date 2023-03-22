@@ -38,13 +38,9 @@ def get_employee_data():
         sys.exit(1)
 
 
-def get_schedule_data(iso_end_date):
-    iso_end_date = '2023-03-21T00'
-    # url = f'https://dfapi.digitalfleet.com/api/v2/Schedule?startTime={iso_start_date}%3A00%3A00&endTime={iso_end_date}%3A00%3A00&page=40&pageSize=100'
-    url = 'https://dfapi.digitalfleet.com/api/v2/Schedule?startTime=2023-01-01T00%3A00%3A00&endTime=2023-03-21T00%3A00%3A00&page=40&pageSize=100'
-    st.write(url)
-    st.write("endTime= %s" % iso_end_date)
-    # url = f'https://dfapi.digitalfleet.com/api/v2/Schedule?startTime={iso_date_arg}%3A00%3A00&page=1&pageSize=100'
+def get_schedule_data(iso_date_arg):
+    # iso_date_arg = '2023-03-07T00'
+    url = f'https://dfapi.digitalfleet.com/api/v2/Schedule?startTime={iso_date_arg}%3A00%3A00&page=1&pageSize=100'
     response = requests.get(url, headers=headers)
 
     if response.status_code == 200:
@@ -57,8 +53,7 @@ def get_schedule_data(iso_end_date):
         print('Schedule Data Full Keys')
         print(list(data["data"][0].keys()))
         for item in data['data']:
-            st.write("scheduleDate= %s" % item['scheduleDate'])
-            if iso_end_date in item['scheduleDate']:
+            if iso_date_arg in item['scheduleDate']:
                 schedule_data.append(
                     {'userId': item['userId'], 'plantPointId': item['plantPointId'],
                      'scheduleDate': item['scheduleDate'],
