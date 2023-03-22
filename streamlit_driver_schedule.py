@@ -18,6 +18,9 @@ def get_employee_data():
     if response.status_code == 200:
         employee_data = []
         data = response.json()
+        if len(data) == 0:
+            st.write("Data is empty\n %s" % data)
+            sys.exit(1)
         print('Employee Data Full Keys')
         print(list(data["data"][0].keys()))
         for item in data['data']:
@@ -42,7 +45,9 @@ def get_schedule_data(iso_date_arg):
     if response.status_code == 200:
         schedule_data = []
         data = response.json()
-        st.write(data)
+        if len(data) == 0:
+            st.write("Data is empty\n %s" % data)
+            sys.exit(1)
         print('Schedule Data Full Keys')
         print(list(data["data"][0].keys()))
         for item in data['data']:
