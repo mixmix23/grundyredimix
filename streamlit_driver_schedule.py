@@ -98,6 +98,10 @@ oswego_count = 0
 plano_count = 0
 morris_count = 0
 
+oswego_dh_count = 0
+plano_dh_count = 0
+morris_dh_count = 0
+
 col4, col5, col6 = st.columns([3, 1, 1])
 
 data = []
@@ -116,10 +120,13 @@ for item in schedule_report:
 
     if item['deadHeadPlantPointId'] == 15095411:
         dead_head = 'Oswego'
+        oswego_dh_count += 1
     elif item['deadHeadPlantPointId'] == 10533262:
         dead_head = 'Plano'
+        plano_dh_count += 1
     elif item['deadHeadPlantPointId'] == 10533260:
         dead_head = 'Morris'
+        morris_dh_count += 1
     else:
         dead_head = str(item['deadHeadPlantPointId'])
     iso_date_str = item['startTime']
@@ -154,6 +161,10 @@ col5.write("Plano: %s" % plano_count)
 col5.write("Oswego: %s" % oswego_count)
 col5.write("\n\n")
 col5.write("Total: %s" % (morris_count + plano_count + oswego_count))
+col5.write("\n\n")
+col5.write("Morris DH: %s" % morris_dh_count)
+col5.write("Plano DH: %s" % plano_dh_count)
+col5.write("Oswego DH: %s" % oswego_dh_count)
 
 # Specify the directory to save the CSV file
 downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
