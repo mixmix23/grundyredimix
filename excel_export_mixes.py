@@ -47,6 +47,7 @@ def create_mix_list(headers, mix_filter):
                 mix_list = item
             else:
                 st.write("No Mix Found")
+                break
 
     else:
         for mix_header in headers:
