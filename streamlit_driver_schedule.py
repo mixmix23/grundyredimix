@@ -54,7 +54,7 @@ def get_schedule_data(iso_end_date):
         print('Schedule Data Full Keys')
         print(list(data["data"][0].keys()))
         for item in data['data']:
-            if iso_date_arg in item['scheduleDate']:
+            if iso_end_date in item['scheduleDate']:
                 schedule_data.append(
                     {'userId': item['userId'], 'plantPointId': item['plantPointId'],
                      'scheduleDate': item['scheduleDate'],
