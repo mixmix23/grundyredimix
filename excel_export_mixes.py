@@ -21,7 +21,7 @@ root = tree.getroot()
 mix_headers = root.findall(".//MixHeader")
 
 
-def create_mix_list(headers, mix_filter):
+def create_mix_list(headers, mix_filter, desc_filter):
     # Create a list to store the data
     mix_list = []
     for mix_header in headers:
@@ -43,13 +43,13 @@ def create_mix_list(headers, mix_filter):
         mix_list.append(mix_data)
 
     filtered_mix_list = [mix_data for mix_data in mix_list if mix_filter.lower() in mix_data['mix_number'].lower()]
-    filtered_mix_desc_list = [mix_data for mix_data in mix_list if mix_filter.lower() in mix_data['mix_description'].lower()]
+    filtered_mix_desc_list = [mix_data for mix_data in mix_list if desc_filter.lower() in mix_data['mix_description'].lower()]
 
     return mix_list, filtered_mix_list, filtered_mix_desc_list
 
 
 # Create mix list by plant and filtered mix if applicable
-mix_list_by_plant, mix_filtered, desc_filtered = create_mix_list(mix_headers, mix_name_filter)
+mix_list_by_plant, mix_filtered, desc_filtered = create_mix_list(mix_headers, mix_name_filter, mix_desc_filter)
 
 # Create DataFrame
 if mix_name_filter:
