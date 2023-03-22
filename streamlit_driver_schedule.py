@@ -149,15 +149,15 @@ if not os.path.exists(downloads_dir):
     os.makedirs(downloads_dir)
 
 # Save the DataFrame to a CSV file
-filename = "test.csv"
+filename = "test.pdf"
 filepath = os.path.join(downloads_dir, filename)
-df.to_csv(filepath, index=False)
+df.to_pdf(filepath, index=False)
 
 # Create a download button for the CSV file
 with open(filepath, "rb") as f:
     st.download_button(
-        label="Download CSV",
+        label="Download pdf",
         data=f.read(),
         file_name=filename,
-        mime="text/csv"
+        mime="text/pdf"
     )
