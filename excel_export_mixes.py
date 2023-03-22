@@ -39,13 +39,17 @@ def create_mix_list(headers, mix_filter):
         # Append the mix data to the list
         mix_list.append(mix_data)
 
-    return mix_list
+    filtered_mix_list = [mix_data for mix_data in mix_list if mix_filter.lower() in mix_data['mix_number'].lower()]
+
+    return mix_list, filtered_mix_list
 
 
-mix_list_by_plant = create_mix_list(mix_headers, mix_name_filter)
+mix_list_by_plant, mix_filtered = create_mix_list(mix_headers, mix_name_filter)
 
-# Create a DataFrame from the data
-df = pd.DataFrame(mix_list_by_plant)
+if mix_name_filter:
+    df = pd.DataFrame(mix_filtered)
+else:
+    df = pd.DataFrame(mix_list_by_plant)
 
 # Display the data in a table
 st.dataframe(df)
