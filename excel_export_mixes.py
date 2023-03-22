@@ -21,6 +21,7 @@ mix_headers = root.findall(".//MixHeader")
 def create_mix_list(headers, mix_filter):
     # Create a list to store the data
     mix_list = []
+    mix_list_filtered = []
     if mix_filter:
         for mix_header in headers:
             mix_number = mix_header.find("MixNumber").text
@@ -44,10 +45,7 @@ def create_mix_list(headers, mix_filter):
                 st.write("got a match")
                 st.write("item mix number: %s, mix filter: %s" % (item['mix_number'], mix_filter))
                 st.write(item)
-                mix_list = item[0]
-            # else:
-            #     st.write("No Mix Found")
-            #     break
+                mix_list_filtered = item
 
     else:
         for mix_header in headers:
@@ -68,13 +66,15 @@ def create_mix_list(headers, mix_filter):
             # Append the mix data to the list
             mix_list.append(mix_data)
 
-    return mix_list
+    return mix_list, mix_list_filtered
 
 
-mix_list_by_plant = create_mix_list(mix_headers, mix_name_filter)
+mix_list_by_plant, mix_filtered = create_mix_list(mix_headers, mix_name_filter)
 
-# Create a DataFrame from the data
-df = pd.DataFrame(mix_list_by_plant)
+if mix_name_filter:
+    df = pd.DataFrame(mix_name_filter)
+else:
+    df = pd.DataFrame(mix_list_by_plant)
 
 # Display the data in a table
 st.dataframe(df)
