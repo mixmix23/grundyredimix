@@ -39,7 +39,6 @@ def get_schedule_data(iso_date_arg):
     if response.status_code == 200:
         schedule_data = []
         data = response.json()
-        st.write(data)
         print('Schedule Data Full Keys')
         print(list(data["data"][0].keys()))
         for item in data['data']:
