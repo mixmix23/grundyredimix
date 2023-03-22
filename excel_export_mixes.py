@@ -44,7 +44,7 @@ def create_mix_list(headers, mix_filter):
                 st.write("got a match")
                 st.write("item mix number: %s, mix filter: %s" % (item['mix_number'], mix_filter))
                 st.write(item)
-                mix_list = item
+                mix_list = item[0]
             # else:
             #     st.write("No Mix Found")
             #     break
