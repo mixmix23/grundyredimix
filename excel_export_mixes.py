@@ -7,9 +7,12 @@ st.set_page_config(page_title="Mixes XML to CSV")
 # Sidebar to select plant code
 plant_code = st.sidebar.radio("Select plant code", ["001", "002", "003", "004", "005"])
 
+
+col1, col2 = st.columns(2)
 # Filter by mix name
-col1, col2 = st.columns([3, 1])
-mix_name_filter = col1.text_input('Search Mix', placeholder='mix')
+mix_name_filter = col1.text_input('Search Mix Number', placeholder='mix')
+# Filter by mix desc
+mix_desc_filter = col2.text_input('Search Mix Description', placeholder='mix')
 
 # Parse the XML file
 tree = ET.parse(f"mixes_xml/01-Mixes-{plant_code}.xml")
@@ -40,16 +43,19 @@ def create_mix_list(headers, mix_filter):
         mix_list.append(mix_data)
 
     filtered_mix_list = [mix_data for mix_data in mix_list if mix_filter.lower() in mix_data['mix_number'].lower()]
+    filtered_mix_desc_list = [mix_data for mix_data in mix_list if mix_filter.lower() in mix_data['mix_description'].lower()]
 
-    return mix_list, filtered_mix_list
+    return mix_list, filtered_mix_list, filtered_mix_desc_list
 
 
 # Create mix list by plant and filtered mix if applicable
-mix_list_by_plant, mix_filtered = create_mix_list(mix_headers, mix_name_filter)
+mix_list_by_plant, mix_filtered, desc_filtered = create_mix_list(mix_headers, mix_name_filter)
 
 # Create DataFrame
 if mix_name_filter:
     df = pd.DataFrame(mix_filtered)
+elif:
+    df = pd.DataFrame(desc_filtered)
 else:
     df = pd.DataFrame(mix_list_by_plant)
 
