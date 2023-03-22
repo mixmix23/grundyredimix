@@ -9,6 +9,7 @@ from datetime import datetime
 api_key = "9A2B3075-33A5-42FD-9831-3A6ACEAE97F4"
 headers = {'X-API-KEY': f'{api_key}'}
 
+st.set_page_config(page_title="Driver Schedule")
 
 def get_employee_data():
     url = 'https://dfapi.digitalfleet.com/api/v2/Users?page=1&pageSize=100'
