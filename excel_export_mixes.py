@@ -17,31 +17,34 @@ root = tree.getroot()
 # Find the "MixHeader" elements in the XML file
 mix_headers = root.findall(".//MixHeader")
 
-if mix_name_filter:
-    st.write('mix entered')
 
-# Create a list to store the data
-mix_list = []
-for mix_header in mix_headers:
-    mix_number = mix_header.find("MixNumber").text
-    mix_description = mix_header.find("MixDescription").text
-    plant = mix_header.find("PlantCode").text
-    constituents = mix_header.findall(".//Constituents")
-    # Create a dictionary to store the data for each mix
-    mix_data = {
-        "Mix Number": mix_number,
-        "Mix Description": mix_description,
-        "Plant": plant
-    }
-    for constituent in constituents:
-        constituent_code = constituent.find("ConstituentCode").text
-        dosage = constituent.find("Dosage").text
-        mix_data[constituent_code] = dosage
-    # Append the mix data to the list
-    mix_list.append(mix_data)
+def create_mix_list(headers, mix_filter):
+    # Create a list to store the data
+    mix_list = []
+    for mix_header in headers:
+        mix_number = mix_header.find("MixNumber").text
+        mix_description = mix_header.find("MixDescription").text
+        plant = mix_header.find("PlantCode").text
+        constituents = mix_header.findall(".//Constituents")
+        # Create a dictionary to store the data for each mix
+        mix_data = {
+            "Mix Number": mix_number,
+            "Mix Description": mix_description,
+            "Plant": plant
+        }
+        for constituent in constituents:
+            constituent_code = constituent.find("ConstituentCode").text
+            dosage = constituent.find("Dosage").text
+            mix_data[constituent_code] = dosage
+        # Append the mix data to the list
+        mix_list.append(mix_data)
+    return mix_list
+
+
+mix_list_by_plant = create_mix_list(mix_headers, mix_name_filter)
 
 # Create a DataFrame from the data
-df = pd.DataFrame(mix_list)
+df = pd.DataFrame(mix_list_by_plant)
 
 # Display the data in a table
 st.dataframe(df)
@@ -62,6 +65,3 @@ with open(filepath, "rb") as f:
         file_name=filename,
         mime="text/csv"
     )
-
-
-
