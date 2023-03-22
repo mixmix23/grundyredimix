@@ -36,7 +36,7 @@ def get_employee_data():
         #     print(item)
         return employee_data
     else:
-        st.write(f"Error: Failed to retrieve data from {url}")
+        st.write(f"Error: Failed to retrieve data  from {url}")
         sys.exit(1)
 
 
