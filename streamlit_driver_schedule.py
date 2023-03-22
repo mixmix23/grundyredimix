@@ -32,7 +32,7 @@ def get_employee_data():
 
 
 def get_schedule_data(iso_date_arg):
-    # iso_date_arg = '2023-03-22T00'
+    # iso_date_arg = '2023-03-07T00'
     url = f'https://dfapi.digitalfleet.com/api/v2/Schedule?endTime={iso_date_arg}%3A00%3A00&page=1&pageSize=100'
     response = requests.get(url, headers=headers)
 
@@ -81,14 +81,23 @@ for item in schedule_list:
 # print('Start Times')
 # for item in schedule_report:
 #     print(item)
+oswego_count = 0
+plano_count = 0
+morris_count = 0
+
+col4, col5= st.columns(2)
+
 data = []
 for item in schedule_report:
     if item['plantPointId'] == 15095411:
         plantId = 'Oswego'
+        oswego_count += 1
     elif item['plantPointId'] == 10533262:
         plantId = 'Plano'
+        plano_count += 1
     elif item['plantPointId'] == 10533260:
         plantId = 'Morris'
+        morris_count += 1
     else:
         plantId = str(item['plantPointId'])
     iso_date_str = item['startTime']
@@ -115,4 +124,8 @@ for item in schedule_report:
     df = df.drop(columns='Hire')
 
 # # Display dataframe to Streamlit
-st.dataframe(df)
+col4.dataframe(df)
+
+col5.write("Morris: %s" % morris_count)
+col5.write("Plano: %s" % plano_count)
+col5.write("Oswego: %s" % oswego_count)
