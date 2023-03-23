@@ -154,7 +154,7 @@ for item in schedule_report:
     df = df.sort_values('Hire')
     df = df.drop(columns='Hire')
 
-col4.dataframe(df, width=700)
+col4.dataframe(df)
 
 col5.write("Morris: %s" % morris_count)
 col5.write("Plano: %s" % plano_count)
