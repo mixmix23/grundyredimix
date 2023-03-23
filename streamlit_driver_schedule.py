@@ -176,6 +176,7 @@ col4.dataframe(df)
 col5.write("Morris: %s" % morris_count)
 col5.write("Plano: %s" % plano_count)
 col5.write("Oswego: %s" % oswego_count)
+col5.write("Coal City: %s" % oswego_count)
 col5.write("\n")
 col5.write("Total: %s" % (morris_count + plano_count + oswego_count))
 col5.write("---")
@@ -185,6 +186,8 @@ if plano_dh_count > 0:
     col5.write("Plano DH: %s" % plano_dh_count)
 if oswego_dh_count > 0:
     col5.write("Oswego DH: %s" % oswego_dh_count)
+if cc_dh_count > 0:
+    col5.write("Coal City DH: %s" % cc_dh_count)
 
 # Specify the directory to save the CSV file
 downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
