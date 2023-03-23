@@ -24,7 +24,7 @@ last_modified = os.path.getmtime(f"mixes_xml/01-Mixes-{plant_code}.xml")
 dt_object = datetime.datetime.fromtimestamp(last_modified)
 central_us_tz = datetime.timezone(datetime.timedelta(hours=-6)) # CST
 central_us_time = dt_object.astimezone(central_us_tz)
-st.caption("Last Update: %s" % central_us_time)
+st.caption("Last Update: %s" % central_us_time.strftime('%Y-%m-%d %H:%M:%S'))
 
 # Find the "MixHeader" elements in the XML file
 mix_headers = root.findall(".//MixHeader")
