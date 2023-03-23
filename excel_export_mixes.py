@@ -2,6 +2,7 @@ import xml.etree.ElementTree as ET
 import streamlit as st
 import pandas as pd
 import os
+import datetime
 
 st.set_page_config(page_title="Mixes XML to CSV")
 # Sidebar to select plant code
@@ -17,8 +18,14 @@ mix_desc_filter = col2.text_input('Search Mix Description', placeholder='mix')
 # Parse the XML file
 tree = ET.parse(f"mixes_xml/01-Mixes-{plant_code}.xml")
 root = tree.getroot()
+
+# Get last modified date of xml file
 last_modified = os.path.getmtime(f"mixes_xml/01-Mixes-{plant_code}.xml")
-st.write(last_modified)
+dt_object = datetime.datetime.fromtimestamp(last_modified)
+central_us_tz = datetime.timezone(datetime.timedelta(hours=-6)) # CST
+central_us_time = dt_object.astimezone(central_us_tz)
+st.caption("Last Update: %s" % central_us_time)
+
 # Find the "MixHeader" elements in the XML file
 mix_headers = root.findall(".//MixHeader")
 
