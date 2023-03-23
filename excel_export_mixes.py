@@ -13,7 +13,7 @@ col1, col2 = st.columns(2)
 # Filter by mix name
 mix_name_filter = col1.text_input('Search Mix Number', placeholder='mix')
 # Filter by mix desc
-mix_desc_filter = col2.text_input('Search Mix Description', placeholder='mix')
+mix_desc_filter = col2.text_input('Search Mix Description', placeholder='desc')
 
 # Parse the XML file
 tree = ET.parse(f"mixes_xml/01-Mixes-{plant_code}.xml")
