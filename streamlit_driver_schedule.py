@@ -39,8 +39,9 @@ def get_employee_data():
         sys.exit(1)
 
 
-def get_schedule_data(iso_date_arg, iso_end_date_arg):
-    url = f'https://dfapi.digitalfleet.com/api/v2/Schedule?startTime={iso_date_arg}%3A00%3A00&endTime={iso_end_date_arg}%3A00%3A00&pageSize=100'
+# def get_schedule_data(iso_date_arg, iso_end_date_arg):
+def get_schedule_data(iso_date_arg):
+    url = f'https://dfapi.digitalfleet.com/api/v2/Schedule?startTime={iso_date_arg}%3A00%3A00&endTime={iso_date_arg}%3A00%3A00&pageSize=100'
     response = requests.get(url, headers=headers)
 
     if response.status_code == 200:
@@ -75,18 +76,19 @@ selected_date = col1.date_input("Select Start Date")
 
 # # Create a checkbox
 # activate_date_input = st.checkbox("Date Range")
-
+#
 iso_date = selected_date.strftime('%Y-%m-%dT%H')
-
-# If checkbox is checked, activate date_input widget
-if activate_date_input:
-    select_end_date = col2.date_input("Select End Date")
-    iso_end_date = select_end_date.strftime('%Y-%m-%dT%H')
-else:
-    iso_end_date = iso_date
+#
+# # If checkbox is checked, activate date_input widget
+# if activate_date_input:
+#     select_end_date = col2.date_input("Select End Date")
+#     iso_end_date = select_end_date.strftime('%Y-%m-%dT%H')
+# else:
+#     iso_end_date = iso_date
 
 employee_list = get_employee_data()
-schedule_list = get_schedule_data(iso_date, iso_end_date)
+# schedule_list = get_schedule_data(iso_date, iso_end_date)
+schedule_list = get_schedule_data(iso_date)
 
 schedule_report = []
 for item in schedule_list:
