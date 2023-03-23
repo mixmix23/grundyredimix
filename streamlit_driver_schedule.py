@@ -76,6 +76,7 @@ selected_date = col1.date_input("Select a date")
 # Create a checkbox
 activate_date_input = st.checkbox("Date Range")
 
+selected_date_range = None
 # If checkbox is checked, activate date_input widget
 if activate_date_input:
     select_date_range = col2.date_input("Select for Range")
