@@ -78,7 +78,7 @@ activate_date_input = st.checkbox("Date Range")
 
 if selected_date:
     iso_date = selected_date.strftime('%Y-%m-%dT%H')
-st.write("date: %s" % iso_date)
+st.write("start date: %s" % iso_date)
 
 # If checkbox is checked, activate date_input widget
 if activate_date_input:
@@ -87,7 +87,7 @@ if activate_date_input:
 else:
     iso_date_range = iso_date
 
-st.write("date range: %s" % iso_date_range)
+st.write("end date: %s" % iso_date_range)
 
 employee_list = get_employee_data()
 schedule_list = get_schedule_data(iso_date, iso_date_range)
