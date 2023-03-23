@@ -33,6 +33,7 @@ mix_headers = root.findall(".//MixHeader")
 def create_mix_list(headers, mix_filter, desc_filter):
     # Create a list to store the data
     mix_list = []
+    combined_list = []
     for mix_header in headers:
         mix_number = mix_header.find("MixNumber").text
         mix_description = mix_header.find("MixDescription").text
@@ -54,14 +55,20 @@ def create_mix_list(headers, mix_filter, desc_filter):
     filtered_mix_list = [mix_data for mix_data in mix_list if mix_filter.lower() in mix_data['mix_number'].lower()]
     filtered_mix_desc_list = [mix_data for mix_data in mix_list if desc_filter.lower() in mix_data['mix_description'].lower()]
 
-    return mix_list, filtered_mix_list, filtered_mix_desc_list
+    if filtered_mix_list and filtered_mix_desc_list:
+        # Combine the filtered lists
+        combined_list = list(set(filtered_mix_list) & set(filtered_mix_desc_list))
+
+    return mix_list, filtered_mix_list, filtered_mix_desc_list, combined_list
 
 
 # Create mix list by plant and filtered mix if applicable
-mix_list_by_plant, mix_filtered, desc_filtered = create_mix_list(mix_headers, mix_name_filter, mix_desc_filter)
+mix_list_by_plant, mix_filtered, desc_filtered, combined_filtered = create_mix_list(mix_headers, mix_name_filter, mix_desc_filter)
 
 # Create DataFrame
-if mix_name_filter:
+if mix_name_filter and mix_desc_filter:
+    df = pd.DataFrame(combined_filtered)
+elif mix_name_filter:
     df = pd.DataFrame(mix_filtered)
 elif mix_desc_filter:
     df = pd.DataFrame(desc_filtered)
