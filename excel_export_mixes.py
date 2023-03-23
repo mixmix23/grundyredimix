@@ -56,6 +56,7 @@ def create_mix_list(headers, mix_filter, desc_filter):
     filtered_mix_desc_list = [mix_data for mix_data in mix_list if desc_filter.lower() in mix_data['mix_description'].lower()]
 
     combined_list = list(set(filtered_mix_list) & set(filtered_mix_desc_list))
+    st.write(combined_list)
 
     return mix_list, filtered_mix_list, filtered_mix_desc_list, combined_list
 
