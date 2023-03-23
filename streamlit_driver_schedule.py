@@ -174,10 +174,14 @@ for item in schedule_report:
 
 col4.dataframe(df)
 
-col5.write("Morris: %s" % morris_count)
-col5.write("Plano: %s" % plano_count)
-col5.write("Oswego: %s" % oswego_count)
-col5.write("Coal City: %s" % cc_count)
+if morris_count > 0:
+    col5.write("Morris: %s" % morris_count)
+if plano_count > 0:
+    col5.write("Plano: %s" % plano_count)
+if oswego_count > 0:
+    col5.write("Oswego: %s" % oswego_count)
+if cc_count > 0:
+    col5.write("Coal City: %s" % cc_count)
 col5.write("\n")
 col5.write("Total: %s" % (morris_count + plano_count + oswego_count + cc_count))
 col5.write("---")
