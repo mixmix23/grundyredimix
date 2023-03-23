@@ -17,6 +17,8 @@ mix_desc_filter = col2.text_input('Search Mix Description', placeholder='mix')
 # Parse the XML file
 tree = ET.parse(f"mixes_xml/01-Mixes-{plant_code}.xml")
 root = tree.getroot()
+last_modified = os.path.getmtime(f"mixes_xml/01-Mixes-{plant_code}.xml")
+st.write(last_modified)
 # Find the "MixHeader" elements in the XML file
 mix_headers = root.findall(".//MixHeader")
 
