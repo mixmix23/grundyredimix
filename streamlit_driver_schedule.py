@@ -76,18 +76,17 @@ selected_date = col1.date_input("Select a date")
 # Create a checkbox
 activate_date_input = st.checkbox("Date Range")
 
-# If checkbox is checked, activate date_input widget
-if activate_date_input:
-    select_date_range = col2.date_input("Select for Range")
-
 if selected_date:
     iso_date = selected_date.strftime('%Y-%m-%dT%H')
 st.write("date: %s" % iso_date)
 
-if select_date_range:
+# If checkbox is checked, activate date_input widget
+if activate_date_input:
+    select_date_range = col2.date_input("Select for Range")
     iso_date_range = select_date_range.strftime('%Y-%m-%dT%H')
 else:
     iso_date_range = iso_date
+
 st.write("date range: %s" % iso_date_range)
 
 employee_list = get_employee_data()
