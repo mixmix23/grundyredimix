@@ -71,7 +71,7 @@ def get_schedule_data(iso_date_arg, iso_date_range_arg):
 # Create 3 equal-width columns
 col1, col2 = st.columns(2)
 # Add a date picker to the first column
-selected_date = col1.date_input("Select a date")
+selected_date = col1.date_input("Select Start Date")
 
 # Create a checkbox
 activate_date_input = st.checkbox("Date Range")
@@ -81,7 +81,7 @@ st.write("start date: %s" % iso_date)
 
 # If checkbox is checked, activate date_input widget
 if activate_date_input:
-    select_date_range = col2.date_input("Select for Range")
+    select_date_range = col2.date_input("Select End Date")
     iso_date_range = select_date_range.strftime('%Y-%m-%dT%H')
 else:
     iso_date_range = iso_date
