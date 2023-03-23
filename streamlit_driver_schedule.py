@@ -106,10 +106,12 @@ for item in schedule_list:
 oswego_count = 0
 plano_count = 0
 morris_count = 0
+cc_count = 0
 
 oswego_dh_count = 0
 plano_dh_count = 0
 morris_dh_count = 0
+cc_dh_count = 0
 
 col4, col5, col6 = st.columns([3, 1, 1])
 
@@ -124,6 +126,9 @@ for item in schedule_report:
     elif item['plantPointId'] == 10533260:
         plantId = 'Morris'
         morris_count += 1
+    elif item['plantPointId'] == 10533261:
+        plantId = "Coal City"
+        cc_count += 1
     else:
         plantId = str(item['plantPointId'])
 
@@ -136,6 +141,9 @@ for item in schedule_report:
     elif item['deadHeadPlantPointId'] == 10533260:
         dead_head = 'Morris'
         morris_dh_count += 1
+    elif item['plantPointId'] == 10533261:
+        dead_head = "Coal City"
+        cc_dh_count += 1
     else:
         dead_head = str(item['deadHeadPlantPointId'])
     iso_date_str = item['startTime']
