@@ -81,15 +81,15 @@ st.write("start date: %s" % iso_date)
 
 # If checkbox is checked, activate date_input widget
 if activate_date_input:
-    select_date_range = col2.date_input("Select End Date")
-    iso_date_range = select_date_range.strftime('%Y-%m-%dT%H')
+    select_end_date = col2.date_input("Select End Date")
+    iso_end_date = select_end_date.strftime('%Y-%m-%dT%H')
 else:
-    iso_date_range = iso_date
+    iso_end_date = iso_date
 
-st.write("end date: %s" % iso_date_range)
+st.write("end date: %s" % iso_end_date)
 
 employee_list = get_employee_data()
-schedule_list = get_schedule_data(iso_date, iso_date_range)
+schedule_list = get_schedule_data(iso_date, iso_end_date)
 
 schedule_report = []
 for item in schedule_list:
