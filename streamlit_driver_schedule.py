@@ -39,7 +39,7 @@ def get_employee_data():
         sys.exit(1)
 
 
-def get_schedule_data(iso_date_arg):
+def get_schedule_data(iso_date_arg, iso_date_range_arg):
     url = f'https://dfapi.digitalfleet.com/api/v2/Schedule?startTime={iso_date_arg}%3A00%3A00&endTime={iso_date_arg}%3A00%3A00&pageSize=100'
     response = requests.get(url, headers=headers)
 
@@ -82,11 +82,14 @@ if activate_date_input:
 
 if selected_date:
     iso_date = selected_date.strftime('%Y-%m-%dT%H')
-# Display the selected date in the second column
-# col1.write('Selected date: ' + str(iso_date))
+st.write("date: %s" % iso_date)
+
+if select_date_range:
+    iso_date_range = select_date_range.strftime('%Y-%m-%dT%H')
+st.write("date range: %s" % iso_date_range)
 
 employee_list = get_employee_data()
-schedule_list = get_schedule_data(iso_date)
+schedule_list = get_schedule_data(iso_date, iso_date_range)
 
 schedule_report = []
 for item in schedule_list:
