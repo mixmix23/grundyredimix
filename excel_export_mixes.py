@@ -6,8 +6,18 @@ import datetime
 
 st.set_page_config(page_title="Mixes XML to CSV")
 # Sidebar to select plant code
-plant_code = st.sidebar.radio("Select plant code", ["001", "002", "003", "004", "005"])
+plant_select = st.sidebar.radio("Select plant code", ["001", "002", "003", "004", "005"])
 
+if plant_select == "Coal City":
+    plant_code = "001"
+elif plant_select == "Morris":
+    plant_code = "002"
+elif plant_select == "River":
+    plant_code = "003"
+elif plant_select == "Plano":
+    plant_code = "004"
+elif plant_select == "Oswego":
+    plant_code = "005"
 
 col1, col2 = st.columns(2)
 # Filter by mix name
@@ -22,7 +32,7 @@ root = tree.getroot()
 # Get last modified date of xml file
 last_modified = os.path.getmtime(f"mixes_xml/01-Mixes-{plant_code}.xml")
 dt_object = datetime.datetime.fromtimestamp(last_modified)
-central_us_tz = datetime.timezone(datetime.timedelta(hours=-6)) # CST
+central_us_tz = datetime.timezone(datetime.timedelta(hours=-6))  # CST
 central_us_time = dt_object.astimezone(central_us_tz)
 st.caption("Last Update: %s" % central_us_time.strftime('%Y-%m-%d %H:%M:%S'))
 
@@ -52,7 +62,8 @@ def create_mix_list(headers, mix_filter, desc_filter):
         mix_list.append(mix_data)
 
     filtered_mix_list = [mix_data for mix_data in mix_list if mix_filter.lower() in mix_data['mix_number'].lower()]
-    filtered_mix_desc_list = [mix_data for mix_data in mix_list if desc_filter.lower() in mix_data['mix_description'].lower()]
+    filtered_mix_desc_list = [mix_data for mix_data in mix_list if
+                              desc_filter.lower() in mix_data['mix_description'].lower()]
 
     return mix_list, filtered_mix_list, filtered_mix_desc_list
 
