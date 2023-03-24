@@ -18,8 +18,6 @@ elif plant_select == "Plano":
     plant_code = "004"
 elif plant_select == "Oswego":
     plant_code = "005"
-else:
-    plant_code = "001"
 
 col1, col2 = st.columns(2)
 # Filter by mix name
