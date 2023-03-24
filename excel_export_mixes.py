@@ -6,7 +6,7 @@ import datetime
 
 st.set_page_config(page_title="Mixes XML to CSV")
 # Sidebar to select plant code
-plant_select = st.sidebar.radio("Select plant code", ["001", "002", "003", "004", "005"])
+plant_select = st.sidebar.radio("Select plant code", ["Coal City", "Morris", "River", "Plano", "Oswego"])
 
 if plant_select == "Coal City":
     plant_code = "001"
