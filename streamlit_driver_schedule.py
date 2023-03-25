@@ -188,8 +188,7 @@ total_count = morris_count + plano_count + oswego_count + cc_count
 if len(count_list) > 0:
     count_list.append({'plant': 'Total', 'count': total_count})
     df = pd.DataFrame(count_list)
-    st.markdown(df.style.hide(axis="index").to_html(), unsafe_allow_html=True)
-    col5.table(df)
+    col5.markdown(df.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
 col5.write("---")
 
