@@ -186,8 +186,10 @@ if cc_count > 0:
 
 df = pd.DataFrame(count_list)
 col5.dataframe(df)
-col5.dataframe(morris_count + plano_count + oswego_count + cc_count)
 
+
+col5.write("\n")
+col5.write("Total: %s" % (morris_count + plano_count + oswego_count + cc_count))
 col5.write("---")
 if morris_dh_count > 0:
     col5.write("Morris DH: %s" % morris_dh_count)
