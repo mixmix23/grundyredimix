@@ -188,7 +188,8 @@ if cc_count > 0:
     col5.write("Coal City: %s" % cc_count)
     count_list.append({'plant': 'Coal City', 'count': cc_count})
 
-df=pd.DataFrame(count_list, index=False)
+df = pd.DataFrame(count_list,)
+df = df.reset_index(drop=True)
 col5.dataframe(df)
 
 
