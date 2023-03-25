@@ -189,7 +189,7 @@ if cc_count > 0:
     count_list.append({'plant': 'Coal City', 'count': cc_count})
 
 df = pd.DataFrame(count_list)
-df = df.reset_index(drop=True)
+df = df.drop(columns=['index'], axis=1, errors='ignore')
 col5.dataframe(df)
 
 
