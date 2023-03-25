@@ -190,19 +190,16 @@ col5.dataframe(df)
 col5.write("\n")
 col5.write("Total: %s" % (morris_count + plano_count + oswego_count + cc_count))
 col5.write("---")
+col5.write("Dead Head")
 
 dh_list = []
 if morris_dh_count > 0:
-    col5.write("Morris DH: %s" % morris_dh_count)
     dh_list.append({'plant': 'Morris', 'count': morris_dh_count})
 if plano_dh_count > 0:
-    col5.write("Plano DH: %s" % plano_dh_count)
     dh_list.append({'plant': 'Plano', 'count': plano_dh_count})
 if oswego_dh_count > 0:
-    col5.write("Oswego DH: %s" % oswego_dh_count)
     dh_list.append({'plant': 'Oswego', 'count': oswego_dh_count})
 if cc_dh_count > 0:
-    col5.write("Coal City DH: %s" % cc_dh_count)
     dh_list.append({'plant': 'Coal City', 'count': cc_dh_count})
 df = pd.DataFrame(dh_list)
 col5.dataframe(df)
