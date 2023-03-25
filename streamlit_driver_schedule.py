@@ -176,24 +176,18 @@ col4.dataframe(df)
 
 count_list = []
 if morris_count > 0:
-    col5.write("Morris: %s" % morris_count)
     count_list.append({'plant': 'Morris', 'count': morris_count})
 if plano_count > 0:
-    col5.write("Plano: %s" % plano_count)
     count_list.append({'plant': 'Plano', 'count': plano_count})
 if oswego_count > 0:
-    col5.write("Oswego: %s" % oswego_count)
     count_list.append({'plant': 'Oswego', 'count': oswego_count})
 if cc_count > 0:
-    col5.write("Coal City: %s" % cc_count)
     count_list.append({'plant': 'Coal City', 'count': cc_count})
 
 df = pd.DataFrame(count_list)
 col5.dataframe(df)
+col5.dataframe(morris_count + plano_count + oswego_count + cc_count)
 
-
-col5.write("\n")
-col5.write("Total: %s" % (morris_count + plano_count + oswego_count + cc_count))
 col5.write("---")
 if morris_dh_count > 0:
     col5.write("Morris DH: %s" % morris_dh_count)
