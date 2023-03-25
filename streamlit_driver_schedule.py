@@ -189,9 +189,6 @@ if len(count_list) > 0:
     df = pd.DataFrame(count_list)
     col5.dataframe(df)
 
-
-# col5.write("\n")
-# col5.write("Total: %s" % (morris_count + plano_count + oswego_count + cc_count))
 col5.write("---")
 
 dh_list = []
