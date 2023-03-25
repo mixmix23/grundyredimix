@@ -202,7 +202,8 @@ if oswego_dh_count > 0:
 if cc_dh_count > 0:
     dh_list.append({'plant': 'Coal City', 'count': cc_dh_count})
 df = pd.DataFrame(dh_list)
-col5.dataframe(df)
+if df:
+    col5.dataframe(df)
 
 
 # Specify the directory to save the CSV file
