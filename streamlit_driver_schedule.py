@@ -187,7 +187,8 @@ total_count = morris_count + plano_count + oswego_count + cc_count
 if len(count_list) > 0:
     count_list.append({'plant': 'Total', 'count': total_count})
     df = pd.DataFrame(count_list)
-    col5.dataframe(df, hide_index=True)
+    pd.set_option('display.show_index', False)
+    col5.dataframe(df)
 
 col5.write("---")
 
