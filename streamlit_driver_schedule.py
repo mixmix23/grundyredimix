@@ -171,8 +171,9 @@ for item in schedule_report:
                       columns=['Hire', 'Name', 'Plant', 'Start Time', "Dead Head"])
     df = df.sort_values('Hire')
     df = df.drop(columns='Hire')
-
 col4.dataframe(df)
+
+col5.write("---")
 
 count_list = []
 if morris_count > 0:
