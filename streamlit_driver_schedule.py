@@ -190,7 +190,6 @@ col5.dataframe(df)
 col5.write("\n")
 col5.write("Total: %s" % (morris_count + plano_count + oswego_count + cc_count))
 col5.write("---")
-col5.write("Dead Head")
 
 dh_list = []
 if morris_dh_count > 0:
@@ -202,7 +201,8 @@ if oswego_dh_count > 0:
 if cc_dh_count > 0:
     dh_list.append({'plant': 'Coal City', 'count': cc_dh_count})
 df = pd.DataFrame(dh_list)
-col5.dataframe(df)
+if dh_list is not None:
+    col5.dataframe(df)
 
 
 # Specify the directory to save the CSV file
