@@ -188,14 +188,7 @@ if cc_count > 0:
     col5.write("Coal City: %s" % cc_count)
     count_list.append({'plant': 'Coal City', 'count': cc_count})
 
-for item in count_list:
-    if isinstance(item, dict):
-        data.append([
-            item['plant'],
-            item['count']
-        ])
-    df = pd.DataFrame(data,
-                      columns=['Plant', 'Count'])
+df=pd.DataFrame(count_list)
 col5.dataframe(df)
 
 
