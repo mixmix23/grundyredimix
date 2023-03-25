@@ -187,7 +187,7 @@ total_count = morris_count + plano_count + oswego_count + cc_count
 if len(count_list) > 0:
     count_list.append({'plant': 'Total', 'count': total_count})
     df = pd.DataFrame(count_list)
-    col5.dataframe(df)
+    col5.dataframe(df, hide_index=True)
 
 col5.write("---")
 
@@ -204,7 +204,6 @@ df = pd.DataFrame(dh_list)
 if len(dh_list) > 0:
     col5.write("Dead Head")
     col5.dataframe(df)
-
 
 # Specify the directory to save the CSV file
 downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
