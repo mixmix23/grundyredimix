@@ -114,7 +114,7 @@ plano_dh_count = 0
 morris_dh_count = 0
 cc_dh_count = 0
 
-col4, col5= st.columns([3, 2])
+col4, col5, col6 = st.columns([2, 1, 1])
 
 data = []
 for item in schedule_report:
@@ -173,7 +173,7 @@ for item in schedule_report:
     df = df.drop(columns='Hire')
 col4.dataframe(df)
 
-col5.write("---")
+# col5.write("---")
 
 count_list = []
 if morris_count > 0:
@@ -190,7 +190,7 @@ if len(count_list) > 0:
     df = pd.DataFrame(count_list)
     col5.markdown(df.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
-col5.write("---")
+# col5.write("---")
 
 dh_list = []
 if morris_dh_count > 0:
@@ -203,8 +203,8 @@ if cc_dh_count > 0:
     dh_list.append({'plant': 'Coal City', 'count': cc_dh_count})
 df = pd.DataFrame(dh_list)
 if len(dh_list) > 0:
-    col5.write("Dead Head")
-    col5.markdown(df.style.hide(axis="index").to_html(), unsafe_allow_html=True)
+    col6.write("Dead Head")
+    col6.markdown(df.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
 # Specify the directory to save the CSV file
 downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
