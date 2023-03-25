@@ -201,7 +201,7 @@ if oswego_dh_count > 0:
 if cc_dh_count > 0:
     dh_list.append({'plant': 'Coal City', 'count': cc_dh_count})
 df = pd.DataFrame(dh_list)
-if dh_list is not None:
+if len(dh_list) > 0:
     col5.dataframe(df)
 
 
