@@ -183,12 +183,15 @@ if oswego_count > 0:
     count_list.append({'plant': 'Oswego', 'count': oswego_count})
 if cc_count > 0:
     count_list.append({'plant': 'Coal City', 'count': cc_count})
-df = pd.DataFrame(count_list)
-col5.dataframe(df)
+total_count = morris_count + plano_count + oswego_count + cc_count
+if len(count_list) > 0:
+    count_list.append({'plant': 'Total', 'count': total_count})
+    df = pd.DataFrame(count_list)
+    col5.dataframe(df)
 
 
-col5.write("\n")
-col5.write("Total: %s" % (morris_count + plano_count + oswego_count + cc_count))
+# col5.write("\n")
+# col5.write("Total: %s" % (morris_count + plano_count + oswego_count + cc_count))
 col5.write("---")
 
 dh_list = []
