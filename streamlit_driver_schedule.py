@@ -171,7 +171,7 @@ for item in schedule_report:
                       columns=['Hire', 'Name', 'Plant', 'Start Time', "Dead Head"])
     df = df.sort_values('Hire')
     df = df.drop(columns='Hire')
-col4.dataframe(df.style.hide(axis="index").to_html(), unsafe_allow_html=True)
+col4.table(df.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 # col4.dataframe(df)
 
 col5.write("---")
