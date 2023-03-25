@@ -204,7 +204,7 @@ if cc_dh_count > 0:
 df = pd.DataFrame(dh_list)
 if len(dh_list) > 0:
     col5.write("Dead Head")
-    col5.table(df)
+    col5.markdown(df.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
 # Specify the directory to save the CSV file
 downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
