@@ -89,21 +89,25 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
     #     print(component)
 
     # Iterate through each dictionary in mix_list
-    for mix_dict in mix_list:
-        # Iterate through each component code in the dictionary
-        for component_code in mix_dict:
-            # Check if the component code exists in component_list
-            for component_dict in component_list:
-                if component_dict['product_code'] == component_code:
-                    # Set the cost of the component in mix_list equal to the cost in component_list
-                    if component_dict['product_code'] == "CEMENT":
-                        cost = component_dict['cost']/2000
-                        print(cost)
-                    #  NEED MORE IF STATEMENTS HERE
-                    # mix_dict[component_code] = component_dict['cost'] * float(mix_dict[component_code])
-                    mix_dict[component_code] = cost * float(mix_dict[component_code])
-                    print("component %s in mix %s costs %s" % (component_dict['product_code'], mix_dict['mix_number'], mix_dict[component_code]))
-                    break
+    # for mix_dict in mix_list:
+    #     print("Mix - %s" % mix_dict['mix_number'])
+    #     total_cost = 0
+    #     # Iterate through each component code in the dictionary
+    #     for component_code in mix_dict:
+    #         # Check if the component code exists in component_list
+    #         for component_dict in component_list:
+    #             if component_dict['product_code'] == component_code:
+    #                 # Set the cost of the component in mix_list equal to the cost in component_list
+    #                 if component_dict['product_code'] in ["CEMENT", "STONE 1", "SAND", "CHIPS", "GRAVEL"]:
+    #                     cost = component_dict['cost'] / 2000
+    #                     # print("%s cost %s" % (component_dict['product_code'], cost))
+    #                 #  NEED MORE IF STATEMENTS HERE
+    #                 # mix_dict[component_code] = component_dict['cost'] * float(mix_dict[component_code])
+    #                 mix_dict[component_code] = cost * float(mix_dict[component_code])
+    #                 total_cost += mix_dict[component_code]
+    #                 print("component %s costs %s" % (component_dict['product_code'], mix_dict[component_code]))
+    #                 break
+    #     print("Total cost for mix %s is %s" % (mix_dict['mix_number'], total_cost))
 
     filtered_mix_list = [mix_data for mix_data in mix_list if mix_filter.lower() in mix_data['mix_number'].lower()]
     filtered_mix_desc_list = [mix_data for mix_data in mix_list if
