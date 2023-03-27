@@ -153,7 +153,7 @@ for item in schedule_report:
     localtime = iso_start_time.astimezone(pytz.timezone("US/Central"))
     # print('localtime %s' % localtime)
     start_time = localtime.ctime()
-    csv_file_format = localtime.strftime('%a %b %d %Y')
+    csv_file_format = localtime.strftime('%a %b - %d %Y')
     # print('start time %s' % start_time)
     start_time_without_year = ' '.join(start_time.split()[:4])
     start_time_without_seconds = start_time_without_year[:-3]
