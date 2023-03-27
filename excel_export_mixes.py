@@ -26,8 +26,12 @@ mix_name_filter = col1.text_input('Search Mix Number', placeholder='mix')
 mix_desc_filter = col2.text_input('Search Mix Description', placeholder='desc')
 
 # Parse the XML file
+# Mixes
 tree = ET.parse(f"mixes_xml/01-Mixes-{plant_code}.xml")
 root = tree.getroot()
+# Components
+component_tree = ET.parse(f"mixes_xml/01-Component-{plant_code}.xml")
+component_root = component_tree.getroot()
 
 # Get last modified date of xml file
 last_modified = os.path.getmtime(f"mixes_xml/01-Mixes-{plant_code}.xml")
@@ -38,6 +42,10 @@ st.caption("Last Update: %s" % central_us_time.strftime('%Y-%m-%d %H:%M:%S'))
 
 # Find the "MixHeader" elements in the XML file
 mix_headers = root.findall(".//MixHeader")
+
+# Find the "Component" elements in the XML file
+component_headers = root.findall(".//Component")
+print(component_headers)
 
 
 def create_mix_list(headers, mix_filter, desc_filter):
