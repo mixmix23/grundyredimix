@@ -44,13 +44,13 @@ st.caption("Last Update: %s" % central_us_time.strftime('%Y-%m-%d %H:%M:%S'))
 mix_headers = root.findall(".//MixHeader")
 
 # Find the "Component" elements in the XML file
-component_headers = root.findall(".//Component")
-print(component_headers)
+component_headers = component_root.findall(".//Component")
 
 
-def create_mix_list(headers, mix_filter, desc_filter):
+def create_mix_list(headers, components, mix_filter, desc_filter):
     # Create a list to store the data
     mix_list = []
+    component_list = []
     for mix_header in headers:
         mix_number = mix_header.find("MixNumber").text
         mix_description = mix_header.find("MixDescription").text
@@ -69,6 +69,42 @@ def create_mix_list(headers, mix_filter, desc_filter):
         # Append the mix data to the list
         mix_list.append(mix_data)
 
+    # for item in mix_list:
+    #     print(item)
+
+    for component in components:
+        product_code = component.find("ProductCode").text
+        cost_element = component.find("Cost").text
+        if cost_element == " ":
+            cost = .01
+        else:
+            cost = float(cost_element)
+        component_data = {
+            "product_code": product_code,
+            "cost": cost
+        }
+        component_list.append(component_data)
+
+    # for component in component_list:
+    #     print(component)
+
+    # Iterate through each dictionary in mix_list
+    for mix_dict in mix_list:
+        # Iterate through each component code in the dictionary
+        for component_code in mix_dict:
+            # Check if the component code exists in component_list
+            for component_dict in component_list:
+                if component_dict['product_code'] == component_code:
+                    # Set the cost of the component in mix_list equal to the cost in component_list
+                    if component_dict['product_code'] == "CEMENT":
+                        cost = component_dict['cost']/2000
+                        print(cost)
+                    #  NEED MORE IF STATEMENTS HERE
+                    # mix_dict[component_code] = component_dict['cost'] * float(mix_dict[component_code])
+                    mix_dict[component_code] = cost * float(mix_dict[component_code])
+                    print("component %s in mix %s costs %s" % (component_dict['product_code'], mix_dict['mix_number'], mix_dict[component_code]))
+                    break
+
     filtered_mix_list = [mix_data for mix_data in mix_list if mix_filter.lower() in mix_data['mix_number'].lower()]
     filtered_mix_desc_list = [mix_data for mix_data in mix_list if
                               desc_filter.lower() in mix_data['mix_description'].lower()]
@@ -77,7 +113,7 @@ def create_mix_list(headers, mix_filter, desc_filter):
 
 
 # Create mix list by plant and filtered mix if applicable
-mix_list_by_plant, mix_filtered, desc_filtered = create_mix_list(mix_headers, mix_name_filter, mix_desc_filter)
+mix_list_by_plant, mix_filtered, desc_filtered = create_mix_list(mix_headers, component_headers, mix_name_filter, mix_desc_filter)
 
 # Create DataFrame
 if mix_name_filter:
