@@ -124,50 +124,97 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
     return mix_list, filtered_mix_list, filtered_mix_desc_list
 
 
+def create_dataframe():
+    # Create DataFrame
+    if mix_name_filter:
+        df_list = mix_filtered
+    elif mix_desc_filter:
+        df_list = desc_filtered
+    else:
+        df_list = mix_list_by_plant
+
+    data = []
+    for item in df_list:
+        # st.write(item)
+        if isinstance(item, dict):
+            data.append([
+                item['mix_number'],
+                item['mix_description'],
+                item['plant'],
+                item.get('SAND', None),
+                item.get('STONE 1', None),
+                item.get('CEMENT', None),
+                item.get('SLAG', None),
+                item.get('COLD', None),
+                item.get('AIR', None),
+                item.get('GRAVEL', None),
+                item.get('CHIPS', None),
+                item.get('PEA', None),
+                item.get('1.5 STONE', None),
+                item.get('STONE 2', None),
+                item.get('CEMENT 2', None),
+                item.get('SIKA 1000', None),
+                item.get('SIKA 161', None),
+                item.get('SIKATARD', None),
+                item.get('NCA', None),
+                item.get('total_cost', None)
+            ])
+        df = pd.DataFrame(data,
+                          columns=['Mix', 'Description', 'Plant', 'Sand', '3/4 Stone', 'Cement', 'Slag', 'Water', 'Air',
+                                   'Gravel',
+                                   'Chips', 'Pea', '1.5 Stone', 'Stone 2', 'Cement 2', '1000', '161', '440', 'NCA',
+                                   'test'])
+        df['test'] = df['test'].map("{:.2f}".format)
+
+    # Display the data in a table
+    st.dataframe(df)
+
+
 # Create mix list by plant and filtered mix if applicable
 mix_list_by_plant, mix_filtered, desc_filtered = create_mix_list(mix_headers, component_headers, mix_name_filter, mix_desc_filter)
+create_dataframe()
 
-# Create DataFrame
-if mix_name_filter:
-    df_list = mix_filtered
-elif mix_desc_filter:
-    df_list = desc_filtered
-else:
-    df_list = mix_list_by_plant
-
-data = []
-for item in df_list:
-    # st.write(item)
-    if isinstance(item, dict):
-        data.append([
-            item['mix_number'],
-            item['mix_description'],
-            item['plant'],
-            item.get('SAND', None),
-            item.get('STONE 1', None),
-            item.get('CEMENT', None),
-            item.get('SLAG', None),
-            item.get('COLD', None),
-            item.get('AIR', None),
-            item.get('GRAVEL', None),
-            item.get('CHIPS', None),
-            item.get('PEA', None),
-            item.get('1.5 STONE', None),
-            item.get('STONE 2', None),
-            item.get('CEMENT 2', None),
-            item.get('SIKA 1000', None),
-            item.get('SIKA 161', None),
-            item.get('SIKATARD', None),
-            item.get('NCA', None),
-            item.get('total_cost', None)
-        ])
-    df = pd.DataFrame(data,
-                      columns=['Mix', 'Description', 'Plant', 'Sand', '3/4 Stone', 'Cement', 'Slag', 'Water', 'Air', 'Gravel',
-                               'Chips', 'Pea', '1.5 Stone', 'Stone 2', 'Cement 2', '1000', '161', '440', 'NCA', 'test'])
-    df['test'] = df['test'].map("{:.2f}".format)
-
-# Display the data in a table
-st.dataframe(df)
+# # Create DataFrame
+# if mix_name_filter:
+#     df_list = mix_filtered
+# elif mix_desc_filter:
+#     df_list = desc_filtered
+# else:
+#     df_list = mix_list_by_plant
+#
+# data = []
+# for item in df_list:
+#     # st.write(item)
+#     if isinstance(item, dict):
+#         data.append([
+#             item['mix_number'],
+#             item['mix_description'],
+#             item['plant'],
+#             item.get('SAND', None),
+#             item.get('STONE 1', None),
+#             item.get('CEMENT', None),
+#             item.get('SLAG', None),
+#             item.get('COLD', None),
+#             item.get('AIR', None),
+#             item.get('GRAVEL', None),
+#             item.get('CHIPS', None),
+#             item.get('PEA', None),
+#             item.get('1.5 STONE', None),
+#             item.get('STONE 2', None),
+#             item.get('CEMENT 2', None),
+#             item.get('SIKA 1000', None),
+#             item.get('SIKA 161', None),
+#             item.get('SIKATARD', None),
+#             item.get('NCA', None),
+#             item.get('total_cost', None)
+#         ])
+#     df = pd.DataFrame(data,
+#                       columns=['Mix', 'Description', 'Plant', 'Sand', '3/4 Stone', 'Cement', 'Slag', 'Water', 'Air', 'Gravel',
+#                                'Chips', 'Pea', '1.5 Stone', 'Stone 2', 'Cement 2', '1000', '161', '440', 'NCA', 'test'])
+#     df['test'] = df['test'].map("{:.2f}".format)
+#
+# # Display the data in a table
+# st.dataframe(df)
 
 # Specify the directory to save the CSV file
 downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
