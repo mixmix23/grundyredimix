@@ -90,7 +90,7 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
 
     # Iterate through each dictionary in mix_list
     for mix_dict in mix_list:
-        print("Mix - %s" % mix_dict['mix_number'])
+        # print("Mix - %s" % mix_dict['mix_number'])
         total_cost = 0
         cost_dict = {}
         # Iterate through each component code in the dictionary
@@ -100,17 +100,17 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
                 if component_dict['product_code'] == component_code:
                     # Set the cost of the component in mix_list equal to the cost in component_list
                     if component_dict['product_code'] in ["CEMENT", "STONE 1", "SAND", "CHIPS", "GRAVEL", "SLAG",
-                                                          "FLYASH", "PEA", "STONE 2", "1.5 STONE"]:
+                                                          "FLYASH", "PEA", "STONE 2", "1.5 STONE", "CEMENT 2"]:
                         cost = component_dict['cost'] / 2000
                     else:
                         cost = component_dict['cost']
                     cost_dict[component_code] = cost * float(mix_dict[component_code])
                     total_cost += cost_dict[component_code]
-                    print("component %s costs %s" % (component_dict['product_code'], cost_dict[component_code]))
+                    # print("component %s costs %s" % (component_dict['product_code'], cost_dict[component_code]))
                     break
         mix_dict['cost'] = cost_dict
         mix_dict['total_cost'] = total_cost
-        print("Total cost for mix %s is %s" % (mix_dict['mix_number'], total_cost))
+        # print("Total cost for mix %s is %s" % (mix_dict['mix_number'], total_cost))
 
     # for item in mix_list:
     #     print(item)
@@ -135,7 +135,7 @@ else:
 
 data = []
 for item in df_list:
-    print(item)
+    st.write(item)
     if isinstance(item, dict):
         data.append([
             item['mix_number'],
@@ -152,6 +152,7 @@ for item in df_list:
             item.get('PEA', None),
             item.get('1.5 STONE', None),
             item.get('STONE 2', None),
+            item.get('CEMENT 2', None),
             item.get('SIKA 1000', None),
             item.get('SIKA 161', None),
             item.get('SIKATARD', None),
@@ -160,7 +161,7 @@ for item in df_list:
         ])
     df = pd.DataFrame(data,
                       columns=['Mix', 'Description', 'Plant', 'Sand', '3/4 Stone', 'Cement', 'Slag', 'Water', 'Air', 'Gravel',
-                               'Chips', 'Pea', '1.5 Stone', 'Stone 2', '1000', '161', '440', 'NCA', 'test'])
+                               'Chips', 'Pea', '1.5 Stone', 'Stone 2', 'Cement 2', '1000', '161', '440', 'NCA', 'test'])
     df['test'] = df['test'].map("{:.2f}".format)
 
 
