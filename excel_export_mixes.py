@@ -141,10 +141,11 @@ for item in df_list:
             item['mix_description'],
             item['plant'],
             item.get('SAND', None),
-            item.get('STONE 1', None)
+            item.get('STONE 1', None),
+            item.get('CEMENT', None)
         ])
     df = pd.DataFrame(data,
-                      columns=['Mix', 'Description', 'Plant', 'Sand', '3/4 Stone'])
+                      columns=['Mix', 'Description', 'Plant', 'Sand', '3/4 Stone', 'Cement'])
 
 
 # # Create DataFrame
