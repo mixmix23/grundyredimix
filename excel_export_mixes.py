@@ -160,7 +160,7 @@ for item in df_list:
         ])
     df = pd.DataFrame(data,
                       columns=['Mix', 'Description', 'Plant', 'Sand', '3/4 Stone', 'Cement', 'Slag', 'Water', 'Air', 'Gravel',
-                               'Chips', 'Pea', 'Stone 2', '1000', '161', '440', 'NCA', 'test'])
+                               'Chips', 'Pea', '1.5 Stone', 'Stone 2', '1000', '161', '440', 'NCA', 'test'])
     df['test'] = df['test'].map("{:.2f}".format)
 
 
