@@ -53,6 +53,7 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
     # Create a list to store the data
     mix_list = []
     component_list = []
+    # Create a list of all Mixes in XML file
     for mix_header in headers:
         mix_number = mix_header.find("MixNumber").text
         mix_description = mix_header.find("MixDescription").text
@@ -70,10 +71,10 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
             mix_data[constituent_code] = dosage
         # Append the mix data to the list
         mix_list.append(mix_data)
-
     # for item in mix_list:
     #     print(item.items())
 
+    # Get component costs for total_cost of mixes
     for component in components:
         product_code = component.find("ProductCode").text
         cost_element = component.find("Cost").text
@@ -86,7 +87,6 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
             "cost": cost
         }
         component_list.append(component_data)
-
     # for component in component_list:
     #     print(component)
 
@@ -95,8 +95,18 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
         # print("Mix - %s" % mix_dict['mix_number'])
         total_cost = 0
         cost_dict = {}
+        cementitious = 0
         # Iterate through each component code in the dictionary
         for component_code in mix_dict:
+            # Calculate total cementitious for each mix
+            if component_code == "CEMENT":
+                cementitious += int(mix_dict['CEMENT'])
+            elif component_code == "SLAG":
+                cementitious += int(mix_dict['SLAG'])
+            elif component_code == "FLYASH":
+                cementitious += int(mix_dict['FLYASH'])
+            elif component_code == "CEMENT 2":
+                cementitious += int(mix_dict['CEMENT'])
             # Check if the component code exists in component_list
             for component_dict in component_list:
                 if component_dict['product_code'] == component_code:
@@ -113,6 +123,7 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
         mix_dict['cost'] = cost_dict
         mix_dict['total_cost'] = total_cost
         # print("Total cost for mix %s is %s" % (mix_dict['mix_number'], total_cost))
+        # print("Mix %s cementitious is %s" % (mix_dict['mix_number'], cementitious))
 
     # for item in mix_list:
     #     print(item)
