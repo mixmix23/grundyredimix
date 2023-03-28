@@ -18,8 +18,8 @@ mix_desc_filter = col2.text_input('Search Mix Description', placeholder='desc')
 
 # Parse the XML file
 # Mixes
-tree = ET.parse(f"mixes_xml/01-Mixes-{plant_code}.xml")
-root = tree.getroot()
+mix_tree = ET.parse(f"mixes_xml/01-Mixes-{plant_code}.xml")
+mix_root = mix_tree.getroot()
 # Components
 component_tree = ET.parse(f"mixes_xml/01-Component-{plant_code}.xml")
 component_root = component_tree.getroot()
@@ -32,7 +32,7 @@ central_us_time = dt_object.astimezone(central_us_tz)
 st.caption("Last Update: %s" % central_us_time.strftime('%Y-%m-%d %H:%M:%S'))
 
 # Find the "MixHeader" elements in the XML file
-mix_headers = root.findall(".//MixHeader")
+mix_headers = mix_root.findall(".//MixHeader")
 
 # Find the "Component" elements in the XML file
 component_headers = component_root.findall(".//Component")
