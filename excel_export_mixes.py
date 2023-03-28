@@ -169,6 +169,23 @@ def create_dataframe():
     # Display the data in a table
     st.dataframe(df)
 
+    # Specify the directory to save the CSV file
+    downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
+    if not os.path.exists(downloads_dir):
+        os.makedirs(downloads_dir)
+    # Save the DataFrame to a CSV file
+    filename = f"01-Mixes-{plant_code}.csv"
+    filepath = os.path.join(downloads_dir, filename)
+    df.to_csv(filepath, index=False)
+    # Create a download button for the CSV file
+    with open(filepath, "rb") as f:
+        st.download_button(
+            label="Download CSV",
+            data=f.read(),
+            file_name=filename,
+            mime="text/csv"
+        )
+
 
 # Create mix list by plant and filtered mix if applicable
 mix_list_by_plant, mix_filtered, desc_filtered = create_mix_list(mix_headers, component_headers, mix_name_filter, mix_desc_filter)
@@ -216,19 +233,19 @@ create_dataframe()
 # # Display the data in a table
 # st.dataframe(df)
 
-# Specify the directory to save the CSV file
-downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
-if not os.path.exists(downloads_dir):
-    os.makedirs(downloads_dir)
-# Save the DataFrame to a CSV file
-filename = f"01-Mixes-{plant_code}.csv"
-filepath = os.path.join(downloads_dir, filename)
-df.to_csv(filepath, index=False)
-# Create a download button for the CSV file
-with open(filepath, "rb") as f:
-    st.download_button(
-        label="Download CSV",
-        data=f.read(),
-        file_name=filename,
-        mime="text/csv"
-    )
+# # Specify the directory to save the CSV file
+# downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
+# if not os.path.exists(downloads_dir):
+#     os.makedirs(downloads_dir)
+# # Save the DataFrame to a CSV file
+# filename = f"01-Mixes-{plant_code}.csv"
+# filepath = os.path.join(downloads_dir, filename)
+# df.to_csv(filepath, index=False)
+# # Create a download button for the CSV file
+# with open(filepath, "rb") as f:
+#     st.download_button(
+#         label="Download CSV",
+#         data=f.read(),
+#         file_name=filename,
+#         mime="text/csv"
+#     )
