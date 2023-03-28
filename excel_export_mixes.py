@@ -8,18 +8,20 @@ st.set_page_config(page_title="Mixes XML to CSV")
 # Sidebar to select plant code
 plant_select = st.sidebar.radio("Select Plant", ["Coal City", "Morris", "River", "Plano", "Oswego"])
 
-if plant_select == "Coal City":
-    plant_code = "001"
-elif plant_select == "Morris":
-    plant_code = "002"
-elif plant_select == "River":
-    plant_code = "003"
-elif plant_select == "Plano":
-    plant_code = "004"
-elif plant_select == "Oswego":
-    plant_code = "005"
-else:
-    plant_code = "001"
+plant_code = {"Coal City": "001", "Morris": "002", "River": "003", "Plano": "004", "Oswego": "005"}.get(plant_select, "001")
+
+# if plant_select == "Coal City":
+#     plant_code = "001"
+# elif plant_select == "Morris":
+#     plant_code = "002"
+# elif plant_select == "River":
+#     plant_code = "003"
+# elif plant_select == "Plano":
+#     plant_code = "004"
+# elif plant_select == "Oswego":
+#     plant_code = "005"
+# else:
+#     plant_code = "001"
 
 col1, col2 = st.columns(2)
 # Filter by mix name
@@ -106,7 +108,7 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
             elif component_code == "FLYASH":
                 cementitious += int(mix_dict['FLYASH'])
             elif component_code == "CEMENT 2":
-                cementitious += int(mix_dict['CEMENT'])
+                cementitious += int(mix_dict['CEMENT 2'])
             # Check if the component code exists in component_list
             for component_dict in component_list:
                 if component_dict['product_code'] == component_code:
@@ -202,5 +204,3 @@ def create_dataframe_csv():
 mix_list_by_plant, mix_filtered, desc_filtered = create_mix_list(mix_headers, component_headers, mix_name_filter, mix_desc_filter)
 # Create DataFrame for Streamlit and CSV Download
 create_dataframe_csv()
-
-
