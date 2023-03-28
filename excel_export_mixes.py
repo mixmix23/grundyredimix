@@ -139,10 +139,11 @@ for item in df_list:
         data.append([
             item['mix_number'],
             item['mix_description'],
-            item['plant']
+            item['plant'],
+            item['SAND']
         ])
     df = pd.DataFrame(data,
-                      columns=['Mix', 'Description', 'Plant'])
+                      columns=['Mix', 'Description', 'Plant', 'Sand'])
 
 
 # # Create DataFrame
