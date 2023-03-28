@@ -140,7 +140,7 @@ for item in df_list:
             item['mix_number'],
             item['mix_description'],
             item['plant'],
-            item.get('SAND', 0)
+            item.get('SAND', None)
         ])
     df = pd.DataFrame(data,
                       columns=['Mix', 'Description', 'Plant', 'Sand'])
