@@ -111,8 +111,8 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
         mix_dict['total_cost'] = total_cost
         print("Total cost for mix %s is %s" % (mix_dict['mix_number'], total_cost))
 
-    for item in mix_list:
-        print(item.items())
+    # for item in mix_list:
+    #     print(item)
 
     filtered_mix_list = [mix_data for mix_data in mix_list if mix_filter.lower() in mix_data['mix_number'].lower()]
     filtered_mix_desc_list = [mix_data for mix_data in mix_list if
@@ -132,8 +132,9 @@ elif mix_desc_filter:
 else:
     df_list = mix_list_by_plant
 
+data = []
 for item in df_list:
-    data = []
+    print(item)
     if isinstance(item, dict):
         data.append([
             item['mix_number']
