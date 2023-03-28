@@ -145,13 +145,13 @@ def create_dataframe_csv():
                 item.get('CEMENT', None),
                 item.get('SLAG', None),
                 item.get('COLD', None),
-                item.get('AIR', None),
                 item.get('GRAVEL', None),
                 item.get('CHIPS', None),
                 item.get('PEA', None),
                 item.get('1.5 STONE', None),
                 item.get('STONE 2', None),
                 item.get('CEMENT 2', None),
+                item.get('AIR', None),
                 item.get('SIKA 1000', None),
                 item.get('SIKA 161', None),
                 item.get('SIKATARD', None),
@@ -159,9 +159,8 @@ def create_dataframe_csv():
                 item.get('total_cost', None)
             ])
         df = pd.DataFrame(data,
-                          columns=['Mix', 'Description', 'Plant', 'Sand', '3/4 Stone', 'Cement', 'Slag', 'Water', 'Air',
-                                   'Gravel',
-                                   'Chips', 'Pea', '1.5 Stone', 'Stone 2', 'Cement 2', '1000', '161', '440', 'NCA',
+                          columns=['Mix', 'Description', 'Plant', 'Sand', '3/4 Stone', 'Cement', 'Slag', 'Water', 'Gravel',
+                                   'Chips', 'Pea', '1.5 Stone', 'Stone 2', 'Cement 2', 'Air', '1000', '161', '440', 'NCA',
                                    'test'])
         df['test'] = df['test'].map("{:.2f}".format)
 
