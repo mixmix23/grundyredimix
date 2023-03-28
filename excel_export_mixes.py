@@ -124,7 +124,7 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
     return mix_list, filtered_mix_list, filtered_mix_desc_list
 
 
-def create_dataframe():
+def create_dataframe_csv():
     # Create DataFrame
     if mix_name_filter:
         df_list = mix_filtered
@@ -189,6 +189,7 @@ def create_dataframe():
 
 # Create mix list by plant and filtered mix if applicable
 mix_list_by_plant, mix_filtered, desc_filtered = create_mix_list(mix_headers, component_headers, mix_name_filter, mix_desc_filter)
-create_dataframe()
+# Create DataFrame for Streamlit and CSV Download
+create_dataframe_csv()
 
 
