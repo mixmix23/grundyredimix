@@ -157,6 +157,7 @@ for item in df_list:
     df = pd.DataFrame(data,
                       columns=['Mix', 'Description', 'Plant', 'Sand', '3/4 Stone', 'Cement', 'Slag', 'Water', 'Air', 'Gravel',
                                'Chips', '1000', '161', '440', 'NCA', ''])
+    df['total_cost'] = df['total_cost'].map("{:.2f}".format)
 
 
 # # Create DataFrame
