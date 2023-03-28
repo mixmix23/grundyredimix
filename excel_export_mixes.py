@@ -100,7 +100,7 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
                 if component_dict['product_code'] == component_code:
                     # Set the cost of the component in mix_list equal to the cost in component_list
                     if component_dict['product_code'] in ["CEMENT", "STONE 1", "SAND", "CHIPS", "GRAVEL", "SLAG",
-                                                          "FLYASH", "PEA"]:
+                                                          "FLYASH", "PEA", "STONE 2"]:
                         cost = component_dict['cost'] / 2000
                     else:
                         cost = component_dict['cost']
@@ -150,6 +150,7 @@ for item in df_list:
             item.get('GRAVEL', None),
             item.get('CHIPS', None),
             item.get('PEA', None),
+            item.get('STONE 2', None)
             item.get('SIKA 1000', None),
             item.get('SIKA 161', None),
             item.get('SIKATARD', None),
@@ -158,7 +159,7 @@ for item in df_list:
         ])
     df = pd.DataFrame(data,
                       columns=['Mix', 'Description', 'Plant', 'Sand', '3/4 Stone', 'Cement', 'Slag', 'Water', 'Air', 'Gravel',
-                               'Chips', 'Pea', '1000', '161', '440', 'NCA', 'test'])
+                               'Chips', 'Pea', 'Stone 2', '1000', '161', '440', 'NCA', 'test'])
     df['test'] = df['test'].map("{:.2f}".format)
 
 
