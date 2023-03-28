@@ -126,11 +126,29 @@ mix_list_by_plant, mix_filtered, desc_filtered = create_mix_list(mix_headers, co
 
 # Create DataFrame
 if mix_name_filter:
-    df = pd.DataFrame(mix_filtered)
+    df_list = mix_name_filter
 elif mix_desc_filter:
-    df = pd.DataFrame(desc_filtered)
+    df_list = mix_desc_filter
 else:
-    df = pd.DataFrame(mix_list_by_plant)
+    df_list = mix_list_by_plant
+
+for item in df_list:
+    data = []
+    if isinstance(item, dict):
+        data.append([
+            item['mix_number']
+        ])
+    df = pd.DataFrame(data,
+                      columns=['Mix'])
+
+
+# # Create DataFrame
+# if mix_name_filter:
+#     df = pd.DataFrame(mix_filtered)
+# elif mix_desc_filter:
+#     df = pd.DataFrame(desc_filtered)
+# else:
+#     df = pd.DataFrame(mix_list_by_plant)
 
 # Display the data in a table
 st.dataframe(df)
