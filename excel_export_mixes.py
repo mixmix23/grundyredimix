@@ -18,6 +18,8 @@ elif plant_select == "Plano":
     plant_code = "004"
 elif plant_select == "Oswego":
     plant_code = "005"
+else:
+    plant_code = "001"
 
 col1, col2 = st.columns(2)
 # Filter by mix name
@@ -163,15 +165,6 @@ for item in df_list:
                       columns=['Mix', 'Description', 'Plant', 'Sand', '3/4 Stone', 'Cement', 'Slag', 'Water', 'Air', 'Gravel',
                                'Chips', 'Pea', '1.5 Stone', 'Stone 2', 'Cement 2', '1000', '161', '440', 'NCA', 'test'])
     df['test'] = df['test'].map("{:.2f}".format)
-
-
-# # Create DataFrame
-# if mix_name_filter:
-#     df = pd.DataFrame(mix_filtered)
-# elif mix_desc_filter:
-#     df = pd.DataFrame(desc_filtered)
-# else:
-#     df = pd.DataFrame(mix_list_by_plant)
 
 # Display the data in a table
 st.dataframe(df)
