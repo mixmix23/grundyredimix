@@ -127,9 +127,9 @@ mix_list_by_plant, mix_filtered, desc_filtered = create_mix_list(mix_headers, co
 
 # Create DataFrame
 if mix_name_filter:
-    df_list = mix_name_filter
+    df_list = mix_filtered
 elif mix_desc_filter:
-    df_list = mix_desc_filter
+    df_list = desc_filtered
 else:
     df_list = mix_list_by_plant
 
