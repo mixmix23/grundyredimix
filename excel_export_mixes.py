@@ -150,7 +150,7 @@ for item in df_list:
             item.get('GRAVEL', None),
             item.get('CHIPS', None),
             item.get('PEA', None),
-            item.get('STONE 2', None)
+            item.get('STONE 2', None),
             item.get('SIKA 1000', None),
             item.get('SIKA 161', None),
             item.get('SIKATARD', None),
