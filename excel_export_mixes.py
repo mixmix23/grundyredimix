@@ -137,10 +137,12 @@ for item in df_list:
     print(item)
     if isinstance(item, dict):
         data.append([
-            item['mix_number']
+            item['mix_number'],
+            item['mix_description'],
+            item['plant']
         ])
     df = pd.DataFrame(data,
-                      columns=['Mix'])
+                      columns=['Mix', 'Description', 'Plant'])
 
 
 # # Create DataFrame
