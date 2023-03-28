@@ -143,10 +143,11 @@ for item in df_list:
             item.get('SAND', None),
             item.get('STONE 1', None),
             item.get('CEMENT', None),
-            item.get('AIR', None)
+            item.get('AIR', None),
+            item.get('GRAVEL', None)
         ])
     df = pd.DataFrame(data,
-                      columns=['Mix', 'Description', 'Plant', 'Sand', '3/4 Stone', 'Cement', 'Air'])
+                      columns=['Mix', 'Description', 'Plant', 'Sand', '3/4 Stone', 'Cement', 'Air', 'Gravel'])
 
 
 # # Create DataFrame
