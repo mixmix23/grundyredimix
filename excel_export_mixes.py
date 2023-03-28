@@ -151,11 +151,12 @@ for item in df_list:
             item.get('SIKA 1000', None),
             item.get('SIKA 161', None),
             item.get('SIKATARD', None),
-            item.get('NCA', None)
+            item.get('NCA', None),
+            item.get('total_cost', None)
         ])
     df = pd.DataFrame(data,
                       columns=['Mix', 'Description', 'Plant', 'Sand', '3/4 Stone', 'Cement', 'Slag', 'Water', 'Air', 'Gravel',
-                               'Chips', '1000', '161', '440', 'NCA'])
+                               'Chips', '1000', '161', '440', 'NCA', ''])
 
 
 # # Create DataFrame
