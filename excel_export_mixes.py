@@ -124,13 +124,15 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
 
 
 def create_dataframe_csv():
+    df_list = mix_filtered if mix_name_filter else desc_filtered if mix_desc_filter else mix_list_by_plant
+
     # Create DataFrame
-    if mix_name_filter:
-        df_list = mix_filtered
-    elif mix_desc_filter:
-        df_list = desc_filtered
-    else:
-        df_list = mix_list_by_plant
+    # if mix_name_filter:
+    #     df_list = mix_filtered
+    # elif mix_desc_filter:
+    #     df_list = desc_filtered
+    # else:
+    #     df_list = mix_list_by_plant
 
     data = []
     for item in df_list:
