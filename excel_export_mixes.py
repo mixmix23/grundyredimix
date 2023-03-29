@@ -7,20 +7,16 @@ import datetime
 st.set_page_config(page_title="Mixes XML to CSV")
 # Sidebar to select plant code
 plant_select = st.sidebar.radio("Select Plant", ["Coal City", "Morris", "River", "Plano", "Oswego"])
-
 plant_code = {"Coal City": "001", "Morris": "002", "River": "003", "Plano": "004", "Oswego": "005"}.get(plant_select, "001")
 
 col1, col2 = st.columns(2)
-# Filter by mix name
+# Filters by mix name and by mix desc
 mix_name_filter = col1.text_input('Search Mix Number', placeholder='mix')
-# Filter by mix desc
 mix_desc_filter = col2.text_input('Search Mix Description', placeholder='desc')
 
-# Parse the XML file
-# Mixes
+# Parse the XML file - Mixes and Components
 mix_tree = ET.parse(f"mixes_xml/01-Mixes-{plant_code}.xml")
 mix_root = mix_tree.getroot()
-# Components
 component_tree = ET.parse(f"mixes_xml/01-Component-{plant_code}.xml")
 component_root = component_tree.getroot()
 
@@ -33,7 +29,6 @@ st.caption("Last Update: %s" % central_us_time.strftime('%Y-%m-%d %H:%M:%S'))
 
 # Find the "MixHeader" elements in the XML file
 mix_headers = mix_root.findall(".//MixHeader")
-
 # Find the "Component" elements in the XML file
 component_headers = component_root.findall(".//Component")
 
@@ -124,15 +119,8 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
 
 
 def create_dataframe_csv():
-    df_list = mix_filtered if mix_name_filter else desc_filtered if mix_desc_filter else mix_list_by_plant
-
     # Create DataFrame
-    # if mix_name_filter:
-    #     df_list = mix_filtered
-    # elif mix_desc_filter:
-    #     df_list = desc_filtered
-    # else:
-    #     df_list = mix_list_by_plant
+    df_list = mix_filtered if mix_name_filter else desc_filtered if mix_desc_filter else mix_list_by_plant
 
     data = []
     for item in df_list:
