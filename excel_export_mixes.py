@@ -123,9 +123,8 @@ def create_dataframe_csv():
     df_list = mix_filtered if mix_name_filter else desc_filtered if mix_desc_filter else mix_list_by_plant
 
     data = []
-    st.write(df_list)
     for item in df_list:
-        st.write(item)
+        # st.write(item)
         if isinstance(item, dict):
             data.append([
                 item['mix_number'],
@@ -156,7 +155,7 @@ def create_dataframe_csv():
         df['test'] = df['test'].map("{:.2f}".format)
 
     # Display the data in a table
-    if df_list is not None:
+    if len(df_list) > 0:
         st.dataframe(df)
     else:
         st.write("Search does not match existing mix")
