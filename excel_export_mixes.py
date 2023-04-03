@@ -123,6 +123,7 @@ def create_dataframe_csv():
     df_list = mix_filtered if mix_name_filter else desc_filtered if mix_desc_filter else mix_list_by_plant
 
     data = []
+    st.write(df_list)
     for item in df_list:
         st.write(item)
         if isinstance(item, dict):
