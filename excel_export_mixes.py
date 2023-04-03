@@ -175,7 +175,7 @@ def create_dataframe_csv():
                 mime="text/csv"
             )
     else:
-        st.write("Search does not match existing mix")
+        st.write("No mix found")
 
 
 # Create mix list by plant and filtered mix if applicable
