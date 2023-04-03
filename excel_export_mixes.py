@@ -124,7 +124,7 @@ def create_dataframe_csv():
 
     data = []
     for item in df_list:
-        # st.write(item)
+        st.write(item)
         if isinstance(item, dict):
             data.append([
                 item['mix_number'],
