@@ -155,7 +155,7 @@ def create_dataframe_csv():
         df['test'] = df['test'].map("{:.2f}".format)
 
     # Display the data in a table
-    if df:
+    if df_list is not None:
         st.dataframe(df)
     else:
         st.write("Search does not match existing mix")
