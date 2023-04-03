@@ -155,7 +155,10 @@ def create_dataframe_csv():
         df['test'] = df['test'].map("{:.2f}".format)
 
     # Display the data in a table
-    st.dataframe(df)
+    if df:
+        st.dataframe(df)
+    else:
+        st.write("Search does not match existing mix")
 
     # Specify the directory to save the CSV file
     downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
