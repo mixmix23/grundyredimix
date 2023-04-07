@@ -147,10 +147,10 @@ for item in schedule_report:
     elif item['deadHeadPlantPointId'] == 10533260:
         dead_head = 'Morris'
         morris_dh_count += 1
-    elif item['plantPointId'] == 10533261:
+    elif item['deadHeadPlantPointId'] == 10533261:
         dead_head = "Coal City"
         cc_dh_count += 1
-    elif item['plantPointId'] == 10533263:
+    elif item['deadHeadPlantPointId'] == 10533263:
         plantId = "River"
         river_dh_count += 1
     else:
