@@ -155,6 +155,7 @@ for item in schedule_report:
         river_dh_count += 1
     else:
         dead_head = str(item['deadHeadPlantPointId'])
+
     iso_date_str = item['startTime']
     iso_start_time = dateutil.parser.parse(iso_date_str)
     localtime = iso_start_time.astimezone(pytz.timezone("US/Central"))
