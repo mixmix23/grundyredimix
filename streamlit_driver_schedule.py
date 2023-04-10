@@ -154,7 +154,7 @@ for item in schedule_report:
         dead_head = 'Coal City'
         cc_dh_count += 1
     elif item['deadHeadPlantPointId'] == 10533263:
-        plantId = 'River'
+        plantId = 'Fake'
         river_dh_count += 1
     else:
         dead_head = str(item['deadHeadPlantPointId'])
