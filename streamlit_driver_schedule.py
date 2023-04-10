@@ -41,6 +41,7 @@ def get_employee_data():
 
 # def get_schedule_data(iso_date_arg, iso_end_date_arg):
 def get_schedule_data(iso_date_arg):
+    st.write(iso_date_arg)
     url = f'https://dfapi.digitalfleet.com/api/v2/Schedule?startTime={iso_date_arg}%3A00%3A00&endTime={iso_date_arg}%3A00%3A00&pageSize=100'
     response = requests.get(url, headers=headers)
 
@@ -120,6 +121,7 @@ col4, col5 = st.columns([3, 2])
 
 data = []
 for item in schedule_report:
+    print(item)
     if item['plantPointId'] == 15095411:
         plantId = 'Oswego'
         oswego_count += 1
