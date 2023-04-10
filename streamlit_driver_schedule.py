@@ -42,6 +42,7 @@ def get_employee_data():
 # def get_schedule_data(iso_date_arg, iso_end_date_arg):
 def get_schedule_data(iso_date_arg):
     st.write(iso_date_arg)
+    iso_date_arg = "2023-04-10T00"
     url = f'https://dfapi.digitalfleet.com/api/v2/Schedule?startTime={iso_date_arg}%3A00%3A00&endTime={iso_date_arg}%3A00%3A00&pageSize=100'
     response = requests.get(url, headers=headers)
 
@@ -132,10 +133,10 @@ for item in schedule_report:
         plantId = 'Morris'
         morris_count += 1
     elif item['plantPointId'] == 10533261:
-        plantId = "Coal City"
+        plantId = 'Coal City'
         cc_count += 1
     elif item['plantPointId'] == 10533263:
-        plantId = "River"
+        plantId = 'River'
         river_count += 1
     else:
         plantId = str(item['plantPointId'])
@@ -150,10 +151,10 @@ for item in schedule_report:
         dead_head = 'Morris'
         morris_dh_count += 1
     elif item['deadHeadPlantPointId'] == 10533261:
-        dead_head = "Coal City"
+        dead_head = 'Coal City'
         cc_dh_count += 1
     elif item['deadHeadPlantPointId'] == 10533263:
-        plantId = "River"
+        plantId = 'River'
         river_dh_count += 1
     else:
         dead_head = str(item['deadHeadPlantPointId'])
