@@ -136,7 +136,7 @@ for item in schedule_report:
         plantId = 'Coal City'
         cc_count += 1
     elif item['plantPointId'] == 10533263:
-        plantId = 'River'
+        plantId = 'Fake'
         river_count += 1
     else:
         plantId = str(item['plantPointId'])
