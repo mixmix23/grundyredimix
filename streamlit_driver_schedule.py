@@ -95,7 +95,7 @@ schedule_list = get_schedule_data(iso_date)
 schedule_report = []
 for item in schedule_list:
     for name in employee_list:
-        if item['userId'] == name['userId'] and item['startTime'] is not None:
+        if item['userId'] == name['userId']:
             if item['deadHeadPlantPointId'] is None:
                 item['deadHeadPlantPointId'] = "-"
             schedule_report.append(
