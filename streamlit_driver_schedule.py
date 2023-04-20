@@ -102,7 +102,7 @@ for item in schedule_list:
                 {'hireDate': name['hireDate'], 'userId': name['userId'], 'firstName': name['firstName'],
                  'lastName': name['lastName'], 'plantPointId': item['plantPointId'],
                  'scheduleDate': item['scheduleDate'], 'deadHeadPlantPointId': item['deadHeadPlantPointId'],
-                 'startTime': item['startTime']})
+                 'startTime': item['startTime'], 'notes': item['notes']})
 # print('Start Times')
 # for item in schedule_report:
 #     print(item)
