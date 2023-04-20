@@ -171,10 +171,11 @@ for item in schedule_report:
             name,
             plantId,
             format_local_time,
-            dead_head
+            dead_head,
+            item['notes']
         ])
     df = pd.DataFrame(data,
-                      columns=['Hire', 'Name', 'Plant', 'Start Time', "Dead Head"])
+                      columns=['Hire', 'Name', 'Plant', 'Start Time', "Dead Head", "Notes"])
     df = df.sort_values('Hire')
     df = df.drop(columns='Hire')
 col4.dataframe(df)
