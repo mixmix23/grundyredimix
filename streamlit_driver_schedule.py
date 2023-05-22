@@ -167,7 +167,7 @@ for item in schedule_report:
         iso_date_str = item['startTime']
         iso_start_time = dateutil.parser.parse(iso_date_str)
         localtime = iso_start_time.astimezone(pytz.timezone("US/Central"))
-        format_local_time = localtime.strftime("%a %b %d - %H:%M")
+        format_local_time = localtime.strftime("%H:%M")
         csv_file_format = localtime.strftime('%a %b %d %Y')
 
         if isinstance(item, dict):
