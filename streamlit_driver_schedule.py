@@ -123,7 +123,6 @@ col4, col5 = st.columns([3, 2])
 data = []
 for item in schedule_report:
     name = f"{item['firstName'].strip()} {item['lastName'].strip()}"
-    print(name)
 
     if name not in ["Dakota Brown", "James Ohlson", "Kevin Brooks", "Mike Smith", "Shane Coyne",
                     "Bud Sheedy", "Chris Dewey", "JEREMIAH F NUGENT"]:
