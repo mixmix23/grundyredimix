@@ -122,62 +122,65 @@ col4, col5 = st.columns([3, 2])
 
 data = []
 for item in schedule_report:
-    if item['plantPointId'] == 15095411:
-        plantId = 'Oswego'
-        oswego_count += 1
-    elif item['plantPointId'] == 10533262:
-        plantId = 'Plano'
-        plano_count += 1
-    elif item['plantPointId'] == 10533260:
-        plantId = 'Morris'
-        morris_count += 1
-    elif item['plantPointId'] == 10533261:
-        plantId = 'Coal City'
-        cc_count += 1
-    elif item['plantPointId'] == 10533263:
-        plantId = 'River'
-        river_count += 1
-    else:
-        plantId = str(item['plantPointId'])
-
-    if item['deadHeadPlantPointId'] == 15095411:
-        dead_head = 'Oswego'
-        oswego_dh_count += 1
-    elif item['deadHeadPlantPointId'] == 10533262:
-        dead_head = 'Plano'
-        plano_dh_count += 1
-    elif item['deadHeadPlantPointId'] == 10533260:
-        dead_head = 'Morris'
-        morris_dh_count += 1
-    elif item['deadHeadPlantPointId'] == 10533261:
-        dead_head = 'Coal City'
-        cc_dh_count += 1
-    elif item['deadHeadPlantPointId'] == 10533263:
-        dead_head = 'River'
-        river_dh_count += 1
-    else:
-        dead_head = str(item['deadHeadPlantPointId'])
-
-    iso_date_str = item['startTime']
-    iso_start_time = dateutil.parser.parse(iso_date_str)
-    localtime = iso_start_time.astimezone(pytz.timezone("US/Central"))
-    format_local_time = localtime.strftime("%a %b %d - %H:%M")
-    csv_file_format = localtime.strftime('%a %b %d %Y')
-
     name = f"{item['firstName']} {item['lastName']}"
-    if isinstance(item, dict) and name != "Dakota Brown":
-        data.append([
-            item['hireDate'],
-            name,
-            plantId,
-            format_local_time,
-            dead_head,
-            item['notes']
-        ])
-    df = pd.DataFrame(data,
-                      columns=['Hire', 'Name', 'Plant', 'Start Time', "Dead Head", "Notes"])
-    df = df.sort_values('Hire')
-    df = df.drop(columns='Hire')
+
+    if name not in ["Dakota Brown", "James Ohlson", "Chris Dewey", "Kevin Brooks", "Mike Smith", "Shane Coyne", "Bud Sheedy",
+                    "JEREMIAH F NUGENT"]:
+        if item['plantPointId'] == 15095411:
+            plantId = 'Oswego'
+            oswego_count += 1
+        elif item['plantPointId'] == 10533262:
+            plantId = 'Plano'
+            plano_count += 1
+        elif item['plantPointId'] == 10533260:
+            plantId = 'Morris'
+            morris_count += 1
+        elif item['plantPointId'] == 10533261:
+            plantId = 'Coal City'
+            cc_count += 1
+        elif item['plantPointId'] == 10533263:
+            plantId = 'River'
+            river_count += 1
+        else:
+            plantId = str(item['plantPointId'])
+
+        if item['deadHeadPlantPointId'] == 15095411:
+            dead_head = 'Oswego'
+            oswego_dh_count += 1
+        elif item['deadHeadPlantPointId'] == 10533262:
+            dead_head = 'Plano'
+            plano_dh_count += 1
+        elif item['deadHeadPlantPointId'] == 10533260:
+            dead_head = 'Morris'
+            morris_dh_count += 1
+        elif item['deadHeadPlantPointId'] == 10533261:
+            dead_head = 'Coal City'
+            cc_dh_count += 1
+        elif item['deadHeadPlantPointId'] == 10533263:
+            dead_head = 'River'
+            river_dh_count += 1
+        else:
+            dead_head = str(item['deadHeadPlantPointId'])
+
+        iso_date_str = item['startTime']
+        iso_start_time = dateutil.parser.parse(iso_date_str)
+        localtime = iso_start_time.astimezone(pytz.timezone("US/Central"))
+        format_local_time = localtime.strftime("%a %b %d - %H:%M")
+        csv_file_format = localtime.strftime('%a %b %d %Y')
+
+        if isinstance(item, dict):
+            data.append([
+                item['hireDate'],
+                name,
+                plantId,
+                format_local_time,
+                dead_head,
+                item['notes']
+            ])
+        df = pd.DataFrame(data,
+                          columns=['Hire', 'Name', 'Plant', 'Start Time', "Dead Head", "Notes"])
+        df = df.sort_values('Hire')
+        df = df.drop(columns='Hire')
 col4.dataframe(df)
 
 # Specify the directory to save the CSV file
