@@ -165,7 +165,7 @@ for item in schedule_report:
     csv_file_format = localtime.strftime('%a %b %d %Y')
 
     name = f"{item['firstName']} {item['lastName']}"
-    if isinstance(item, dict) and name is not 'Dakota Brown':
+    if isinstance(item, dict) and name is not "Dakota Brown":
         data.append([
             item['hireDate'],
             name,
