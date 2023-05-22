@@ -180,9 +180,9 @@ for item in schedule_report:
             ])
         df = pd.DataFrame(data,
                           columns=['Hire', 'Name', 'Plant', 'Start Time', "Dead Head", "Notes"])
-        df = df.sort_values('Hire')
-        df = df.drop(columns='Hire')
 
+df = df.sort_values('Hire')
+df = df.drop(columns='Hire')
 col4.dataframe(df)
 
 # Specify the directory to save the CSV file
