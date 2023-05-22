@@ -125,7 +125,7 @@ for item in schedule_report:
     name = f"{item['firstName']} {item['lastName']}"
 
     if name not in ["Dakota Brown", "James Ohlson", "Kevin Brooks", "Mike Smith", "Shane Coyne",
-                    "Bud Sheedy", "JEREMIAH F NUGENT"]:
+                    "Bud Sheedy", "Chris Dewey", "JEREMIAH F NUGENT"]:
 
         if item['plantPointId'] == 15095411:
             plantId = 'Oswego'
