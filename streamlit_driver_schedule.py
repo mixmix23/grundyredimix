@@ -80,7 +80,7 @@ selected_date = col1.date_input("Select Start Date")
 # activate_date_input = st.checkbox("Date Range")
 #
 iso_date = selected_date.strftime('%Y-%m-%dT%H')
-st.write(selected_date.strftime('%a'))
+st.write(selected_date.strftime('%A'))
 #
 # # If checkbox is checked, activate date_input widget
 # if activate_date_input:
