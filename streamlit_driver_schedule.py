@@ -124,8 +124,9 @@ data = []
 for item in schedule_report:
     name = f"{item['firstName']} {item['lastName']}"
 
-    if name not in ["Dakota Brown", "James Ohlson", "Chris Dewey", "Kevin Brooks", "Mike Smith", "Shane Coyne", "Bud Sheedy",
-                    "JEREMIAH F NUGENT"]:
+    if name not in ["Dakota Brown", "James Ohlson", "Kevin Brooks", "Mike Smith", "Shane Coyne",
+                    "Bud Sheedy", "JEREMIAH F NUGENT"]:
+
         if item['plantPointId'] == 15095411:
             plantId = 'Oswego'
             oswego_count += 1
@@ -181,6 +182,7 @@ for item in schedule_report:
                           columns=['Hire', 'Name', 'Plant', 'Start Time', "Dead Head", "Notes"])
         df = df.sort_values('Hire')
         df = df.drop(columns='Hire')
+
 col4.dataframe(df)
 
 # Specify the directory to save the CSV file
