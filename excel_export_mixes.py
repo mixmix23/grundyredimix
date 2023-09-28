@@ -150,7 +150,7 @@ def create_dataframe_csv():
                 item.get('total_cost', None)
             ])
         df = pd.DataFrame(data,
-                          columns=['Mix', 'Description', 'Plant', 'Sand', 'Elburn', '3/4 Stone', 'Cement', 'Slag', 'Water', 'Gravel',
+                          columns=['Mix', 'Description', 'Plant', 'Sand', 'Elb Sand', '3/4 Stone', 'Cement', 'Slag', 'Water', 'Gravel',
                                    'Chips', 'Pea', '1.5 Stone', 'Stone 2', 'Cement 2', 'Air', '1000', '161', '440', 'NCA',
                                    'test'])
         df['test'] = df['test'].map("{:.2f}".format)
