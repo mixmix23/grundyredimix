@@ -89,7 +89,7 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
             for component_dict in component_list:
                 if component_dict['product_code'] == component_code:
                     # Set the cost of the component in mix_list equal to the cost in component_list
-                    if component_dict['product_code'] in ["CEMENT", "STONE 1", "SAND", "CHIPS", "GRAVEL", "SLAG",
+                    if component_dict['product_code'] in ["CEMENT", "STONE 1", "SAND", "ELBURN", "CHIPS", "GRAVEL", "SLAG",
                                                           "FLYASH", "PEA", "STONE 2", "1.5 STONE", "CEMENT 2"]:
                         cost = component_dict['cost'] / 2000
                     elif component_dict['product_code'] in ["SIKA 161", "SIKA 1000", "SIKATARD"]:
