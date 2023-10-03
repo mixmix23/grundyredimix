@@ -83,8 +83,15 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
         # Iterate through each component code in the dictionary
         for component_code in mix_dict:
             # Calculate total cementitious for each mix
-            if component_code in ["CEMENT", "SLAG", "FLYASH", "CEMENT 2"]:
-                cementitious = int(mix_dict.get(component_code, 0))
+            # if component_code in ["CEMENT", "SLAG", "FLYASH", "CEMENT 2"]:
+            if component_code in ["CEMENT"]:
+                cementitious += int(mix_dict.get(component_code, 0))
+            elif component_code in ["SLAG"]:
+                cementitious += int(mix_dict.get(component_code, 0))
+            elif component_code in ["FLYASH"]:
+                cementitious += int(mix_dict.get(component_code, 0))
+            elif component_code in ["CEMENT 2"]:
+                cementitious += int(mix_dict.get(component_code, 0))
             print("Cementitious %s" % cementitious)
             # Check if the component code exists in component_list
             for component_dict in component_list:
