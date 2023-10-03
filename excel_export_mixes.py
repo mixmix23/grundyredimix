@@ -94,7 +94,6 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
                         cost = component_dict['cost'] / 2000
                     elif component_dict['product_code'] in ["SIKA 161", "NCA", "SIKA 1000", "SIKATARD"]:
                         cwt = float(cementitious/100)
-                        print("cwt2 %s" % cwt)
                         comp_cost_gal = float(component_dict.get('cost', 0))
                         comp_cost_oz = comp_cost_gal/128
                         comp_dosage = float(mix_dict.get(component_code, 0)) * cwt
