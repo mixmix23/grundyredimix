@@ -98,8 +98,8 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
                         comp_cost_oz = comp_cost_gal/128
                         comp_dosage = float(mix_dict.get(component_code, 0)) * cwt
                         cost = float(comp_cost_oz * comp_dosage)
-                    else:
-                        cost = component_dict['cost']
+                    # else:
+                    #     cost = component_dict['cost']
                     cost_dict[component_code] = cost * float(mix_dict[component_code])
                     total_cost += cost_dict[component_code]
                     print("component %s costs %s" % (component_dict['product_code'], cost_dict[component_code]))
