@@ -102,7 +102,7 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
                         cost = component_dict['cost'] / 2000
                     elif component_dict['product_code'] in ["SIKA 161", "NCA", "SIKA 1000", "SIKATARD"]:
                         cwt = float(cementitious/100)
-                        print("cwt %s" % cwt)
+                        # print("cwt %s" % cwt)
                         comp_cost_gal = float(component_dict.get('cost', 0))
                         comp_cost_oz = comp_cost_gal/128
                         comp_dosage = float(mix_dict.get(component_code, 0)) * cwt
@@ -111,12 +111,12 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
                         cost = component_dict['cost']
                     cost_dict[component_code] = cost * float(mix_dict[component_code])
                     total_cost += cost_dict[component_code]
-                    print("component %s costs %s" % (component_dict['product_code'], cost_dict[component_code]))
+                    # print("component %s costs %s" % (component_dict['product_code'], cost_dict[component_code]))
                     break
         mix_dict['cost'] = cost_dict
         mix_dict['total_cost'] = total_cost
-        print("Total cost for mix %s is %s" % (mix_dict['mix_number'], total_cost))
-        # print("Mix %s cementitious is %s" % (mix_dict['mix_number'], cementitious))
+        # print("Total cost for mix %s is %s" % (mix_dict['mix_number'], total_cost))
+        print("Mix %s cementitious is %s" % (mix_dict['mix_number'], cementitious))
     # for item in mix_list:
     #     print(item)
 
