@@ -164,7 +164,7 @@ def create_dataframe_csv():
         df = pd.DataFrame(data,
                           columns=['Mix', 'Description', 'Plant', 'Sand', 'Elb Sand', '3/4 Stone', 'Cement', 'Slag', 'Water', 'Gravel',
                                    'Chips', 'Pea', '1.5 Stone', 'Stone 2', 'Cement 2', 'Air', '1000', '161', '440', 'NCA',
-                                   'test'])
+                                   'Total Cost'])
         df['test'] = df['test'].map("{:.2f}".format)
 
     # Display the data in a table
