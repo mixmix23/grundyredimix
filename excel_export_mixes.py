@@ -101,6 +101,7 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
         # print("Mix - %s it's total cementitious is %s" % (mix['mix_number'], mix['cementitious']))
         total_cost = 0
         cost_dict = {}
+        print("Mix %s" % mix['mix_number'])
         # Iterate through each component code in the dictionary
         for component_code in mix:
             # Check if the component code exists in component_list
@@ -117,7 +118,7 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
                     break
         mix['cost'] = cost_dict
         mix['total_cost'] = total_cost
-        print("Total cost for mix %s is %s" % (mix['mix_number'], total_cost))
+        print("Total cost is %s" % total_cost)
         print("")
     # for item in mix_list:
     #     print(item)
