@@ -64,8 +64,8 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
 
         mix_list.append(mix_data)
 
-    for item in mix_list:
-        print(item)
+    # for item in mix_list:
+    #     print(item)
 
     # Get component costs for total_cost of mixes
     for component in components:
@@ -80,7 +80,10 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
         if cost_unit == 'TN':
             cost_breakdown = cost/2000
         elif cost_unit == 'GL':
-            cost_breakdown = cost/128
+            if product_code == 'COLD':
+                cost_breakdown = cost
+            else:
+                cost_breakdown = cost/128
         component_data = {
             "product_code": product_code,
             "cost_unit": cost_unit,
@@ -93,7 +96,7 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
 
     # Iterate through each dictionary in mix_list
     for mix in mix_list:
-        print("Mix - %s it's total cementitious is %s" % (mix['mix_number'], mix['cementitious']))
+        # print("Mix - %s it's total cementitious is %s" % (mix['mix_number'], mix['cementitious']))
         total_cost = 0
         cost_dict = {}
         # Iterate through each component code in the dictionary
@@ -109,8 +112,8 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
         mix['cost'] = cost_dict
         mix['total_cost'] = total_cost
         print("Total cost for mix %s is %s" % (mix['mix_number'], total_cost))
-    for item in mix_list:
-        print(item)
+    # for item in mix_list:
+    #     print(item)
 
     filtered_mix_list = [mix_data for mix_data in mix_list if mix_filter.lower() in mix_data['mix_number'].lower()]
     filtered_mix_desc_list = [mix_data for mix_data in mix_list if
