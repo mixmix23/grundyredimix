@@ -72,6 +72,7 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
         product_code = component.find("ProductCode").text
         cost_element = component.find("Cost").text
         cost_unit = component.find("CostUnitofMeasure").text
+        qty_unit_measure = component.find("QuantityUnitofMeasure").text
         cost_breakdown = .01
         if cost_element == " ":
             cost = .01
@@ -87,6 +88,7 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
         component_data = {
             "product_code": product_code,
             "cost_unit": cost_unit,
+            "qty_unit_measure": qty_unit_measure,
             "cost": cost,
             "cost_breakdown": cost_breakdown
         }
@@ -105,13 +107,18 @@ def create_mix_list(headers, components, mix_filter, desc_filter):
             for component_dict in component_list:
                 if component_dict['product_code'] == component_code:
                     # Set the cost of the component in mix_list equal to the cost in component_list
-                    cost = component_dict['cost_breakdown']
+                    if component_dict["qty_unit_measure"] == 'CW':
+                        cost = component_dict['cost_breakdown'] * mix['cementitious']/100
+                    else:
+                        cost = component_dict['cost_breakdown']
                     cost_dict[component_code] = cost * float(mix[component_code])
+                    print("%s %s cost %s" % (component_dict['product_code'], mix[component_code], cost_dict[component_code]))
                     total_cost += cost_dict[component_code]
                     break
         mix['cost'] = cost_dict
         mix['total_cost'] = total_cost
         print("Total cost for mix %s is %s" % (mix['mix_number'], total_cost))
+        print("")
     # for item in mix_list:
     #     print(item)
 
