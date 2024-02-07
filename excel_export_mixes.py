@@ -6,8 +6,8 @@ import datetime
 
 st.set_page_config(page_title="Mixes XML to CSV")
 # Sidebar to select plant code
-plant_select = st.sidebar.radio("Select Plant", ["Coal City", "Morris", "River", "Plano", "Oswego"])
-plant_code = {"Coal City": "001", "Morris": "002", "River": "003", "Plano": "004", "Oswego": "005"}.get(plant_select, "001")
+plant_select = st.sidebar.radio("Select Plant", ["Coal City", "Morris", "River", "Plano", "Oswego", "Elburn"])
+plant_code = {"Coal City": "001", "Morris": "002", "River": "003", "Plano": "004", "Oswego": "005", "Elburn": "006"}.get(plant_select, "001")
 
 col1, col2 = st.columns(2)
 # Filters by mix name and by mix desc
