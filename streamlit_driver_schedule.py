@@ -112,12 +112,14 @@ plano_count = 0
 morris_count = 0
 cc_count = 0
 river_count = 0
+elburn_count = 0
 
 oswego_dh_count = 0
 plano_dh_count = 0
 morris_dh_count = 0
 cc_dh_count = 0
 river_dh_count = 0
+elburn_dh_count = 0
 
 col4, col5 = st.columns([3, 2])
 
@@ -143,6 +145,9 @@ for item in schedule_report:
         elif item['plantPointId'] == 10533263:
             plantId = 'River'
             river_count += 1
+        elif item['plantPointId'] == 21909850:
+            plantId = 'Elburn'
+            elburn_count += 1
         else:
             plantId = str(item['plantPointId'])
 
@@ -161,6 +166,9 @@ for item in schedule_report:
         elif item['deadHeadPlantPointId'] == 10533263:
             dead_head = 'River'
             river_dh_count += 1
+        elif item['deadHeadPlantPointId'] == 21909850:
+            dead_head = 'Elburn'
+            elburn_dh_count += 1
         else:
             dead_head = str(item['deadHeadPlantPointId'])
 
@@ -219,7 +227,9 @@ if cc_count > 0:
     count_list.append({'plant': 'Coal City', 'count': cc_count})
 if river_count > 0:
     count_list.append({'plant': 'River', 'count': river_count})
-total_count = morris_count + plano_count + oswego_count + cc_count + river_count
+if elburn_count > 0:
+    count_list.append({'plant': 'Elburn', 'count': elburn_count})
+total_count = morris_count + plano_count + oswego_count + cc_count + river_count + elburn_count
 if len(count_list) > 0:
     count_list.append({'plant': 'Total', 'count': total_count})
     df = pd.DataFrame(count_list)
@@ -238,6 +248,8 @@ if cc_dh_count > 0:
     dh_list.append({'plant': 'Coal City', 'count': cc_dh_count})
 if river_dh_count > 0:
     dh_list.append({'plant': 'River', 'count': river_dh_count})
+if elburn_dh_count > 0:
+    dh_list.append({'plant': 'Elburn', 'count': elburn_dh_count})
 df = pd.DataFrame(dh_list)
 if len(dh_list) > 0:
     col5.write("Dead Head")
