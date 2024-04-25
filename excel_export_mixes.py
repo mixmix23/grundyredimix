@@ -168,25 +168,6 @@ def create_dataframe_csv():
                                    'Total Cost'])
         df['Total Cost'] = df['Total Cost'].map("{:.2f}".format)
 
-        # Specify the directory to save the CSV file
-        downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
-        if not os.path.exists(downloads_dir):
-            os.makedirs(downloads_dir)
-        # Save the DataFrame to a CSV file
-        filename = f"01-Mixes-{plant_code}.csv"
-        filepath = os.path.join(downloads_dir, filename)
-        df.to_csv(filepath, index=False)
-        # Create a download button for the CSV file
-        with open(filepath, "rb") as f:
-            st.download_button(
-                label="Download CSV",
-                data=f.read(),
-                file_name=filename,
-                mime="text/csv"
-            )
-    else:
-        st.write("No mix found")
-
     # Create a checkbox to hide/show selected columns
     if st.checkbox("Filter DataFrame"):
         selected_columns = st.multiselect("Select Columns to Display", df.columns.tolist())
@@ -199,7 +180,24 @@ def create_dataframe_csv():
     # if len(df_list) > 0:
     #     st.dataframe(df)
     #
-
+    #     # Specify the directory to save the CSV file
+    #     downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
+    #     if not os.path.exists(downloads_dir):
+    #         os.makedirs(downloads_dir)
+    #     # Save the DataFrame to a CSV file
+    #     filename = f"01-Mixes-{plant_code}.csv"
+    #     filepath = os.path.join(downloads_dir, filename)
+    #     df.to_csv(filepath, index=False)
+    #     # Create a download button for the CSV file
+    #     with open(filepath, "rb") as f:
+    #         st.download_button(
+    #             label="Download CSV",
+    #             data=f.read(),
+    #             file_name=filename,
+    #             mime="text/csv"
+    #         )
+    # else:
+    #     st.write("No mix found")
 
 
 # Create mix list by plant and filtered mix if applicable
