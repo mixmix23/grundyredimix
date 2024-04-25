@@ -168,18 +168,6 @@ def create_dataframe_csv():
                                    'Total Cost'])
         df['Total Cost'] = df['Total Cost'].map("{:.2f}".format)
 
-    # Create a checkbox to hide/show selected columns
-    if st.checkbox("Filter DataFrame"):
-        selected_columns = st.multiselect("Select Columns to Display", df.columns.tolist())
-        if selected_columns:
-            st.write(df[selected_columns])
-    else:
-        st.write(df)
-
-    # # Display the data in a table
-    # if len(df_list) > 0:
-    #     st.dataframe(df)
-    #
         # Specify the directory to save the CSV file
         downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
         if not os.path.exists(downloads_dir):
@@ -198,6 +186,20 @@ def create_dataframe_csv():
             )
     else:
         st.write("No mix found")
+
+    # Create a checkbox to hide/show selected columns
+    if st.checkbox("Filter DataFrame"):
+        selected_columns = st.multiselect("Select Columns to Display", df.columns.tolist())
+        if selected_columns:
+            st.write(df[selected_columns])
+    else:
+        st.write(df)
+
+    # # Display the data in a table
+    # if len(df_list) > 0:
+    #     st.dataframe(df)
+    #
+
 
 
 # Create mix list by plant and filtered mix if applicable
