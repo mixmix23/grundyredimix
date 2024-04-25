@@ -170,7 +170,7 @@ def create_dataframe_csv():
 
     # Create a filter button
     if st.button("Filter Total Cost"):
-        st.write(df['Total Cost'])
+        st.write(df['Mix', 'Total Cost'])
 
     # Display the data in a table
     if len(df_list) > 0:
