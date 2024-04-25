@@ -168,6 +168,10 @@ def create_dataframe_csv():
                                    'Total Cost'])
         df['Total Cost'] = df['Total Cost'].map("{:.2f}".format)
 
+        # Create a filter button
+        if st.button("Filter Total Cost"):
+            st.write(df['Total Cost'])
+
     # Display the data in a table
     if len(df_list) > 0:
         st.dataframe(df)
