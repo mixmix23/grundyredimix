@@ -168,9 +168,11 @@ def create_dataframe_csv():
                                    'Total Cost'])
         df['Total Cost'] = df['Total Cost'].map("{:.2f}".format)
 
-    # Create a filter button
-    if st.button("Filter Total Cost"):
-        st.write(df['Total Cost'])
+        # Create a checkbox to hide/show selected columns
+        if st.checkbox("Hide/Show Columns"):
+            selected_columns = st.multiselect("Select Columns to Display", df.columns.tolist())
+            if selected_columns:
+                st.write(df[selected_columns])
 
     # Display the data in a table
     if len(df_list) > 0:
