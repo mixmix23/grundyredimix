@@ -1,8 +1,6 @@
 import xml.etree.ElementTree as ET
 import streamlit as st
 import pandas as pd
-import ipywidgets as widgets
-from IPython.display import display
 import os
 import datetime
 
@@ -169,18 +167,6 @@ def create_dataframe_csv():
                                    'Chips', 'Pea', '1.5 Stone', 'LW', 'Stone 2', 'Cement 2', 'Air', '1000', '161', '440', 'NCA',
                                    'Total Cost'])
         df['Total Cost'] = df['Total Cost'].map("{:.2f}".format)
-
-        # Create a filter button
-        filter_button = widgets.Button(description="Filter Total Cost")
-        output = widgets.Output()
-
-        def filter_total_cost(_):
-            with output:
-                display(df['Total Cost'])
-
-        filter_button.on_click(filter_total_cost)
-
-        display(filter_button, output)
 
     # Display the data in a table
     if len(df_list) > 0:
