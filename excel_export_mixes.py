@@ -170,6 +170,7 @@ def create_dataframe_csv():
 
     # Create a filter button
     if st.button("Filter Total Cost"):
+        df = pd.DataFrame()
         st.write(df['Total Cost'])
 
     # Display the data in a table
