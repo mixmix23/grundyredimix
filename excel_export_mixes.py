@@ -167,12 +167,14 @@ def create_dataframe_csv():
                                    'Chips', 'Pea', '1.5 Stone', 'LW', 'Stone 2', 'Cement 2', 'Air', '1000', '161', '440', 'NCA',
                                    'Total Cost'])
         df['Total Cost'] = df['Total Cost'].map("{:.2f}".format)
+        st.write("main")
 
     # Create a checkbox to hide/show selected columns
     if st.checkbox("Hide/Show Columns"):
         selected_columns = st.multiselect("Select Columns to Display", df.columns.tolist())
         if selected_columns:
             st.write(df[selected_columns])
+            st.write("filtered")
 
     # Display the data in a table
     if len(df_list) > 0:
