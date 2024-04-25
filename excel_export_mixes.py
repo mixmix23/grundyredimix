@@ -135,46 +135,46 @@ def create_dataframe_csv():
     df_list = mix_filtered if mix_name_filter else desc_filtered if mix_desc_filter else mix_list_by_plant
 
     data = []
-    if not st.checkbox("Hide/Show Columns"):
-        for item in df_list:
-            # st.write(item)
-            if isinstance(item, dict):
-                data.append([
-                    item['mix_number'],
-                    item['mix_description'],
-                    item['plant'],
-                    item.get('SAND', None),
-                    item.get('ELBURN', None),
-                    item.get('STONE 1', None),
-                    item.get('CEMENT', None),
-                    item.get('SLAG', None),
-                    item.get('COLD', None),
-                    item.get('GRAVEL', None),
-                    item.get('CHIPS', None),
-                    item.get('PEA', None),
-                    item.get('1.5 STONE', None),
-                    item.get('LW', None),
-                    item.get('STONE 2', None),
-                    item.get('CEMENT 2', None),
-                    item.get('AIR', None),
-                    item.get('SIKA 1000', None),
-                    item.get('SIKA 161', None),
-                    item.get('SIKATARD', None),
-                    item.get('NCA', None),
-                    item.get('total_cost', None)
-                ])
-            df = pd.DataFrame(data,
-                              columns=['Mix', 'Description', 'Plant', 'Sand', 'Elb Sand', '3/4 Stone', 'Cement', 'Slag', 'Water', 'Gravel',
-                                       'Chips', 'Pea', '1.5 Stone', 'LW', 'Stone 2', 'Cement 2', 'Air', '1000', '161', '440', 'NCA',
-                                       'Total Cost'])
-            df['Total Cost'] = df['Total Cost'].map("{:.2f}".format)
+    for item in df_list:
+        # st.write(item)
+        if isinstance(item, dict):
+            data.append([
+                item['mix_number'],
+                item['mix_description'],
+                item['plant'],
+                item.get('SAND', None),
+                item.get('ELBURN', None),
+                item.get('STONE 1', None),
+                item.get('CEMENT', None),
+                item.get('SLAG', None),
+                item.get('COLD', None),
+                item.get('GRAVEL', None),
+                item.get('CHIPS', None),
+                item.get('PEA', None),
+                item.get('1.5 STONE', None),
+                item.get('LW', None),
+                item.get('STONE 2', None),
+                item.get('CEMENT 2', None),
+                item.get('AIR', None),
+                item.get('SIKA 1000', None),
+                item.get('SIKA 161', None),
+                item.get('SIKATARD', None),
+                item.get('NCA', None),
+                item.get('total_cost', None)
+            ])
+        df = pd.DataFrame(data,
+                          columns=['Mix', 'Description', 'Plant', 'Sand', 'Elb Sand', '3/4 Stone', 'Cement', 'Slag', 'Water', 'Gravel',
+                                   'Chips', 'Pea', '1.5 Stone', 'LW', 'Stone 2', 'Cement 2', 'Air', '1000', '161', '440', 'NCA',
+                                   'Total Cost'])
+        df['Total Cost'] = df['Total Cost'].map("{:.2f}".format)
 
-    # Create a checkbox to hide/show selected columns
-    if st.checkbox("Hide/Show Columns"):
-        selected_columns = st.multiselect("Select Columns to Display", df.columns.tolist())
-        if selected_columns:
-            st.write(df[selected_columns])
-            st.write("filtered")
+        # Create a checkbox to hide/show selected columns
+        if st.checkbox("Filter DataFrame"):
+            selected_columns = st.multiselect("Select Columns to Display", df.columns.tolist())
+            if selected_columns:
+                st.write(df[selected_columns])
+        else:
+            st.write(df)
 
     # Display the data in a table
     if len(df_list) > 0:
