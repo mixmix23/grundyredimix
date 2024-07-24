@@ -194,25 +194,25 @@ df = df.sort_values('Hire')
 df = df.drop(columns='Hire')
 col4.dataframe(df)
 
-# Specify the directory to save the CSV file
-downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
-
-if not os.path.exists(downloads_dir):
-    os.makedirs(downloads_dir)
-
-# Save the DataFrame to a CSV file
-filename = f"{csv_file_format}.csv"
-filepath = os.path.join(downloads_dir, filename)
-df.to_csv(filepath, index=False)
-
-# Create a download button for the CSV file
-with open(filepath, "rb") as f:
-    st.download_button(
-        label="Download CSV",
-        data=f.read(),
-        file_name=filename,
-        mime="text/csv"
-    )
+# # Specify the directory to save the CSV file
+# downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
+#
+# if not os.path.exists(downloads_dir):
+#     os.makedirs(downloads_dir)
+#
+# # Save the DataFrame to a CSV file
+# filename = f"{csv_file_format}.csv"
+# filepath = os.path.join(downloads_dir, filename)
+# df.to_csv(filepath, index=False)
+#
+# # Create a download button for the CSV file
+# with open(filepath, "rb") as f:
+#     st.download_button(
+#         label="Download CSV",
+#         data=f.read(),
+#         file_name=filename,
+#         mime="text/csv"
+#     )
 
 col5.write("---")
 
