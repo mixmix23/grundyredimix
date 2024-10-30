@@ -128,7 +128,8 @@ for item in schedule_report:
     name = f"{item['firstName'].strip()} {item['lastName'].strip()}"
 
     if name not in ["Dakota Brown", "James Ohlson", "Kevin Brooks", "Mike Smith", "Shane Coyne",
-                    "Bud Sheedy", "Chris Dewey", "JEREMIAH F NUGENT", "Brent Pommerening", "Brandon Thetard"]:
+                    "Brian Sheedy", "Chris Dewey", "JEREMIAH F NUGENT", "Brent Pommerening", "Brandon Thetard",
+                    "Ryan Pratl"]:
 
         if item['plantPointId'] == 15095411:
             plantId = 'Oswego'
