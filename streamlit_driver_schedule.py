@@ -127,7 +127,7 @@ data = []
 for item in schedule_report:
     name = f"{item['firstName'].strip()} {item['lastName'].strip()}"
 
-    if name not in ["Dakota Brown", "James Ohlson", "Kevin Brooks", "Mike Smith", "Shane Coyne",
+    if name not in ["Dakota Brown", "James Ohlson", "Kevin Brooks", "Michael Smith", "Shane Coyne",
                     "Brian Sheedy", "Chris Dewey", "JEREMIAH F NUGENT", "Brent Pommerening", "Brandon Thetard",
                     "Ryan Pratl"]:
 
