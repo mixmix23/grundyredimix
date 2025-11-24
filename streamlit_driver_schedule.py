@@ -247,7 +247,7 @@ if elburn_count > 0:
 if ottawa_count > 0:
     count_list.append({'plant': 'Ottawa', 'count': ottawa_count})
 if triumph_count > 0:
-    count_list.append({'plant': 'Triumph', 'count': triump_count})
+    count_list.append({'plant': 'Triumph', 'count': triumph_count})
 total_count = morris_count + plano_count + oswego_count + cc_count + river_count + elburn_count + ottawa_count + triump_count
 if len(count_list) > 0:
     count_list.append({'plant': 'Total', 'count': total_count})
