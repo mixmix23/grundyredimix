@@ -156,7 +156,7 @@ for item in schedule_report:
             ottawa_count += 1
         elif item['plantPointId'] == 32151802:
             plantId = 'Triumph'
-            triump_count += 1
+            triumph_count += 1
         else:
             plantId = str(item['plantPointId'])
 
@@ -246,7 +246,7 @@ if elburn_count > 0:
     count_list.append({'plant': 'Elburn', 'count': elburn_count})
 if ottawa_count > 0:
     count_list.append({'plant': 'Ottawa', 'count': ottawa_count})
-if triump_count > 0:
+if triumph_count > 0:
     count_list.append({'plant': 'Triumph', 'count': triump_count})
 total_count = morris_count + plano_count + oswego_count + cc_count + river_count + elburn_count + ottawa_count + triump_count
 if len(count_list) > 0:
