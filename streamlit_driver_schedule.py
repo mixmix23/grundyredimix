@@ -63,8 +63,8 @@ def get_schedule_data(iso_date_arg):
                      'deadHeadPlantPointId': item['deadHeadPlantPointId'], 'availability': item['availability']})
         print('Schedule Data Filtered Keys')
         print(list(schedule_data[0].keys()))
-        # for item in schedule_data:
-        #     print(item)
+        for item in schedule_data:
+            print(item)
         return schedule_data
     else:
         st.write(f"Error: Failed to retrieve data from {url}")
@@ -153,7 +153,10 @@ for item in schedule_report:
             elburn_count += 1
         elif item['plantPointId'] == 32151775:
             plantId = 'Ottawa'
-            ottawa_count += 1    
+            ottawa_count += 1
+        elif item['plantPointId'] == 32151802:
+            plantId = 'Triumph'
+            triump_count += 1
         else:
             plantId = str(item['plantPointId'])
 
@@ -176,8 +179,11 @@ for item in schedule_report:
             dead_head = 'Elburn'
             elburn_dh_count += 1
         elif item['deadHeadPlantPointId'] == 32151775:
-            plantId = 'Ottawa'
+            dead_head = 'Ottawa'
             ottawa_dh_count += 1   
+        elif item['deadHeadPlantPointId'] == 32151802:
+            dead_head = 'Triumph'
+            triumph_dh_count += 1
         else:
             dead_head = str(item['deadHeadPlantPointId'])
 
@@ -240,7 +246,9 @@ if elburn_count > 0:
     count_list.append({'plant': 'Elburn', 'count': elburn_count})
 if ottawa_count > 0:
     count_list.append({'plant': 'Ottawa', 'count': ottawa_count})
-total_count = morris_count + plano_count + oswego_count + cc_count + river_count + elburn_count + ottawa_count
+if triump_count > 0:
+    count_list.append({'plant': 'Triumph', 'count': triump_count})
+total_count = morris_count + plano_count + oswego_count + cc_count + river_count + elburn_count + ottawa_count + triump_count
 if len(count_list) > 0:
     count_list.append({'plant': 'Total', 'count': total_count})
     df = pd.DataFrame(count_list)
@@ -263,6 +271,8 @@ if elburn_dh_count > 0:
     dh_list.append({'plant': 'Elburn', 'count': elburn_dh_count})
 if ottawa_dh_count > 0:
     dh_list.append({'plant': 'Ottawa', 'count': ottawa_dh_count})
+if triumph_dh_count > 0:
+    dh_list.append({'plant': 'Triumph', 'count': triumph_dh_count})
 df = pd.DataFrame(dh_list)
 if len(dh_list) > 0:
     col5.write("Dead Head")
