@@ -235,36 +235,6 @@ with col2:
 
 # Footer
 st.markdown("---")
-st.caption(f"Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")h_count > 0:
-    count_list.append({'plant': 'Triumph', 'count': triumph_count})
-total_count = morris_count + plano_count + oswego_count + cc_count + river_count + elburn_count + ottawa_count + triumph_count
-if len(count_list) > 0:
-    count_list.append({'plant': 'Total', 'count': total_count})
-    df = pd.DataFrame(count_list)
-    col5.markdown(df.style.hide(axis="index").to_html(), unsafe_allow_html=True)
-
-col5.write("---")
-
-dh_list = []
-if morris_dh_count > 0:
-    dh_list.append({'plant': 'Morris', 'count': morris_dh_count})
-if plano_dh_count > 0:
-    dh_list.append({'plant': 'Plano', 'count': plano_dh_count})
-if oswego_dh_count > 0:
-    dh_list.append({'plant': 'Oswego', 'count': oswego_dh_count})
-if cc_dh_count > 0:
-    dh_list.append({'plant': 'Coal City', 'count': cc_dh_count})
-if river_dh_count > 0:
-    dh_list.append({'plant': 'River', 'count': river_dh_count})
-if elburn_dh_count > 0:
-    dh_list.append({'plant': 'Elburn', 'count': elburn_dh_count})
-if ottawa_dh_count > 0:
-    dh_list.append({'plant': 'Ottawa', 'count': ottawa_dh_count})
-if triumph_dh_count > 0:
-    dh_list.append({'plant': 'Triumph', 'count': triumph_dh_count})
-df = pd.DataFrame(dh_list)
-if len(dh_list) > 0:
-    col5.write("Dead Head")
-    col5.markdown(df.style.hide(axis="index").to_html(), unsafe_allow_html=True)
+st.caption(f"Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
 
