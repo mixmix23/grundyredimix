@@ -168,6 +168,19 @@ if active_plants:
     total_drivers = sum(active_plants.values())
     plant_summary = " • ".join([f"{plant}: {count}" for plant, count in sorted(active_plants.items())])
     st.info(f"**{total_drivers} Total Drivers** | {plant_summary}")
+    
+    # Deadhead summary
+    deadhead_counts = {plant: 0 for plant in PLANT_MAP.values()}
+    for item in schedule_report:
+        if item['deadHeadPlantPointId'] != "-":
+            dh_plant = PLANT_MAP.get(item['deadHeadPlantPointId'], str(item['deadHeadPlantPointId']))
+            deadhead_counts[dh_plant] = deadhead_counts.get(dh_plant, 0) + 1
+    
+    active_deadheads = {plant: count for plant, count in deadhead_counts.items() if count > 0}
+    if active_deadheads:
+        total_deadheads = sum(active_deadheads.values())
+        deadhead_summary = " • ".join([f"{plant}: {count}" for plant, count in sorted(active_deadheads.items())])
+        st.info(f"**{total_deadheads} Dead Head** | {deadhead_summary}")
 
 # Driver assignments table
 if not df_display.empty:
