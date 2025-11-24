@@ -156,8 +156,8 @@ for item in schedule_report:
 # Create DataFrame
 df = pd.DataFrame(data)
 if not df.empty:
-    # Sort by hire date, then drop it for display
-    df_sorted = df.sort_values('Hire Date')
+    # Sort by plant name, then by hire date
+    df_sorted = df.sort_values(['Plant', 'Hire Date'])
     df_display = df_sorted.drop(columns=['Hire Date'])
 else:
     df_display = df
