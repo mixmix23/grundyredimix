@@ -151,13 +151,10 @@ for item in schedule_report:
         'Name': item['fullName'],
         'Plant': plant_name,
         'Start Time': formatted_time,
-        'Hire Date': item['hireDate']
+        'Hire Date': item['hireDate'],
+        'Dead Head': dead_head,
+        'Notes': item['notes']
     }
-    
-    if show_deadhead:
-        row_data['Dead Head'] = dead_head
-    if show_notes:
-        row_data['Notes'] = item['notes']
         
     data.append(row_data)
 
