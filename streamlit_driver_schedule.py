@@ -80,12 +80,8 @@ def get_schedule_data(iso_date_arg):
 # Mobile-friendly header
 st.title("🚛 Driver Schedule")
 
-# Compact controls in main area
-col1, col2 = st.columns(2)
-with col1:
-    selected_date = st.date_input("📅 Date", value=datetime.now().date())
-with col2:
-    view_mode = st.selectbox("📱 View", ["Compact", "Full Details"])
+# Date selector
+selected_date = st.date_input("📅 Select Date", value=datetime.now().date())
 
 iso_date = selected_date.strftime('%Y-%m-%dT%H')
 st.caption(f"Schedule for {selected_date.strftime('%a, %b %d, %Y')}")
@@ -167,43 +163,20 @@ if not df.empty:
 else:
     df_display = df
 
-# Plant summary at top for mobile
+# Compact plant summary
 active_plants = {plant: count for plant, count in plant_counts.items() if count > 0}
 if active_plants:
     total_drivers = sum(active_plants.values())
-    st.metric("Total Drivers", total_drivers)
-    
-    # Compact plant counts in columns
-    cols = st.columns(min(4, len(active_plants)))
-    for i, (plant, count) in enumerate(sorted(active_plants.items())):
-        with cols[i % len(cols)]:
-            st.metric(plant, count)
+    plant_summary = " • ".join([f"{plant}: {count}" for plant, count in sorted(active_plants.items())])
+    st.info(f"**{total_drivers} Total Drivers** | {plant_summary}")
 
-st.divider()
-
-# Driver assignments
+# Driver assignments table
 if not df_display.empty:
-    if view_mode == "Compact":
-        # Mobile-optimized card view
-        for _, row in df_display.iterrows():
-            with st.container():
-                col_a, col_b = st.columns([2, 1])
-                with col_a:
-                    st.write(f"**{row['Name']}**")
-                    st.caption(f"{row['Plant']} • {row['Start Time']}")
-                with col_b:
-                    if 'Dead Head' in row and row['Dead Head'] != '-':
-                        st.caption(f"DH: {row['Dead Head']}")
-                if 'Notes' in row and row['Notes']:
-                    st.caption(f"📝 {row['Notes']}")
-                st.divider()
-    else:
-        # Full table view
-        st.dataframe(
-            df_display,
-            use_container_width=True,
-            hide_index=True
-        )
+    st.dataframe(
+        df_display,
+        use_container_width=True,
+        hide_index=True
+    )
     
     # Download button
     csv_data = df_display.to_csv(index=False)
