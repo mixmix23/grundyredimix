@@ -114,6 +114,7 @@ cc_count = 0
 river_count = 0
 elburn_count = 0
 ottawa_count = 0
+triumph_count = 0
 
 oswego_dh_count = 0
 plano_dh_count = 0
@@ -122,6 +123,7 @@ cc_dh_count = 0
 river_dh_count = 0
 elburn_dh_count = 0
 ottawa_dh_count = 0
+triumph_dh_count = 0
 
 col4, col5 = st.columns([3, 2])
 
