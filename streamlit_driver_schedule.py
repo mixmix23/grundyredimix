@@ -5,11 +5,17 @@ import pytz
 import requests
 import streamlit as st
 import sys
+from datetime import datetime
 
 api_key = "9A2B3075-33A5-42FD-9831-3A6ACEAE97F4"
 headers = {'X-API-KEY': f'{api_key}'}
 
-st.set_page_config(page_title="Driver Schedule")
+st.set_page_config(
+    page_title="Driver Schedule",
+    page_icon="🚛",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
 
 def get_employee_data():
@@ -71,184 +77,165 @@ def get_schedule_data(iso_date_arg):
         sys.exit(1)
 
 
-# Create 3 equal-width columns
-col1, col2 = st.columns(2)
-# Add a date picker to the first column
-selected_date = col1.date_input("Select Start Date")
+# Header
+st.title("🚛 Driver Schedule Dashboard")
+st.markdown("---")
 
-# # Create a checkbox
-# activate_date_input = st.checkbox("Date Range")
-#
+# Sidebar for controls
+with st.sidebar:
+    st.header("📅 Schedule Options")
+    selected_date = st.date_input(
+        "Select Date",
+        value=datetime.now().date(),
+        help="Choose the date to view driver schedules"
+    )
+    
+    st.header("🔧 Display Options")
+    show_notes = st.checkbox("Show Notes", value=True)
+    show_deadhead = st.checkbox("Show Dead Head", value=True)
+
 iso_date = selected_date.strftime('%Y-%m-%dT%H')
-# st.write(selected_date.strftime('%A - %B %-d'))
-#
-# # If checkbox is checked, activate date_input widget
-# if activate_date_input:
-#     select_end_date = col2.date_input("Select End Date")
-#     iso_end_date = select_end_date.strftime('%Y-%m-%dT%H')
-# else:
-#     iso_end_date = iso_date
 
-employee_list = get_employee_data()
-# schedule_list = get_schedule_data(iso_date, iso_end_date)
-schedule_list = get_schedule_data(iso_date)
+# Display selected date prominently
+st.subheader(f"Schedule for {selected_date.strftime('%A, %B %d, %Y')}")
 
+# Load data with progress indicator
+with st.spinner('Loading employee and schedule data...'):
+    employee_list = get_employee_data()
+    schedule_list = get_schedule_data(iso_date)
+
+# Plant mapping for cleaner code
+PLANT_MAP = {
+    15095411: 'Oswego',
+    10533262: 'Plano', 
+    10533260: 'Morris',
+    10533261: 'Coal City',
+    10533263: 'River',
+    21909850: 'Elburn',
+    32151775: 'Ottawa',
+    32151802: 'Triumph'
+}
+
+# Excluded employees
+EXCLUDED_EMPLOYEES = {
+    "Dakota Brown", "James Ohlson", "Kevin Brooks", "Michael Smith", "Shane Coyne",
+    "Brian Sheedy", "Chris Dewey", "JEREMIAH F NUGENT", "Brent Pommerening", 
+    "Brandon Thetard", "Ryan Pratl"
+}
+
+# Build schedule report
 schedule_report = []
 for item in schedule_list:
     for name in employee_list:
         if item['userId'] == name['userId'] and item['startTime'] is not None:
-            if item['deadHeadPlantPointId'] is None:
-                item['deadHeadPlantPointId'] = "-"
-            schedule_report.append(
-                {'hireDate': name['hireDate'], 'userId': name['userId'], 'firstName': name['firstName'],
-                 'lastName': name['lastName'], 'plantPointId': item['plantPointId'],
-                 'scheduleDate': item['scheduleDate'], 'deadHeadPlantPointId': item['deadHeadPlantPointId'],
-                 'startTime': item['startTime'], 'notes': item['notes']})
-# print('Start Times')
-# for item in schedule_report:
-#     print(item)
-oswego_count = 0
-plano_count = 0
-morris_count = 0
-cc_count = 0
-river_count = 0
-elburn_count = 0
-ottawa_count = 0
-triumph_count = 0
-
-oswego_dh_count = 0
-plano_dh_count = 0
-morris_dh_count = 0
-cc_dh_count = 0
-river_dh_count = 0
-elburn_dh_count = 0
-ottawa_dh_count = 0
-triumph_dh_count = 0
-
-col4, col5 = st.columns([3, 2])
-
+            full_name = f"{name['firstName'].strip()} {name['lastName'].strip()}"
+            if full_name not in EXCLUDED_EMPLOYEES:
+                schedule_report.append({
+                    'hireDate': name['hireDate'],
+                    'userId': name['userId'],
+                    'fullName': full_name,
+                    'plantPointId': item['plantPointId'],
+                    'scheduleDate': item['scheduleDate'],
+                    'deadHeadPlantPointId': item['deadHeadPlantPointId'] or "-",
+                    'startTime': item['startTime'],
+                    'notes': item['notes'] or ""
+                })
+# Process data for display
 data = []
+plant_counts = {plant: 0 for plant in PLANT_MAP.values()}
+
 for item in schedule_report:
-    name = f"{item['firstName'].strip()} {item['lastName'].strip()}"
+    plant_name = PLANT_MAP.get(item['plantPointId'], str(item['plantPointId']))
+    dead_head = PLANT_MAP.get(item['deadHeadPlantPointId'], str(item['deadHeadPlantPointId'])) if item['deadHeadPlantPointId'] != "-" else "-"
+    
+    plant_counts[plant_name] = plant_counts.get(plant_name, 0) + 1
+    
+    # Parse and format time
+    iso_start_time = dateutil.parser.parse(item['startTime'])
+    localtime = iso_start_time.astimezone(pytz.timezone("US/Central"))
+    formatted_time = localtime.strftime("%H:%M")
+    
+    row_data = {
+        'Name': item['fullName'],
+        'Plant': plant_name,
+        'Start Time': formatted_time,
+        'Hire Date': item['hireDate']
+    }
+    
+    if show_deadhead:
+        row_data['Dead Head'] = dead_head
+    if show_notes:
+        row_data['Notes'] = item['notes']
+        
+    data.append(row_data)
 
-    if name not in ["Dakota Brown", "James Ohlson", "Kevin Brooks", "Michael Smith", "Shane Coyne",
-                    "Brian Sheedy", "Chris Dewey", "JEREMIAH F NUGENT", "Brent Pommerening", "Brandon Thetard",
-                    "Ryan Pratl"]:
+# Create DataFrame
+df = pd.DataFrame(data)
+if not df.empty:
+    # Sort by hire date, then drop it for display
+    df_sorted = df.sort_values('Hire Date')
+    df_display = df_sorted.drop(columns=['Hire Date'])
+else:
+    df_display = df
 
-        if item['plantPointId'] == 15095411:
-            plantId = 'Oswego'
-            oswego_count += 1
-        elif item['plantPointId'] == 10533262:
-            plantId = 'Plano'
-            plano_count += 1
-        elif item['plantPointId'] == 10533260:
-            plantId = 'Morris'
-            morris_count += 1
-        elif item['plantPointId'] == 10533261:
-            plantId = 'Coal City'
-            cc_count += 1
-        elif item['plantPointId'] == 10533263:
-            plantId = 'River'
-            river_count += 1
-        elif item['plantPointId'] == 21909850:
-            plantId = 'Elburn'
-            elburn_count += 1
-        elif item['plantPointId'] == 32151775:
-            plantId = 'Ottawa'
-            ottawa_count += 1
-        elif item['plantPointId'] == 32151802:
-            plantId = 'Triumph'
-            triumph_count += 1
-        else:
-            plantId = str(item['plantPointId'])
+# Main content area
+col1, col2 = st.columns([2, 1])
 
-        if item['deadHeadPlantPointId'] == 15095411:
-            dead_head = 'Oswego'
-            oswego_dh_count += 1
-        elif item['deadHeadPlantPointId'] == 10533262:
-            dead_head = 'Plano'
-            plano_dh_count += 1
-        elif item['deadHeadPlantPointId'] == 10533260:
-            dead_head = 'Morris'
-            morris_dh_count += 1
-        elif item['deadHeadPlantPointId'] == 10533261:
-            dead_head = 'Coal City'
-            cc_dh_count += 1
-        elif item['deadHeadPlantPointId'] == 10533263:
-            dead_head = 'River'
-            river_dh_count += 1
-        elif item['deadHeadPlantPointId'] == 21909850:
-            dead_head = 'Elburn'
-            elburn_dh_count += 1
-        elif item['deadHeadPlantPointId'] == 32151775:
-            dead_head = 'Ottawa'
-            ottawa_dh_count += 1   
-        elif item['deadHeadPlantPointId'] == 32151802:
-            dead_head = 'Triumph'
-            triumph_dh_count += 1
-        else:
-            dead_head = str(item['deadHeadPlantPointId'])
+with col1:
+    st.subheader("📋 Driver Assignments")
+    if not df_display.empty:
+        st.dataframe(
+            df_display,
+            use_container_width=True,
+            hide_index=True,
+            column_config={
+                "Name": st.column_config.TextColumn("Driver Name", width="medium"),
+                "Plant": st.column_config.TextColumn("Plant Location", width="small"),
+                "Start Time": st.column_config.TextColumn("Start Time", width="small"),
+                "Dead Head": st.column_config.TextColumn("Dead Head", width="small"),
+                "Notes": st.column_config.TextColumn("Notes", width="large")
+            }
+        )
+        
+        # Download button
+        csv_data = df_display.to_csv(index=False)
+        st.download_button(
+            label="📥 Download CSV",
+            data=csv_data,
+            file_name=f"driver_schedule_{selected_date.strftime('%Y-%m-%d')}.csv",
+            mime="text/csv"
+        )
+    else:
+        st.info("No driver assignments found for this date.")
 
-        iso_date_str = item['startTime']
-        iso_start_time = dateutil.parser.parse(iso_date_str)
-        localtime = iso_start_time.astimezone(pytz.timezone("US/Central"))
-        format_local_time = localtime.strftime("%H:%M - %a")
-        csv_file_format = localtime.strftime('%a %b %d %Y')
+with col2:
+    st.subheader("📊 Plant Summary")
+    
+    # Filter out plants with zero drivers
+    active_plants = {plant: count for plant, count in plant_counts.items() if count > 0}
+    
+    if active_plants:
+        # Create metrics for each plant
+        for plant, count in sorted(active_plants.items()):
+            st.metric(label=plant, value=f"{count} drivers")
+        
+        # Total drivers
+        total_drivers = sum(active_plants.values())
+        st.metric(label="**Total Drivers**", value=total_drivers)
+        
+        # Create a simple bar chart
+        chart_data = pd.DataFrame({
+            'Plant': list(active_plants.keys()),
+            'Drivers': list(active_plants.values())
+        })
+        
+        st.bar_chart(chart_data.set_index('Plant'), height=300)
+    else:
+        st.info("No plant assignments found.")
 
-        if isinstance(item, dict):
-            data.append([
-                item['hireDate'],
-                name,
-                plantId,
-                format_local_time,
-                dead_head,
-                item['notes']
-            ])
-        df = pd.DataFrame(data,
-                          columns=['Hire', 'Name', 'Plant', 'Start Time', "Dead Head", "Notes"])
-
-df = df.sort_values('Hire')
-df = df.drop(columns='Hire')
-col4.dataframe(df)
-
-# # Specify the directory to save the CSV file
-# downloads_dir = os.path.join(os.path.expanduser("~"), "Downloads")
-#
-# if not os.path.exists(downloads_dir):
-#     os.makedirs(downloads_dir)
-#
-# # Save the DataFrame to a CSV file
-# filename = f"{csv_file_format}.csv"
-# filepath = os.path.join(downloads_dir, filename)
-# df.to_csv(filepath, index=False)
-#
-# # Create a download button for the CSV file
-# with open(filepath, "rb") as f:
-#     st.download_button(
-#         label="Download CSV",
-#         data=f.read(),
-#         file_name=filename,
-#         mime="text/csv"
-#     )
-
-col5.write("---")
-
-count_list = []
-if morris_count > 0:
-    count_list.append({'plant': 'Morris', 'count': morris_count})
-if plano_count > 0:
-    count_list.append({'plant': 'Plano', 'count': plano_count})
-if oswego_count > 0:
-    count_list.append({'plant': 'Oswego', 'count': oswego_count})
-if cc_count > 0:
-    count_list.append({'plant': 'Coal City', 'count': cc_count})
-if river_count > 0:
-    count_list.append({'plant': 'River', 'count': river_count})
-if elburn_count > 0:
-    count_list.append({'plant': 'Elburn', 'count': elburn_count})
-if ottawa_count > 0:
-    count_list.append({'plant': 'Ottawa', 'count': ottawa_count})
-if triumph_count > 0:
+# Footer
+st.markdown("---")
+st.caption(f"Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")h_count > 0:
     count_list.append({'plant': 'Triumph', 'count': triumph_count})
 total_count = morris_count + plano_count + oswego_count + cc_count + river_count + elburn_count + ottawa_count + triumph_count
 if len(count_list) > 0:
