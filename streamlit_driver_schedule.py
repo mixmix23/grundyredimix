@@ -12,7 +12,6 @@ headers = {'X-API-KEY': f'{api_key}'}
 
 st.set_page_config(
     page_title="Driver Schedule",
-    page_icon="🚛",
     layout="centered",
     initial_sidebar_state="collapsed"
 )
@@ -77,11 +76,11 @@ def get_schedule_data(iso_date_arg):
         sys.exit(1)
 
 
-# Mobile-friendly header
-st.title("🚛 Driver Schedule")
+# Header
+st.subheader("Driver Schedule")
 
 # Date selector
-selected_date = st.date_input("📅 Select Date", value=datetime.now().date())
+selected_date = st.date_input("Select Date", value=datetime.now().date())
 
 iso_date = selected_date.strftime('%Y-%m-%dT%H')
 st.caption(f"Schedule for {selected_date.strftime('%a, %b %d, %Y')}")
@@ -181,7 +180,7 @@ if not df_display.empty:
     # Download button
     csv_data = df_display.to_csv(index=False)
     st.download_button(
-        "📥 Download CSV",
+        "Download CSV",
         data=csv_data,
         file_name=f"schedule_{selected_date.strftime('%Y%m%d')}.csv",
         mime="text/csv",
