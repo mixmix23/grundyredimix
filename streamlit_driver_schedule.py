@@ -13,8 +13,8 @@ headers = {'X-API-KEY': f'{api_key}'}
 st.set_page_config(
     page_title="Driver Schedule",
     page_icon="🚛",
-    layout="wide",
-    initial_sidebar_state="expanded"
+    layout="centered",
+    initial_sidebar_state="collapsed"
 )
 
 
@@ -77,27 +77,19 @@ def get_schedule_data(iso_date_arg):
         sys.exit(1)
 
 
-# Header
-st.title("🚛 Driver Schedule Dashboard")
-st.markdown("---")
+# Mobile-friendly header
+st.title("🚛 Driver Schedule")
 
-# Sidebar for controls
-with st.sidebar:
-    st.header("📅 Schedule Options")
-    selected_date = st.date_input(
-        "Select Date",
-        value=datetime.now().date(),
-        help="Choose the date to view driver schedules"
-    )
-    
-    st.header("🔧 Display Options")
-    show_notes = st.checkbox("Show Notes", value=True)
-    show_deadhead = st.checkbox("Show Dead Head", value=True)
+# Compact controls in main area
+col1, col2 = st.columns(2)
+with col1:
+    selected_date = st.date_input("📅 Date", value=datetime.now().date())
+with col2:
+    view_mode = st.selectbox("📱 View", ["Compact", "Full Details"])
 
 iso_date = selected_date.strftime('%Y-%m-%dT%H')
-
-# Display selected date prominently
-st.subheader(f"Schedule for {selected_date.strftime('%A, %B %d, %Y')}")
+st.caption(f"Schedule for {selected_date.strftime('%a, %b %d, %Y')}")
+st.divider()
 
 # Load data with progress indicator
 with st.spinner('Loading employee and schedule data...'):
@@ -178,63 +170,58 @@ if not df.empty:
 else:
     df_display = df
 
-# Main content area
-col1, col2 = st.columns([2, 1])
+# Plant summary at top for mobile
+active_plants = {plant: count for plant, count in plant_counts.items() if count > 0}
+if active_plants:
+    total_drivers = sum(active_plants.values())
+    st.metric("Total Drivers", total_drivers)
+    
+    # Compact plant counts in columns
+    cols = st.columns(min(4, len(active_plants)))
+    for i, (plant, count) in enumerate(sorted(active_plants.items())):
+        with cols[i % len(cols)]:
+            st.metric(plant, count)
 
-with col1:
-    st.subheader("📋 Driver Assignments")
-    if not df_display.empty:
+st.divider()
+
+# Driver assignments
+if not df_display.empty:
+    if view_mode == "Compact":
+        # Mobile-optimized card view
+        for _, row in df_display.iterrows():
+            with st.container():
+                col_a, col_b = st.columns([2, 1])
+                with col_a:
+                    st.write(f"**{row['Name']}**")
+                    st.caption(f"{row['Plant']} • {row['Start Time']}")
+                with col_b:
+                    if 'Dead Head' in row and row['Dead Head'] != '-':
+                        st.caption(f"DH: {row['Dead Head']}")
+                if 'Notes' in row and row['Notes']:
+                    st.caption(f"📝 {row['Notes']}")
+                st.divider()
+    else:
+        # Full table view
         st.dataframe(
             df_display,
             use_container_width=True,
-            hide_index=True,
-            column_config={
-                "Name": st.column_config.TextColumn("Driver Name", width="medium"),
-                "Plant": st.column_config.TextColumn("Plant Location", width="small"),
-                "Start Time": st.column_config.TextColumn("Start Time", width="small"),
-                "Dead Head": st.column_config.TextColumn("Dead Head", width="small"),
-                "Notes": st.column_config.TextColumn("Notes", width="large")
-            }
+            hide_index=True
         )
-        
-        # Download button
-        csv_data = df_display.to_csv(index=False)
-        st.download_button(
-            label="📥 Download CSV",
-            data=csv_data,
-            file_name=f"driver_schedule_{selected_date.strftime('%Y-%m-%d')}.csv",
-            mime="text/csv"
-        )
-    else:
-        st.info("No driver assignments found for this date.")
-
-with col2:
-    st.subheader("📊 Plant Summary")
     
-    # Filter out plants with zero drivers
-    active_plants = {plant: count for plant, count in plant_counts.items() if count > 0}
-    
-    if active_plants:
-        # Create metrics for each plant
-        for plant, count in sorted(active_plants.items()):
-            st.metric(label=plant, value=f"{count} drivers")
-        
-        # Total drivers
-        total_drivers = sum(active_plants.values())
-        st.metric(label="**Total Drivers**", value=total_drivers)
-        
-        # Create a simple bar chart
-        chart_data = pd.DataFrame({
-            'Plant': list(active_plants.keys()),
-            'Drivers': list(active_plants.values())
-        })
-        
-        st.bar_chart(chart_data.set_index('Plant'), height=300)
-    else:
-        st.info("No plant assignments found.")
+    # Download button
+    csv_data = df_display.to_csv(index=False)
+    st.download_button(
+        "📥 Download CSV",
+        data=csv_data,
+        file_name=f"schedule_{selected_date.strftime('%Y%m%d')}.csv",
+        mime="text/csv",
+        use_container_width=True
+    )
+else:
+    st.info("No driver assignments found for this date.")
 
 # Footer
-st.markdown("---")
-st.caption(f"Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+st.divider()
+st.caption(f"Updated: {datetime.now().strftime('%H:%M')}")
 
 
