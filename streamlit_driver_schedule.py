@@ -63,8 +63,8 @@ def get_schedule_data(iso_date_arg):
                      'deadHeadPlantPointId': item['deadHeadPlantPointId'], 'availability': item['availability']})
         print('Schedule Data Filtered Keys')
         print(list(schedule_data[0].keys()))
-        for item in schedule_data:
-            print(item)
+        # for item in schedule_data:
+        #     print(item)
         return schedule_data
     else:
         st.write(f"Error: Failed to retrieve data from {url}")
