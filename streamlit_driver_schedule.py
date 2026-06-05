@@ -18,62 +18,65 @@ st.set_page_config(
 
 
 def get_employee_data():
-    url = 'https://dfapi.digitalfleet.com/api/v2/Users?page=1&pageSize=100'
-    response = requests.get(url, headers=headers)
-
-    if response.status_code == 200:
-        employee_data = []
-        data = response.json()
-        if len(data['data']) == 0:
-            st.write("'data' is empty")
-            st.write(data)
+    employee_data = []
+    page = 1
+    page_size = 100
+    while True:
+        url = f'https://dfapi.digitalfleet.com/api/v2/Users?page={page}&pageSize={page_size}'
+        response = requests.get(url, headers=headers)
+        if response.status_code != 200:
+            st.write(f"Error: Failed to retrieve data from {url}")
             sys.exit(1)
-        print('Employee Data Full Keys')
-        print(list(data["data"][0].keys()))
-        for item in data['data']:
+        data = response.json()
+        batch = data.get('data', [])
+        if not batch:
+            if page == 1:
+                st.write("'data' is empty")
+                st.write(data)
+                sys.exit(1)
+            break
+        for item in batch:
             employee_data.append(
                 {'userId': item['userId'], 'firstName': item['firstName'], 'lastName': item['lastName'],
                  'pin': item['pin'], 'hireDate': item['hireDate'], 'cellNumber': item['cellNumber']})
-        print('Employee Data Filtered Keys')
-        print(list(employee_data[0].keys()))
-        # for item in employee_data:
-        #     print(item)
-        return employee_data
-    else:
-        st.write(f"Error: Failed to retrieve data  from {url}")
-        sys.exit(1)
+        if len(batch) < page_size:
+            break
+        page += 1
+    return employee_data
 
 
-# def get_schedule_data(iso_date_arg, iso_end_date_arg):
 def get_schedule_data(iso_date_arg):
-    # st.write(iso_date_arg)
-    # iso_date_arg = "2023-04-10T00"
-    url = f'https://dfapi.digitalfleet.com/api/v2/Schedule?startTime={iso_date_arg}%3A00%3A00&endTime={iso_date_arg}%3A00%3A00&pageSize=100'
-    response = requests.get(url, headers=headers)
-
-    if response.status_code == 200:
-        schedule_data = []
-        data = response.json()
-        if len(data['data']) == 0:
-            st.write("No Schedule Found For This Day")
+    target_date = iso_date_arg[:10]
+    schedule_data = []
+    page = 1
+    page_size = 100
+    while True:
+        url = (f'https://dfapi.digitalfleet.com/api/v2/Schedule'
+               f'?startTime={iso_date_arg}%3A00%3A00'
+               f'&endTime={iso_date_arg}%3A00%3A00'
+               f'&page={page}&pageSize={page_size}')
+        response = requests.get(url, headers=headers)
+        if response.status_code != 200:
+            st.write(f"Error: Failed to retrieve data from {url}")
             sys.exit(1)
-        print('Schedule Data Full Keys')
-        print(list(data["data"][0].keys()))
-        for item in data['data']:
-            if iso_date_arg in item['scheduleDate']:
+        data = response.json()
+        batch = data.get('data', [])
+        if not batch:
+            if page == 1:
+                st.write("No Schedule Found For This Day")
+                sys.exit(1)
+            break
+        for item in batch:
+            if item['scheduleDate'][:10] == target_date:
                 schedule_data.append(
                     {'userId': item['userId'], 'plantPointId': item['plantPointId'],
                      'scheduleDate': item['scheduleDate'],
                      'seniority': item['seniority'], 'notes': item['notes'], 'startTime': item['startTime'],
                      'deadHeadPlantPointId': item['deadHeadPlantPointId'], 'availability': item['availability']})
-        print('Schedule Data Filtered Keys')
-        print(list(schedule_data[0].keys()))
-        # for item in schedule_data:
-        #     print(item)
-        return schedule_data
-    else:
-        st.write(f"Error: Failed to retrieve data from {url}")
-        sys.exit(1)
+        if len(batch) < page_size:
+            break
+        page += 1
+    return schedule_data
 
 
 # Header
@@ -94,13 +97,14 @@ with st.spinner('Loading employee and schedule data...'):
 # Plant mapping for cleaner code
 PLANT_MAP = {
     15095411: 'Oswego',
-    10533262: 'Plano', 
+    10533262: 'Plano',
     10533260: 'Morris',
     10533261: 'Coal City',
     10533263: 'River',
     21909850: 'Elburn',
     32151775: 'Ottawa',
-    32151802: 'Triumph'
+    32151802: 'Triumph',
+    34089103: 'Peru'
 }
 
 # Excluded employees
