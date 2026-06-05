@@ -110,10 +110,11 @@ PLANT_MAP = {
 # Excluded employees
 EXCLUDED_EMPLOYEES = {
     "Dakota Brown", "James Ohlson", "Kevin Brooks", "Michael Smith", "Shane Coyne",
-    "Brian Sheedy", "Chris Dewey", "JEREMIAH F NUGENT", "Brent Pommerening",
+    "Brian Sheedy", "Chris Dewey", "Jeremiah F Nugent", "Brent Pommerening",
     "Brandon Thetard", "Ryan Pratl",
     "Todd Pearson", "Brandon Winkler", "Jimmy Manferdeanie", "John Piccatto"
 }
+EXCLUDED_EMPLOYEES_UPPER = {name.upper() for name in EXCLUDED_EMPLOYEES}
 
 # Build schedule report
 schedule_report = []
@@ -121,7 +122,7 @@ for item in schedule_list:
     for name in employee_list:
         if item['userId'] == name['userId'] and item['startTime'] is not None:
             full_name = f"{name['firstName'].strip()} {name['lastName'].strip()}"
-            if full_name not in EXCLUDED_EMPLOYEES:
+            if full_name.upper() not in EXCLUDED_EMPLOYEES_UPPER:
                 schedule_report.append({
                     'hireDate': name['hireDate'],
                     'userId': name['userId'],
