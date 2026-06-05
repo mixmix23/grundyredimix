@@ -110,8 +110,9 @@ PLANT_MAP = {
 # Excluded employees
 EXCLUDED_EMPLOYEES = {
     "Dakota Brown", "James Ohlson", "Kevin Brooks", "Michael Smith", "Shane Coyne",
-    "Brian Sheedy", "Chris Dewey", "JEREMIAH F NUGENT", "Brent Pommerening", 
-    "Brandon Thetard", "Ryan Pratl"
+    "Brian Sheedy", "Chris Dewey", "JEREMIAH F NUGENT", "Brent Pommerening",
+    "Brandon Thetard", "Ryan Pratl",
+    "Todd Pearson", "Brandon Winkler", "Jimmy Manferdeanie", "John Piccatto"
 }
 
 # Build schedule report
